@@ -17,9 +17,10 @@ import java.util.Scanner;
 
 public class TaskServiceBean implements TaskService {
 
-    ProjectServiceBean projectServiceBean;
+    @NotNull
+    private ProjectServiceBean projectServiceBean;
 
-    public TaskServiceBean(ProjectServiceBean projectServiceBean) {
+    public TaskServiceBean(@NotNull ProjectServiceBean projectServiceBean) {
         this.projectServiceBean = projectServiceBean;
     }
 
@@ -36,7 +37,7 @@ public class TaskServiceBean implements TaskService {
     }
 
     public void mergeTask() {
-        System.out.println("Please enter id name Project for Task: "); // добавить проверку на не корретный ввод
+        System.out.println("Please enter id name Project for Task: ");
         final Scanner scannerIdProject = new Scanner(System.in);
         final String projectId = scannerIdProject.nextLine();
         final Project project = projectServiceBean.findOne(projectId);
@@ -51,6 +52,7 @@ public class TaskServiceBean implements TaskService {
         task.setDescription(description);
         task.setProject(project);
         taskMap.put(task.getId(),task);
+        System.out.println("Task is add to project");
     }
 
     @Override
@@ -72,6 +74,25 @@ public class TaskServiceBean implements TaskService {
     }
 
     @Override
-    public void removeAllTask() { taskMap.clear(); }
+    public void removeAllTask() {
+        taskMap.clear();
+        System.out.println("All task is remove");
+    }
+
+    @Override
+    public void updateTask() {
+        final String idTask = getIdFromUser();
+        Task task = taskMap.get(idTask);
+        System.out.println("Please enter new task name: ");
+        final Scanner scannerNameTask = new Scanner(System.in);
+        final String nameTask = scannerNameTask.nextLine();
+        task.setName(nameTask);
+        System.out.println("Please enter new description for task: ");
+        final Scanner scannerDescription = new Scanner(System.in);
+        final String description = scannerDescription.nextLine();
+        task.setDescription(description);
+        taskMap.put(task.getId(),task);
+        System.out.println("Task is update to project");
+    }
 
 }

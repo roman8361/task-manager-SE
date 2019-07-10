@@ -42,6 +42,7 @@ public class ProjectServiceBean implements ProjectService {
         project.setDateBering(addDateBeginProject());
         project.setDateEnd(addDateEndProject());
         projectMap.put(project.getId(), project);
+        System.out.println("Project add to repository");
     }
 
     @Override
@@ -50,28 +51,32 @@ public class ProjectServiceBean implements ProjectService {
     }
 
     @Override
-    public @NotNull void removeById(@Nullable String id) {
+    public @NotNull void removeById() {
+        final String id = getIdFromUser();
         if (id == null || id.isEmpty()) return;
         if (!projectMap.containsKey(id)) return;
         projectMap.remove(id);
+        System.out.println("Project is remove");
     }
 
     @Override
     public String getIdFromUser() {
         System.out.println("Please enter id project: ");
         final Scanner scanner = new Scanner(System.in);
-        final String idProject = scanner.nextLine();
-        return idProject;
+        final String userInput = scanner.nextLine();
+        return userInput;
     }
 
     @Override
     public void exit() {
+        System.out.println("Come back later...");
         System.exit(0);
     }
 
     @Override
     public void removeAllProject() {
         projectMap.clear();
+        System.out.println("All project clear");
     }
 
     @Override
@@ -80,8 +85,8 @@ public class ProjectServiceBean implements ProjectService {
         System.out.println("Please enter date begin project: (dd.MM.yyyy)");
         final Scanner scanner = new Scanner(System.in);
         final String dateBegin = scanner.nextLine();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        Date newDate = simpleDateFormat.parse(dateBegin);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        final Date newDate = simpleDateFormat.parse(dateBegin);
         return newDate;
     }
 
@@ -91,8 +96,8 @@ public class ProjectServiceBean implements ProjectService {
         System.out.println("Please enter date end project: (dd.MM.yyyy)");
         final Scanner scanner = new Scanner(System.in);
         final String dateEnd = scanner.nextLine();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        Date endDate = simpleDateFormat.parse(dateEnd);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        final Date endDate = simpleDateFormat.parse(dateEnd);
         return endDate;
     }
 
@@ -102,20 +107,32 @@ public class ProjectServiceBean implements ProjectService {
         System.out.println("project-clear: Remove all projects.");
         System.out.println("project-create: Create new project.");
         System.out.println("project-list: Show all project.");
+        System.out.println("project-update: Update project by id.");
         System.out.println("project-remove: Remove selected project by id.");
         System.out.println("task-clear: Remove all tasks.");
         System.out.println("task-create: Create new task.");
         System.out.println("task-list: Show all tasks.");
-        System.out.println("task-remove: Remove selected task by id.");
+        System.out.println("task-update: Update task by id.");
         System.out.println("exit: Exit");
     }
 
-    public void findByIdProject() {
-        System.out.println("Please enter id name Project for find from repository: "); // добавить проверку на не корретный ввод
-        final Scanner scanner = new Scanner(System.in);
-        final String projectId = scanner.nextLine();
-        final Project project = findOne(projectId);
-        System.out.println(project);
+    @Override
+    public void updateProject() {
+        final String id = getIdFromUser();
+        if (id == null || id.isEmpty()) return;
+        if (!projectMap.containsKey(id)) return;
+        System.out.println("Please enter project name: ");
+        final Scanner scannerName = new Scanner(System.in);
+        final String nameProject = scannerName.nextLine();
+        final Project project = new Project(nameProject);
+        System.out.println("Please enter description for project: ");
+        final Scanner scannerDescription = new Scanner(System.in);
+        final String description = scannerDescription.nextLine();
+        project.setDescription(description);
+        project.setDateBering(addDateBeginProject());
+        project.setDateEnd(addDateEndProject());
+        projectMap.put(id, project);
+        System.out.println("Project id: " + id + "  update");
     }
 
 }

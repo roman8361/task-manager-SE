@@ -27,4 +27,6 @@ public interface TaskService {
     String getIdFromUser();
 
     void removeAllTask();
+
+    void updateTask();
 }

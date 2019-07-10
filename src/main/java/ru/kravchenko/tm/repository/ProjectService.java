@@ -22,7 +22,7 @@ public interface ProjectService {
 
     void showAllProject();
 
-    void removeById(@Nullable String id);
+    void removeById();
 
     void showAllCommand();
 
@@ -35,5 +35,7 @@ public interface ProjectService {
     Date addDateBeginProject();
 
     Date addDateEndProject();
+
+    void updateProject();
 
 }
