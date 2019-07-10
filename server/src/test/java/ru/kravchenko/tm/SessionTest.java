@@ -32,7 +32,7 @@ public class SessionTest {
 
     @Test
     public void addAnySession() {
-        for (int i = 0; i < 2; i++) addOneSession();
+        for (int i = 0; i < 1; i++) addOneSession();
     }
 
     private void addOneSession() {
@@ -43,7 +43,7 @@ public class SessionTest {
     final Session session = new Session();
     session.setSignature(lorem.getUrl());
     session.setTimestamp(new Date());
-    session.setUser(userRepository.findBy("8a6268f6-c9c1-4419-a6e3-584c10b7eec7"));
+    session.setUser(userRepository.findBy("2000e468-8dd3-4479-a7b3-95c12b9ea827"));
     return session;
     }
 
@@ -51,7 +51,13 @@ public class SessionTest {
     public void clear() { sessionRepository.removeAll(); }
 
     @Test
-    public void removeById() { sessionRepository.removeById("924aef12-cade-476f-9fb1-1378b6f10d36"); }
+    public void clear2() {
+        List<String> ids = sessionRepository.findAllId();
+        for (String s: ids) sessionRepository.removeById(s);
+    }
+
+    @Test
+    public void removeById() { sessionRepository.removeById("151425b9-aa54-4438-86f8-296eaa5cacc5"); }
 
     @Test
     public void findAllSession() {

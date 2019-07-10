@@ -49,15 +49,22 @@ public class TaskTest {
         task.setDateEnd(new Date());
         task.setDescription(lorem.getWords(4));
         task.setName(lorem.getWords(1));
-        task.setUser(userRepository.findBy("6c380394-9b8e-48ab-be99-be65650d83a4"));
-        task.setProject(projectRepository.findBy("d616f86c-ea27-41a8-87e7-8f64979dd1a3"));
+        task.setUser(userRepository.findBy("6fee953d-0c0f-4968-9a10-043292780fd0"));
+        task.setProject(projectRepository.findBy("091a54e4-1799-45ba-99b3-e9fde856ab4a"));
         return task;
     }
 
     @Test
-    public void clearTask() {
+    public void clear() {
         taskRepository.removeAll();
     }
+
+    @Test
+    public void clear2() {
+        List<String> ids = taskRepository.findAllId();
+        for (String s: ids) taskRepository.removeById(s);
+    }
+
 
     @Test
     public void findAll() {

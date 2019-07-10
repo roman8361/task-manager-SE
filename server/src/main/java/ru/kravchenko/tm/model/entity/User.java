@@ -4,8 +4,10 @@ import com.sun.istack.internal.Nullable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.model.dto.UserDTO;
+import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Table(name = "app_User")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User extends AbstractEntity {
 
     @Nullable

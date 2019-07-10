@@ -13,7 +13,7 @@ import javax.enterprise.inject.spi.CDI;
 
 public class App {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SeContainerInitializer.newInstance() .addPackages(Application.class).initialize();
         @NonNull final Bootstrap bootstrap = CDI.current().select(Bootstrap.class).get();
         bootstrap.init();

@@ -5,7 +5,9 @@ import com.sun.istack.internal.Nullable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import ru.kravchenko.tm.model.dto.ProjectDTO;
+import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -21,6 +23,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Table(name = "app_Project")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Project extends AbstractEntity {
 
     @Nullable

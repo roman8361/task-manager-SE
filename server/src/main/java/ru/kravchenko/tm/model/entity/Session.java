@@ -4,8 +4,10 @@ import com.sun.istack.internal.Nullable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.model.dto.SessionDTO;
+import org.hibernate.annotations.Cache;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -21,6 +23,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Table(name = "app_Session")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Session extends AbstractEntity {
 
     @ManyToOne

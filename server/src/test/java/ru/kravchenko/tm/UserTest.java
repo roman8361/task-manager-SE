@@ -26,8 +26,8 @@ public class UserTest {
     private Lorem lorem = new LoremIpsum();
 
     @Test
-    public void addAnyProject() {
-        for (int i = 0; i < 10; i++) addOneUser();
+    public void addAnyUser() {
+        for (int i = 0; i < 5; i++) addOneUser();
     }
 
     private void addOneUser() {
@@ -42,31 +42,24 @@ public class UserTest {
     }
 
     @Test
-    public void clearUser() {
-        @Nullable final List<User> users = userRepository.findAll();
-        users.forEach(userRepository::remove);
-        System.out.println(users);
-    }
-
-    @Test
     public void findById() {
-        System.out.println(userRepository.findBy("11652315-e242-47ff-bbe9-9764030fb791").getLogin());
+        System.out.println(userRepository.findBy("48c7d462-1023-43d2-9c49-7d253a3fe2a0").getLogin());
     }
 
     @Test
     public void removeById() {
-        userRepository.removeById("2b5a07e6-1f0e-453e-88b5-4b60a8e6d790");
-    }
-
-    @Test
-    public void removeByEntity() { //TODO
-       final User user = userRepository.findBy("2b5a07e6-1f0e-453e-88b5-4b60a8e6d790");
-       userRepository.remove(user);
+        userRepository.removeById("e9770985-a9c3-4235-8431-fe2fbf718797");
     }
 
     @Test
     public void clear() {
         userRepository.removeAll();
+    }
+
+    @Test
+    public void clear2() {
+        List<String> ids = userRepository.findByAllId();
+        for (String s: ids) userRepository.removeById(s);
     }
 
     @Test

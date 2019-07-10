@@ -32,7 +32,7 @@ public class ProjectTest {
 
     @Test
     public void addAnyProject() {
-        for (int i = 0; i < 10; i++) addOneProject();
+        for (int i = 0; i < 3; i++) addOneProject();
     }
 
     private void addOneProject() {
@@ -45,6 +45,7 @@ public class ProjectTest {
         project.setDateEnd(new Date());
         project.setName(lorem.getWords(1));
         project.setDescription(lorem.getWords(4));
+        project.setUser(userRepository.findByLogin("Kirby"));
         return project;
     }
 
@@ -54,8 +55,14 @@ public class ProjectTest {
     }
 
     @Test
+    public void clear2() {
+        List<String> ids = projectRepository.findAllId();
+        for (String s: ids) projectRepository.removeById(s);
+    }
+
+    @Test
     public void findAllProjectByUserId() {
-        final User user = userRepository.findBy("ac32fd9c-c319-43e0-8aca-30b11327a07e");
+        final User user = userRepository.findBy("244a4ca3-b3b8-49a3-b377-9cd18e3f07f0");
         List<Project> userProject = projectRepository.findByUser(user);
         for (Project p: userProject) System.out.println(p);
     }
@@ -77,7 +84,7 @@ public class ProjectTest {
 
     @Test
     public void removeById() {
-        projectRepository.removeById("ac112e5b-5236-48c0-b1ce-7dd075461dfc");
+        projectRepository.removeById("f90ba815-2013-48c4-b34c-c7c9831fc390");
     }
 
     @Test

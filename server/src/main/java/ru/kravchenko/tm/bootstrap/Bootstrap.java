@@ -54,7 +54,7 @@ public class Bootstrap {
         Endpoint.publish(wsdl, endpoint);
     }
 
-    public void init() throws UserLoginBusyException, UserNotFoundException {
+    public void init() {
         System.out.println("SERVER START");
         registry(userEndpoint);
         registry(sessionEndpoint);
