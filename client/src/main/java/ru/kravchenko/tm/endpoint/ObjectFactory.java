@@ -24,14 +24,10 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _UserLoginBusyException_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "UserLoginBusyException");
-    private final static QName _UserNotFoundException_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "UserNotFoundException");
-    private final static QName _Authorization_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "authorization");
-    private final static QName _AuthorizationResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "authorizationResponse");
-    private final static QName _Logout_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "logout");
-    private final static QName _LogoutResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "logoutResponse");
-    private final static QName _RegistryUser_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "registryUser");
-    private final static QName _RegistryUserResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "registryUserResponse");
+    private final static QName _GetInfoHost_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "getInfoHost");
+    private final static QName _GetInfoHostResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "getInfoHostResponse");
+    private final static QName _GetInfoPort_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "getInfoPort");
+    private final static QName _GetInfoPortResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "getInfoPortResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.kravchenko.tm.endpoint
@@ -41,147 +37,71 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UserLoginBusyException }
+     * Create an instance of {@link GetInfoHost }
      * 
      */
-    public UserLoginBusyException createUserLoginBusyException() {
-        return new UserLoginBusyException();
+    public GetInfoHost createGetInfoHost() {
+        return new GetInfoHost();
     }
 
     /**
-     * Create an instance of {@link UserNotFoundException }
+     * Create an instance of {@link GetInfoHostResponse }
      * 
      */
-    public UserNotFoundException createUserNotFoundException() {
-        return new UserNotFoundException();
+    public GetInfoHostResponse createGetInfoHostResponse() {
+        return new GetInfoHostResponse();
     }
 
     /**
-     * Create an instance of {@link Authorization }
+     * Create an instance of {@link GetInfoPort }
      * 
      */
-    public Authorization createAuthorization() {
-        return new Authorization();
+    public GetInfoPort createGetInfoPort() {
+        return new GetInfoPort();
     }
 
     /**
-     * Create an instance of {@link AuthorizationResponse }
+     * Create an instance of {@link GetInfoPortResponse }
      * 
      */
-    public AuthorizationResponse createAuthorizationResponse() {
-        return new AuthorizationResponse();
+    public GetInfoPortResponse createGetInfoPortResponse() {
+        return new GetInfoPortResponse();
     }
 
     /**
-     * Create an instance of {@link Logout }
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetInfoHost }{@code >}}
      * 
      */
-    public Logout createLogout() {
-        return new Logout();
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "getInfoHost")
+    public JAXBElement<GetInfoHost> createGetInfoHost(GetInfoHost value) {
+        return new JAXBElement<GetInfoHost>(_GetInfoHost_QNAME, GetInfoHost.class, null, value);
     }
 
     /**
-     * Create an instance of {@link LogoutResponse }
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetInfoHostResponse }{@code >}}
      * 
      */
-    public LogoutResponse createLogoutResponse() {
-        return new LogoutResponse();
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "getInfoHostResponse")
+    public JAXBElement<GetInfoHostResponse> createGetInfoHostResponse(GetInfoHostResponse value) {
+        return new JAXBElement<GetInfoHostResponse>(_GetInfoHostResponse_QNAME, GetInfoHostResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link RegistryUser }
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetInfoPort }{@code >}}
      * 
      */
-    public RegistryUser createRegistryUser() {
-        return new RegistryUser();
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "getInfoPort")
+    public JAXBElement<GetInfoPort> createGetInfoPort(GetInfoPort value) {
+        return new JAXBElement<GetInfoPort>(_GetInfoPort_QNAME, GetInfoPort.class, null, value);
     }
 
     /**
-     * Create an instance of {@link RegistryUserResponse }
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetInfoPortResponse }{@code >}}
      * 
      */
-    public RegistryUserResponse createRegistryUserResponse() {
-        return new RegistryUserResponse();
-    }
-
-    /**
-     * Create an instance of {@link SessionDTO }
-     * 
-     */
-    public SessionDTO createSessionDTO() {
-        return new SessionDTO();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UserLoginBusyException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "UserLoginBusyException")
-    public JAXBElement<UserLoginBusyException> createUserLoginBusyException(UserLoginBusyException value) {
-        return new JAXBElement<UserLoginBusyException>(_UserLoginBusyException_QNAME, UserLoginBusyException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UserNotFoundException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "UserNotFoundException")
-    public JAXBElement<UserNotFoundException> createUserNotFoundException(UserNotFoundException value) {
-        return new JAXBElement<UserNotFoundException>(_UserNotFoundException_QNAME, UserNotFoundException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Authorization }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "authorization")
-    public JAXBElement<Authorization> createAuthorization(Authorization value) {
-        return new JAXBElement<Authorization>(_Authorization_QNAME, Authorization.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AuthorizationResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "authorizationResponse")
-    public JAXBElement<AuthorizationResponse> createAuthorizationResponse(AuthorizationResponse value) {
-        return new JAXBElement<AuthorizationResponse>(_AuthorizationResponse_QNAME, AuthorizationResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Logout }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "logout")
-    public JAXBElement<Logout> createLogout(Logout value) {
-        return new JAXBElement<Logout>(_Logout_QNAME, Logout.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LogoutResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "logoutResponse")
-    public JAXBElement<LogoutResponse> createLogoutResponse(LogoutResponse value) {
-        return new JAXBElement<LogoutResponse>(_LogoutResponse_QNAME, LogoutResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RegistryUser }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "registryUser")
-    public JAXBElement<RegistryUser> createRegistryUser(RegistryUser value) {
-        return new JAXBElement<RegistryUser>(_RegistryUser_QNAME, RegistryUser.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RegistryUserResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "registryUserResponse")
-    public JAXBElement<RegistryUserResponse> createRegistryUserResponse(RegistryUserResponse value) {
-        return new JAXBElement<RegistryUserResponse>(_RegistryUserResponse_QNAME, RegistryUserResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "getInfoPortResponse")
+    public JAXBElement<GetInfoPortResponse> createGetInfoPortResponse(GetInfoPortResponse value) {
+        return new JAXBElement<GetInfoPortResponse>(_GetInfoPortResponse_QNAME, GetInfoPortResponse.class, null, value);
     }
 
 }

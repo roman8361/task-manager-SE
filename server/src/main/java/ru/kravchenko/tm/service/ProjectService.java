@@ -1,7 +1,8 @@
 package ru.kravchenko.tm.service;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.repository.old.IProjectRepository;
 import ru.kravchenko.tm.api.repository.old.IUserRepository;
 import ru.kravchenko.tm.api.service.IProjectService;

@@ -6,6 +6,7 @@ import ru.kravchenko.tm.bootstrap.Bootstrap;
 import ru.kravchenko.tm.command.additional.AboutCommand;
 import ru.kravchenko.tm.command.additional.ExitCommand;
 import ru.kravchenko.tm.command.additional.ReferenceCommand;
+import ru.kravchenko.tm.command.additional.ServerInfoCommand;
 import ru.kravchenko.tm.command.project.*;
 import ru.kravchenko.tm.command.task.TaskClearCommand;
 import ru.kravchenko.tm.command.task.TaskCreateCommand;
@@ -23,6 +24,7 @@ public class App {
     private static final Class[] CLASSES = {
 
             AboutCommand.class, ExitCommand.class, ReferenceCommand.class,
+            ServerInfoCommand.class,
 
             ProjectClearCommand.class, ProjectCreateCommand.class, ProjectSearchCommand.class,
             ProjectReadCommand.class, ProjectRemoveCommand.class, ProjectEditComman.class,

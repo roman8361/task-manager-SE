@@ -1,12 +1,12 @@
 package ru.kravchenko.tm.bootstrap;
 
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
-import ru.kravchenko.tm.api.endpoint.IProjectEndpoint;
-import ru.kravchenko.tm.api.endpoint.ISessionEndpoint;
-import ru.kravchenko.tm.api.endpoint.ITaskEndpoint;
-import ru.kravchenko.tm.api.endpoint.IUserEndpoint;
+import ru.kravchenko.tm.api.endpoint.*;
+import ru.kravchenko.tm.api.service.IPropertyService;
 import ru.kravchenko.tm.api.service.ISessionService;
 import ru.kravchenko.tm.exception.UserLoginBusyException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
@@ -43,13 +43,23 @@ public class Bootstrap {
     @NotNull
     private ITaskEndpoint taskEndpoint;
 
-    public Bootstrap() throws Exception {
+    @Inject
+    @NotNull
+    private IServerEndpoint serverEndpoint;
+
+    @Inject
+    @NotNull
+    private IPropertyService propertyService;
+
+    public Bootstrap() {
     }
 
     private void registry(final Object endpoint) {
         if (endpoint == null) return;
         final String name = endpoint.getClass().getSimpleName();
-        final String wsdl = "http://localhost:8080/" + name + "?WSDL";
+        @NotNull final String URL = propertyService.getServerHost();
+        @NotNull final String PORT = propertyService.getServerPort();
+        final String wsdl = URL + ":" + PORT + "/" + name + "?WSDL";
         System.out.println(wsdl);
         Endpoint.publish(wsdl, endpoint);
     }
@@ -60,6 +70,8 @@ public class Bootstrap {
         registry(sessionEndpoint);
         registry(projectEndpoint);
         registry(taskEndpoint);
+        registry(serverEndpoint);
+        HazelcastInstance hz = Hazelcast.newHazelcastInstance();
     }
 
 }

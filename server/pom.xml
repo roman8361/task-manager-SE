@@ -127,6 +127,27 @@
                     <archive>
                         <manifest>
                             <mainClass>ru.kravchenko.tm.App</mainClass>
+                            <packageName>ru.kravchenko.tm</packageName>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>../lib/</classpathPrefix>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Version>${buildNumber}</Version>
+                            <Developer>${project.developer}</Developer>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${basedir}/release/bin</outputDirectory>
+                    <archive>
+                        <manifest>
+                            <mainClass>ru.kravchenko.tm.App</mainClass>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>

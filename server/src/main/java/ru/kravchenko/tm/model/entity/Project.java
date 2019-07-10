@@ -1,11 +1,12 @@
 package ru.kravchenko.tm.model.entity;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.model.dto.ProjectDTO;
 import org.hibernate.annotations.Cache;
 

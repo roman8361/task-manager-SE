@@ -1,6 +1,7 @@
 package ru.kravchenko.tm.api.service;
 
-import com.sun.istack.internal.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.model.dto.TaskDTO;
 
 import java.util.List;

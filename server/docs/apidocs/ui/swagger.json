@@ -1,0 +1,151 @@
+{
+  "swagger": "2.0",
+  "info" : {
+    "description" : "<h1>server<\/h1>",
+    "version" : "1.0.0",
+    "title" : "server"
+  },
+  "schemes" : [],
+  "tags" : [
+  ],
+  "definitions" : {
+    "xml_ns2_abstractEntityDTO" : {
+      "type" : "object",
+      "title" : "abstractEntityDTO",
+      "allOf" : [
+        {
+        }
+      ],
+      "description" : ""
+    }
+    ,
+    "xml_ns2_baseEntityDTO" : {
+      "type" : "object",
+      "title" : "baseEntityDTO",
+      "allOf" : [
+        {
+          "$ref" : "#/definitions/xml_ns2_abstractEntityDTO"
+        },
+        {
+        }
+      ],
+      "description" : ""
+    }
+    ,
+    "xml_ns2_projectDTO" : {
+      "type" : "object",
+      "title" : "projectDTO",
+      "allOf" : [
+        {
+          "$ref" : "#/definitions/xml_ns2_baseEntityDTO"
+        },
+        {
+        }
+      ],
+      "description" : ""
+    }
+    ,
+    "xml_ns2_sessionDTO" : {
+      "type" : "object",
+      "title" : "sessionDTO",
+      "allOf" : [
+        {
+          "$ref" : "#/definitions/xml_ns2_abstractEntityDTO"
+        },
+        {
+        }
+      ],
+      "description" : ""
+    }
+    ,
+    "xml_ns2_taskDTO" : {
+      "type" : "object",
+      "title" : "taskDTO",
+      "allOf" : [
+        {
+          "$ref" : "#/definitions/xml_ns2_baseEntityDTO"
+        },
+        {
+        }
+      ],
+      "description" : ""
+    }
+    ,
+    "xml_ns2_userDTO" : {
+      "type" : "object",
+      "title" : "userDTO",
+      "allOf" : [
+        {
+          "$ref" : "#/definitions/xml_ns2_abstractEntityDTO"
+        },
+        {
+        }
+      ],
+      "description" : ""
+    }
+    ,
+    "xml_ns2_abstractEntity" : {
+      "type" : "object",
+      "title" : "abstractEntity",
+      "allOf" : [
+        {
+        }
+      ],
+      "description" : ""
+    }
+    ,
+    "xml_ns2_project" : {
+      "type" : "object",
+      "title" : "project",
+      "allOf" : [
+        {
+          "$ref" : "#/definitions/xml_ns2_abstractEntity"
+        },
+        {
+        }
+      ],
+      "description" : ""
+    }
+    ,
+    "xml_ns2_session" : {
+      "type" : "object",
+      "title" : "session",
+      "allOf" : [
+        {
+          "$ref" : "#/definitions/xml_ns2_abstractEntity"
+        },
+        {
+        }
+      ],
+      "description" : ""
+    }
+    ,
+    "xml_ns2_task" : {
+      "type" : "object",
+      "title" : "task",
+      "allOf" : [
+        {
+          "$ref" : "#/definitions/xml_ns2_abstractEntity"
+        },
+        {
+        }
+      ],
+      "description" : ""
+    }
+    ,
+    "xml_ns2_user" : {
+      "type" : "object",
+      "title" : "user",
+      "allOf" : [
+        {
+          "$ref" : "#/definitions/xml_ns2_abstractEntity"
+        },
+        {
+        }
+      ],
+      "description" : ""
+    }
+  },
+  "paths": {
+  }
+}

@@ -30,7 +30,7 @@ public class SessionTest {
     @Inject
     private UserRepository userRepository;
 
-    @Test
+  //  @Test
     public void addAnySession() {
         for (int i = 0; i < 1; i++) addOneSession();
     }
@@ -47,34 +47,34 @@ public class SessionTest {
     return session;
     }
 
-    @Test
+   // @Test
     public void clear() { sessionRepository.removeAll(); }
 
-    @Test
+  //  @Test
     public void clear2() {
         List<String> ids = sessionRepository.findAllId();
         for (String s: ids) sessionRepository.removeById(s);
     }
 
-    @Test
+ //   @Test
     public void removeById() { sessionRepository.removeById("151425b9-aa54-4438-86f8-296eaa5cacc5"); }
 
-    @Test
+   // @Test
     public void findAllSession() {
         System.out.println(sessionRepository.findAll());
     }
 
-    @Test
+   // @Test
     public void findAllIds() {
         System.out.println(sessionRepository.findAllId());
     }
 
-    @Test
+ //   @Test
     public void findById() {
         System.out.println(sessionRepository.findBy("e3994265-c9d8-49d4-862c-0073010c7da0").getUser());
     }
 
-    @Test
+  //  @Test
     public void findOnByUserId() {
         final User user = userRepository.findBy("8a6268f6-c9c1-4419-a6e3-584c10b7eec7");
         System.out.println(sessionRepository.findByUser(user).get(0).getSignature());

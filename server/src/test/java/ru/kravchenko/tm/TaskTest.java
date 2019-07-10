@@ -34,7 +34,7 @@ public class TaskTest {
     @Inject
     private UserRepository userRepository;
 
-    @Test
+   // @Test
     public void addAnyTask() {
         for (int i = 0; i < 3; i++) addOneTask();
     }
@@ -54,45 +54,45 @@ public class TaskTest {
         return task;
     }
 
-    @Test
+   // @Test
     public void clear() {
         taskRepository.removeAll();
     }
 
-    @Test
+  //  @Test
     public void clear2() {
         List<String> ids = taskRepository.findAllId();
         for (String s: ids) taskRepository.removeById(s);
     }
 
 
-    @Test
+ //   @Test
     public void findAll() {
         System.out.println(taskRepository.findAll());
     }
 
-    @Test
+  //  @Test
     public void findTaskById() {
         System.out.println(taskRepository.findBy("97047aa5-481b-4224-bc3e-0c58e80ddfdf").getName());
     }
 
-    @Test
+ //   @Test
     public void removeById() {
         taskRepository.removeById("97047aa5-481b-4224-bc3e-0c58e80ddfdf");
     }
 
-    @Test
+  //  @Test
     public void findAllTaskId() {
         System.out.println(taskRepository.findAllId());
     }
 
-    @Test
+   // @Test
     public void findAllTaskByUserId() {
         final User user = userRepository.findBy("e3c39bb6-59e9-443a-b1db-ae39a3a7c6a3");
         System.out.println(taskRepository.findByUser(user));
     }
 
-    @Test
+ //   @Test
     public void removeAllProjectByUserId() {
         final String userId = "e3c39bb6-59e9-443a-b1db-ae39a3a7c6a3";
         final User user = userRepository.findBy(userId);

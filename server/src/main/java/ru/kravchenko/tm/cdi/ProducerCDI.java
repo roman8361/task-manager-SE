@@ -1,8 +1,9 @@
 package ru.kravchenko.tm.cdi;
 
-import com.sun.istack.internal.NotNull;
+
 import org.apache.deltaspike.jpa.api.entitymanager.PersistenceUnitName;
 import org.apache.deltaspike.jpa.api.transaction.TransactionScoped;
+import org.jetbrains.annotations.NotNull;
 
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;

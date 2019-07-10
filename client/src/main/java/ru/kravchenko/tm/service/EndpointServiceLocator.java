@@ -27,6 +27,8 @@ public class EndpointServiceLocator implements IEndpointServiceLocator {
 
     public TaskEndpoint taskEndpoint = new TaskEndpointService().getTaskEndpointPort();
 
+    public ServerEndpoint serverEndpoint = new ServerEndpointService().getServerEndpointPort();
+
     @Nullable
     private SessionDTO sessionDTO;
 
@@ -40,6 +42,5 @@ public class EndpointServiceLocator implements IEndpointServiceLocator {
             @Nullable final SessionDTO sessionDTO) {
         this.sessionDTO = sessionDTO;
     }
-
 
 }

@@ -25,7 +25,7 @@ public class UserTest {
 
     private Lorem lorem = new LoremIpsum();
 
-    @Test
+ //   @Test
     public void addAnyUser() {
         for (int i = 0; i < 5; i++) addOneUser();
     }
@@ -41,22 +41,22 @@ public class UserTest {
         return user;
     }
 
-    @Test
+  //  @Test
     public void findById() {
         System.out.println(userRepository.findBy("48c7d462-1023-43d2-9c49-7d253a3fe2a0").getLogin());
     }
 
-    @Test
+   // @Test
     public void removeById() {
         userRepository.removeById("e9770985-a9c3-4235-8431-fe2fbf718797");
     }
 
-    @Test
+   // @Test
     public void clear() {
         userRepository.removeAll();
     }
 
-    @Test
+  //  @Test
     public void clear2() {
         List<String> ids = userRepository.findByAllId();
         for (String s: ids) userRepository.removeById(s);
@@ -76,18 +76,18 @@ public class UserTest {
         Assert.assertNull(userRepository.findBy(user.getId()));
     }
 
-    @Test
+ //   @Test
     public void ids() {
         List<String> ids = userRepository.findByAllId();
         System.out.println(ids);
     }
 
-    @Test
+   // @Test
     public void findByLogin() {
         System.out.println(userRepository.findByLogin("Gay").getPasswordHash());
     }
 
-    @Test
+  //  @Test
     public void findLoginList() {
         for (String s: userRepository.loginList()) System.out.println(s);
     }

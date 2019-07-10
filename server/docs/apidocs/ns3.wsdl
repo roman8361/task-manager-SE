@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?enunciate-assumed-base-uri http://localhost:8080/?>
+<wsdl:definitions targetNamespace="http://endpoint.tm.kravchenko.ru/"
+   xmlns:ns1="http://exception.tm.kravchenko.ru/"
+   xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+   xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:ns3="http://endpoint.tm.kravchenko.ru/"
+   >
+
+  <wsdl:types>
+  <xs:schema targetNamespace="http://endpoint.tm.kravchenko.ru/">
+    <xs:import namespace="http://exception.tm.kravchenko.ru/" schemaLocation="ns1.xsd"/>
+      <xs:include schemaLocation="ns3.xsd"/>
+  </xs:schema>
+  </wsdl:types>
+
+  <wsdl:message name="ProjectEndpoint.editProject">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "editProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:editProject">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProjectEndpoint.editProjectResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "editProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:editProjectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AccessForbiddenException">
+    <wsdl:part name="AccessForbiddenException" element="ns1:AccessForbiddenException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProjectEndpoint.createProject">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "createProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:createProject">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProjectEndpoint.createProjectResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "createProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:createProjectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProjectEndpoint.removeProject">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "removeProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:removeProject">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProjectEndpoint.removeProjectResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "removeProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:removeProjectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProjectEndpoint.findOneProject">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "findOneProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:findOneProject">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProjectEndpoint.findOneProjectResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "findOneProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:findOneProjectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProjectEndpoint.removeAllProject">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "removeAllProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:removeAllProject">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProjectEndpoint.removeAllProjectResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "removeAllProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:removeAllProjectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProjectEndpoint.showAllProject">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "showAllProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:showAllProject">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProjectEndpoint.showAllProjectResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "showAllProject".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:showAllProjectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ServerEndpoint.getInfoHost">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "getInfoHost".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:getInfoHost">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ServerEndpoint.getInfoHostResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "getInfoHost".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:getInfoHostResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ServerEndpoint.getInfoPort">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "getInfoPort".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:getInfoPort">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ServerEndpoint.getInfoPortResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "getInfoPort".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:getInfoPortResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.openSession">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "openSession".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:openSession">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.openSessionResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "openSession".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:openSessionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UserNotFoundException">
+    <wsdl:part name="UserNotFoundException" element="ns1:UserNotFoundException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionNotFoundException">
+    <wsdl:part name="SessionNotFoundException" element="ns1:SessionNotFoundException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.validateSession">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "validateSession".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:validateSession">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.validateSessionResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "validateSession".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:validateSessionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.validateAdminSession">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "validateAdminSession".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:validateAdminSession">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.validateAdminSessionResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "validateAdminSession".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:validateAdminSessionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.closeSession">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "closeSession".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:closeSession">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.closeSessionResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "closeSession".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:closeSessionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.getListSession">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "getListSession".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:getListSession">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.getListSessionResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "getListSession".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:getListSessionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.getUser">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "getUser".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:getUser">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SessionEndpoint.getUserResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "getUser".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:getUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TaskEndpoint.createTask">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "createTask".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:createTask">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TaskEndpoint.createTaskResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "createTask".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:createTaskResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TaskEndpoint.removeTask">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "removeTask".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:removeTask">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TaskEndpoint.removeTaskResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "removeTask".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:removeTaskResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TaskEndpoint.findOneTask">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "findOneTask".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:findOneTask">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TaskEndpoint.findOneTaskResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "findOneTask".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:findOneTaskResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TaskEndpoint.getAllTaskByUserId">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "getAllTaskByUserId".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:getAllTaskByUserId">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TaskEndpoint.getAllTaskByUserIdResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "getAllTaskByUserId".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:getAllTaskByUserIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TaskEndpoint.removeAllTaskByUserId">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "removeAllTaskByUserId".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:removeAllTaskByUserId">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TaskEndpoint.removeAllTaskByUserIdResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "removeAllTaskByUserId".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:removeAllTaskByUserIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UserEndpoint.registryUser">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "registryUser".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:registryUser">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UserEndpoint.registryUserResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "registryUser".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:registryUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UserLoginBusyException">
+    <wsdl:part name="UserLoginBusyException" element="ns1:UserLoginBusyException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UserEndpoint.authorization">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "authorization".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:authorization">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UserEndpoint.authorizationResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "authorization".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:authorizationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UserEndpoint.logout">
+    <wsdl:documentation>
+      <![CDATA[request message for operation "logout".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:logout">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UserEndpoint.logoutResponse">
+    <wsdl:documentation>
+      <![CDATA[response message for operation "logout".]]>
+    </wsdl:documentation>
+    <wsdl:part name="parameters" element="ns3:logoutResponse">
+    </wsdl:part>
+  </wsdl:message>
+
+  <wsdl:portType name="ProjectEndpoint">
+  <wsdl:operation name="editProject">
+    <wsdl:input message="ns3:ProjectEndpoint.editProject"/>
+    <wsdl:output message="ns3:ProjectEndpoint.editProjectResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  <wsdl:operation name="createProject">
+    <wsdl:input message="ns3:ProjectEndpoint.createProject"/>
+    <wsdl:output message="ns3:ProjectEndpoint.createProjectResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  <wsdl:operation name="removeProject">
+    <wsdl:input message="ns3:ProjectEndpoint.removeProject"/>
+    <wsdl:output message="ns3:ProjectEndpoint.removeProjectResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  <wsdl:operation name="findOneProject">
+    <wsdl:input message="ns3:ProjectEndpoint.findOneProject"/>
+    <wsdl:output message="ns3:ProjectEndpoint.findOneProjectResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  <wsdl:operation name="removeAllProject">
+    <wsdl:input message="ns3:ProjectEndpoint.removeAllProject"/>
+    <wsdl:output message="ns3:ProjectEndpoint.removeAllProjectResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  <wsdl:operation name="showAllProject">
+    <wsdl:input message="ns3:ProjectEndpoint.showAllProject"/>
+    <wsdl:output message="ns3:ProjectEndpoint.showAllProjectResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServerEndpoint">
+  <wsdl:operation name="getInfoHost">
+    <wsdl:input message="ns3:ServerEndpoint.getInfoHost"/>
+    <wsdl:output message="ns3:ServerEndpoint.getInfoHostResponse"/>
+  </wsdl:operation>
+  <wsdl:operation name="getInfoPort">
+    <wsdl:input message="ns3:ServerEndpoint.getInfoPort"/>
+    <wsdl:output message="ns3:ServerEndpoint.getInfoPortResponse"/>
+  </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SessionEndpoint">
+  <wsdl:operation name="openSession">
+    <wsdl:input message="ns3:SessionEndpoint.openSession"/>
+    <wsdl:output message="ns3:SessionEndpoint.openSessionResponse"/>
+    <wsdl:fault name="UserNotFoundException" message="ns3:UserNotFoundException"/>
+    <wsdl:fault name="SessionNotFoundException" message="ns3:SessionNotFoundException"/>
+  </wsdl:operation>
+  <wsdl:operation name="validateSession">
+    <wsdl:input message="ns3:SessionEndpoint.validateSession"/>
+    <wsdl:output message="ns3:SessionEndpoint.validateSessionResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  <wsdl:operation name="validateAdminSession">
+    <wsdl:input message="ns3:SessionEndpoint.validateAdminSession"/>
+    <wsdl:output message="ns3:SessionEndpoint.validateAdminSessionResponse"/>
+  </wsdl:operation>
+  <wsdl:operation name="closeSession">
+    <wsdl:input message="ns3:SessionEndpoint.closeSession"/>
+    <wsdl:output message="ns3:SessionEndpoint.closeSessionResponse"/>
+  </wsdl:operation>
+  <wsdl:operation name="getListSession">
+    <wsdl:input message="ns3:SessionEndpoint.getListSession"/>
+    <wsdl:output message="ns3:SessionEndpoint.getListSessionResponse"/>
+  </wsdl:operation>
+  <wsdl:operation name="getUser">
+    <wsdl:input message="ns3:SessionEndpoint.getUser"/>
+    <wsdl:output message="ns3:SessionEndpoint.getUserResponse"/>
+  </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="TaskEndpoint">
+  <wsdl:operation name="createTask">
+    <wsdl:input message="ns3:TaskEndpoint.createTask"/>
+    <wsdl:output message="ns3:TaskEndpoint.createTaskResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  <wsdl:operation name="removeTask">
+    <wsdl:input message="ns3:TaskEndpoint.removeTask"/>
+    <wsdl:output message="ns3:TaskEndpoint.removeTaskResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  <wsdl:operation name="findOneTask">
+    <wsdl:input message="ns3:TaskEndpoint.findOneTask"/>
+    <wsdl:output message="ns3:TaskEndpoint.findOneTaskResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  <wsdl:operation name="getAllTaskByUserId">
+    <wsdl:input message="ns3:TaskEndpoint.getAllTaskByUserId"/>
+    <wsdl:output message="ns3:TaskEndpoint.getAllTaskByUserIdResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  <wsdl:operation name="removeAllTaskByUserId">
+    <wsdl:input message="ns3:TaskEndpoint.removeAllTaskByUserId"/>
+    <wsdl:output message="ns3:TaskEndpoint.removeAllTaskByUserIdResponse"/>
+    <wsdl:fault name="AccessForbiddenException" message="ns3:AccessForbiddenException"/>
+  </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="UserEndpoint">
+  <wsdl:operation name="registryUser">
+    <wsdl:input message="ns3:UserEndpoint.registryUser"/>
+    <wsdl:output message="ns3:UserEndpoint.registryUserResponse"/>
+    <wsdl:fault name="UserLoginBusyException" message="ns3:UserLoginBusyException"/>
+  </wsdl:operation>
+  <wsdl:operation name="authorization">
+    <wsdl:input message="ns3:UserEndpoint.authorization"/>
+    <wsdl:output message="ns3:UserEndpoint.authorizationResponse"/>
+    <wsdl:fault name="UserNotFoundException" message="ns3:UserNotFoundException"/>
+  </wsdl:operation>
+  <wsdl:operation name="logout">
+    <wsdl:input message="ns3:UserEndpoint.logout"/>
+    <wsdl:output message="ns3:UserEndpoint.logoutResponse"/>
+  </wsdl:operation>
+  </wsdl:portType>
+
+
+  <wsdl:binding name="ProjectEndpointPortBinding" type="ns3:ProjectEndpoint">
+    <wsdl:documentation>
+      <![CDATA[SOAP Binding for ProjectEndpoint]]>
+    </wsdl:documentation>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="editProject">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="createProject">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="removeProject">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="findOneProject">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="removeAllProject">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="showAllProject">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:binding name="ServerEndpointPortBinding" type="ns3:ServerEndpoint">
+    <wsdl:documentation>
+      <![CDATA[SOAP Binding for ServerEndpoint]]>
+    </wsdl:documentation>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="getInfoHost">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getInfoPort">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:binding name="SessionEndpointPortBinding" type="ns3:SessionEndpoint">
+    <wsdl:documentation>
+      <![CDATA[SOAP Binding for SessionEndpoint]]>
+    </wsdl:documentation>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="openSession">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UserNotFoundException">
+        <soap:fault name="UserNotFoundException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="SessionNotFoundException">
+        <soap:fault name="SessionNotFoundException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="validateSession">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="validateAdminSession">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="closeSession">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getListSession">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUser">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:binding name="TaskEndpointPortBinding" type="ns3:TaskEndpoint">
+    <wsdl:documentation>
+      <![CDATA[SOAP Binding for TaskEndpoint]]>
+    </wsdl:documentation>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="createTask">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="removeTask">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="findOneTask">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTaskByUserId">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="removeAllTaskByUserId">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AccessForbiddenException">
+        <soap:fault name="AccessForbiddenException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:binding name="UserEndpointPortBinding" type="ns3:UserEndpoint">
+    <wsdl:documentation>
+      <![CDATA[SOAP Binding for UserEndpoint]]>
+    </wsdl:documentation>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="registryUser">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UserLoginBusyException">
+        <soap:fault name="UserLoginBusyException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="authorization">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UserNotFoundException">
+        <soap:fault name="UserNotFoundException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="logout">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:service name="ProjectEndpointService">
+    <wsdl:port name="ProjectEndpointPort" binding="ns3:ProjectEndpointPortBinding">
+      <soap:address location="http://localhost:8080/ProjectEndpointService"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="ServerEndpointService">
+    <wsdl:port name="ServerEndpointPort" binding="ns3:ServerEndpointPortBinding">
+      <soap:address location="http://localhost:8080/ServerEndpointService"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="SessionEndpointService">
+    <wsdl:port name="SessionEndpointPort" binding="ns3:SessionEndpointPortBinding">
+      <soap:address location="http://localhost:8080/SessionEndpointService"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="TaskEndpointService">
+    <wsdl:port name="TaskEndpointPort" binding="ns3:TaskEndpointPortBinding">
+      <soap:address location="http://localhost:8080/TaskEndpointService"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="UserEndpointService">
+    <wsdl:port name="UserEndpointPort" binding="ns3:UserEndpointPortBinding">
+      <soap:address location="http://localhost:8080/UserEndpointService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
+

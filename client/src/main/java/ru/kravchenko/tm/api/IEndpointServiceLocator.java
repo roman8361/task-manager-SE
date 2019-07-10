@@ -17,11 +17,12 @@ public interface IEndpointServiceLocator {
 
     SessionEndpoint getSessionEndpoint();
 
+    ServerEndpoint getServerEndpoint();
+
     ITerminalService getTerminalService();
 
     SessionDTO getCurrentSession();
 
     void setCurrentSession(@Nullable final SessionDTO sessionDTO);
-
 
 }

@@ -35,6 +35,7 @@ public class ReferenceCommand extends AbstractCommand {
         System.out.println("task-create: Create new task.");
         System.out.println("task-list: Show all tasks.");
         System.out.println("task-update-status: Update project status by id.");
+        System.out.println("server-info: Server info command");
         System.out.println("exit: Exit");
     }
 

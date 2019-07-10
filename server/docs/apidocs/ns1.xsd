@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.0" targetNamespace="http://exception.tm.kravchenko.ru/"
+  xmlns:ns1="http://exception.tm.kravchenko.ru/"
+  
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="AccessForbiddenException" type="ns1:AccessForbiddenException"/>
+<xs:complexType name="AccessForbiddenException">
+  <xs:sequence>
+    <xs:element name="message" type="xs:string" minOccurs="0">
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+<xs:element name="SessionNotFoundException" type="ns1:SessionNotFoundException"/>
+<xs:complexType name="SessionNotFoundException">
+  <xs:sequence>
+    <xs:element name="message" type="xs:string" minOccurs="0">
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+<xs:element name="UserLoginBusyException" type="ns1:UserLoginBusyException"/>
+<xs:complexType name="UserLoginBusyException">
+  <xs:sequence>
+    <xs:element name="message" type="xs:string" minOccurs="0">
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+<xs:element name="UserNotFoundException" type="ns1:UserNotFoundException"/>
+<xs:complexType name="UserNotFoundException">
+  <xs:sequence>
+    <xs:element name="message" type="xs:string" minOccurs="0">
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+</xs:schema>

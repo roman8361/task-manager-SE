@@ -30,7 +30,12 @@ public class ProjectTest {
 
     private Lorem lorem = new LoremIpsum();
 
-    @Test
+//    @Test
+    public void sss() {
+        System.out.println(lorem.getWords(10));
+    }
+
+//    @Test
     public void addAnyProject() {
         for (int i = 0; i < 3; i++) addOneProject();
     }
@@ -49,45 +54,45 @@ public class ProjectTest {
         return project;
     }
 
-    @Test
+  //  @Test
     public void clearProject() {
         projectRepository.removeAll();
     }
 
-    @Test
+   // @Test
     public void clear2() {
         List<String> ids = projectRepository.findAllId();
         for (String s: ids) projectRepository.removeById(s);
     }
 
-    @Test
+ //   @Test
     public void findAllProjectByUserId() {
         final User user = userRepository.findBy("244a4ca3-b3b8-49a3-b377-9cd18e3f07f0");
         List<Project> userProject = projectRepository.findByUser(user);
         for (Project p: userProject) System.out.println(p);
     }
 
-    @Test
+ //   @Test
     public void findAllIds() {
         System.out.println(projectRepository.findAllId());
     }
 
-    @Test
+  //  @Test
     public void findAll() {
         System.out.println(projectRepository.findAll());
     }
 
-    @Test
+  //  @Test
     public void findProjectById() {
         System.out.println(projectRepository.findBy("06fa3a2a-262e-4581-8129-67f19357f78f").getName());
     }
 
-    @Test
+  //  @Test
     public void removeById() {
         projectRepository.removeById("f90ba815-2013-48c4-b34c-c7c9831fc390");
     }
 
-    @Test
+   // @Test
     public void removeAllProjectByUserId() {
        final String userId = "ac32fd9c-c319-43e0-8aca-30b11327a07e";
        final User user = userRepository.findBy(userId);
