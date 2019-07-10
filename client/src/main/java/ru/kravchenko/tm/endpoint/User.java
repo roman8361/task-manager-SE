@@ -18,8 +18,9 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://endpoint.tm.kravchenko.ru/}abstractEntity"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="login" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="userStatus" type="{http://endpoint.tm.kravchenko.ru/}status" minOccurs="0"/&gt;
+ *         &lt;element name="passwordHash" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="role" type="{http://endpoint.tm.kravchenko.ru/}status" minOccurs="0"/&gt;
+ *         &lt;element name="locked" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
@@ -31,17 +32,19 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "user", propOrder = {
     "login",
-    "password",
-    "userStatus"
+    "passwordHash",
+    "role",
+    "locked"
 })
 public class User
     extends AbstractEntity
 {
 
     protected String login;
-    protected String password;
+    protected String passwordHash;
     @XmlSchemaType(name = "string")
-    protected Status userStatus;
+    protected Status role;
+    protected boolean locked;
 
     /**
      * Gets the value of the login property.
@@ -68,51 +71,67 @@ public class User
     }
 
     /**
-     * Gets the value of the password property.
+     * Gets the value of the passwordHash property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     /**
-     * Sets the value of the password property.
+     * Sets the value of the passwordHash property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPassword(String value) {
-        this.password = value;
+    public void setPasswordHash(String value) {
+        this.passwordHash = value;
     }
 
     /**
-     * Gets the value of the userStatus property.
+     * Gets the value of the role property.
      * 
      * @return
      *     possible object is
      *     {@link Status }
      *     
      */
-    public Status getUserStatus() {
-        return userStatus;
+    public Status getRole() {
+        return role;
     }
 
     /**
-     * Sets the value of the userStatus property.
+     * Sets the value of the role property.
      * 
      * @param value
      *     allowed object is
      *     {@link Status }
      *     
      */
-    public void setUserStatus(Status value) {
-        this.userStatus = value;
+    public void setRole(Status value) {
+        this.role = value;
+    }
+
+    /**
+     * Gets the value of the locked property.
+     * 
+     */
+    public boolean isLocked() {
+        return locked;
+    }
+
+    /**
+     * Sets the value of the locked property.
+     * 
+     */
+    public void setLocked(boolean value) {
+        this.locked = value;
     }
 
 }

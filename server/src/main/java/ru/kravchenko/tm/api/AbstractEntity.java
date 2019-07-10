@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -24,6 +23,6 @@ import java.util.UUID;
 public abstract class AbstractEntity implements Serializable {
 
     @NotNull
-    private final String id = UUID.randomUUID().toString();
+    private String id = UUID.randomUUID().toString();
 
 }

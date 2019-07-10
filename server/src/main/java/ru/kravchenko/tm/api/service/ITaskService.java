@@ -1,8 +1,6 @@
 package ru.kravchenko.tm.api.service;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.kravchenko.tm.entity.StatusProjectTask;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
 
 /**
@@ -16,33 +14,8 @@ public interface ITaskService {
                    @Nullable final String taskDescription,
                    @Nullable final String userId) throws AccessForbiddenException;
 
-    String getIdFromUser();
-
     void updateTask(@Nullable final String taskId,
                     @Nullable final String taskName,
                     @Nullable final String taskDescription);
-
-    void updateTaskStatus(@NotNull final String taskId,
-                          @NotNull final StatusProjectTask taskStatus);
-
-    void saveDateSerializ();
-
-    void loadDateSerializ();
-
-    void saveDateJAXBtoXML();
-
-    void loadDateJAXBtoMapFromXML();
-
-    void saveDateJAXBtoJson();
-
-    void loadDateJAXBtoMapFromJson();
-
-    void saveDateOMtoXML();
-
-    void loadDateOMtoXML();
-
-    void saveDateOMtoJson();
-
-    void loadDateOMtoJson();
 
 }

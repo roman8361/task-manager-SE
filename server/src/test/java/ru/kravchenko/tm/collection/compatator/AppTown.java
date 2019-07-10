@@ -46,7 +46,7 @@ public class AppTown {
         project1.setDateBegin(addDateBeginProject("01.05.2019"));
         project1.setDateEnd((addDateBeginProject("31.05.2019")));
         project1.setDescription("project1");
-        project1.setDisplayName(StatusProjectTask.PROCESS);
+  //      project1.setDisplayName(StatusProjectTask.PROCESS);
 
         @NotNull final Project project2 = new Project("2");
         project2.setDateBegin(addDateBeginProject("01.01.2019"));
@@ -57,13 +57,13 @@ public class AppTown {
         project3.setDateBegin(addDateBeginProject("11.04.2014"));
         project3.setDateEnd((addDateBeginProject("10.10.2014")));
         project3.setDescription("project3");
-        project3.setDisplayName(StatusProjectTask.PROCESS);
+  //      project3.setDisplayName(StatusProjectTask.PROCESS);
 
         @NotNull final Project project4 = new Project("4");
         project4.setDateBegin(addDateBeginProject("25.07.2015"));
         project4.setDateEnd((addDateBeginProject("13.10.2016")));
         project4.setDescription("project4");
-        project4.setDisplayName(StatusProjectTask.COMPLETED);
+     ///   project4.setDisplayName(StatusProjectTask.COMPLETED);
 
         @NotNull final Project project5 = new Project("5");
         project5.setDateBegin(addDateBeginProject("17.02.2017"));
@@ -122,10 +122,10 @@ public class AppTown {
             listDisplayName.add(map.getValue());
         }
 
-        Collections.sort(listDisplayName, new ComparatorProjectStatus());
-        for (Project c : listDisplayName) {
-            System.out.println(c);
-        }
+//        Collections.sort(listDisplayName, new ComparatorProjectStatus());
+//        for (Project c : listDisplayName) {
+//            System.out.println(c);
+//        }
     }
 
 

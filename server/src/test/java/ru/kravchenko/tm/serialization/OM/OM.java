@@ -25,7 +25,7 @@ public class OM {
     @SneakyThrows
     public void testProjectToJson() {
         final Project project1 = new Project("first project");
-        project1.setDisplayName(StatusProjectTask.PROCESS);
+   //     project1.setDisplayName(StatusProjectTask.PROCESS);
         project1.setDescription("FIRST PROJECT");
         project1.setDateBegin(new Date());
         project1.setDateEnd(new Date());
@@ -46,7 +46,7 @@ public class OM {
     @SneakyThrows
     public void testProjectToXML() {
         final Project project1 = new Project("first project");
-        project1.setDisplayName(StatusProjectTask.PROCESS);
+   //     project1.setDisplayName(StatusProjectTask.PROCESS);
         project1.setDescription("FIRST PROJECT");
         project1.setDateBegin(new Date());
         project1.setDateEnd(new Date());
@@ -99,7 +99,7 @@ public class OM {
 
     public void addData2() {
         Project project1 = new Project("first project");
-        project1.setDisplayName(StatusProjectTask.PROCESS);
+     //   project1.setDisplayName(StatusProjectTask.PROCESS);
         project1.setDescription("FIRST PROJECT");
         project1.setDateBegin(new Date());
         project1.setDateEnd(new Date());
@@ -111,7 +111,7 @@ public class OM {
         task1.setName("Task1 name");
 
         Project project2 = new Project("second");
-        project2.setDisplayName(StatusProjectTask.PROCESS);
+     //   project2.setDisplayName(StatusProjectTask.PROCESS);
         project2.setDescription("SECOND");
         project2.setDateBegin(new Date());
         project2.setDateEnd(new Date());
@@ -123,7 +123,7 @@ public class OM {
         task2.setName("Task222 name");
 
         Project project3 = new Project("third");
-        project3.setDisplayName(StatusProjectTask.PROCESS);
+     //   project3.setDisplayName(StatusProjectTask.PROCESS);
         project3.setDescription("THIRD");
         project3.setDateBegin(new Date());
         project3.setDateEnd(new Date());
@@ -138,19 +138,19 @@ public class OM {
 
     public void addData() {
         Project project1 = new Project("first");
-        project1.setDisplayName(StatusProjectTask.PROCESS);
+    //    project1.setDisplayName(StatusProjectTask.PROCESS);
         project1.setDescription("FIRST");
         project1.setDateBegin(new Date());
         project1.setDateEnd(new Date());
 
         Project project2 = new Project("second");
-        project2.setDisplayName(StatusProjectTask.PROCESS);
+    //    project2.setDisplayName(StatusProjectTask.PROCESS);
         project2.setDescription("SECOND");
         project2.setDateBegin(new Date());
         project2.setDateEnd(new Date());
 
         Project project3 = new Project("third");
-        project3.setDisplayName(StatusProjectTask.PROCESS);
+    //    project3.setDisplayName(StatusProjectTask.PROCESS);
         project3.setDescription("THIRD");
         project3.setDateBegin(new Date());
         project3.setDateEnd(new Date());

@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -21,6 +22,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="dateBegin" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+ *         &lt;element name="dateEnd" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="displayName" type="{http://endpoint.tm.kravchenko.ru/}statusProjectTask" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
@@ -36,6 +39,8 @@ import javax.xml.bind.annotation.XmlType;
     "userId",
     "name",
     "description",
+    "dateBegin",
+    "dateEnd",
     "displayName"
 })
 public class Task
@@ -46,6 +51,10 @@ public class Task
     protected String userId;
     protected String name;
     protected String description;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar dateBegin;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar dateEnd;
     @XmlSchemaType(name = "string")
     protected StatusProjectTask displayName;
 
@@ -143,6 +152,54 @@ public class Task
      */
     public void setDescription(String value) {
         this.description = value;
+    }
+
+    /**
+     * Gets the value of the dateBegin property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getDateBegin() {
+        return dateBegin;
+    }
+
+    /**
+     * Sets the value of the dateBegin property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setDateBegin(XMLGregorianCalendar value) {
+        this.dateBegin = value;
+    }
+
+    /**
+     * Gets the value of the dateEnd property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getDateEnd() {
+        return dateEnd;
+    }
+
+    /**
+     * Sets the value of the dateEnd property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setDateEnd(XMLGregorianCalendar value) {
+        this.dateEnd = value;
     }
 
     /**

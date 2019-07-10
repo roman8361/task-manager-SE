@@ -34,9 +34,10 @@ public interface ITaskEndpoint {
                      @WebParam(name = "id") @NotNull final String id) throws AccessForbiddenException;
 
     @WebMethod
-    Collection<Task> showAllTask(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException;
+    Collection<Task> getAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session,
+                                        @WebParam(name = "userId") @NotNull final String userId) throws AccessForbiddenException;
 
     @WebMethod
-    void removeAllTask(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException;
+    void removeAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException;
 
 }

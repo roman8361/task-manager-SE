@@ -24,14 +24,14 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _SessionNotFoundException_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "SessionNotFoundException");
     private final static QName _UserLoginBusyException_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "UserLoginBusyException");
+    private final static QName _UserNotFoundException_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "UserNotFoundException");
     private final static QName _Authorization_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "authorization");
     private final static QName _AuthorizationResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "authorizationResponse");
-    private final static QName _CreateUser_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "createUser");
-    private final static QName _CreateUserResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "createUserResponse");
     private final static QName _Logout_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "logout");
     private final static QName _LogoutResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "logoutResponse");
+    private final static QName _RegistryUser_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "registryUser");
+    private final static QName _RegistryUserResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "registryUserResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.kravchenko.tm.endpoint
@@ -41,19 +41,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SessionNotFoundException }
-     * 
-     */
-    public SessionNotFoundException createSessionNotFoundException() {
-        return new SessionNotFoundException();
-    }
-
-    /**
      * Create an instance of {@link UserLoginBusyException }
      * 
      */
     public UserLoginBusyException createUserLoginBusyException() {
         return new UserLoginBusyException();
+    }
+
+    /**
+     * Create an instance of {@link UserNotFoundException }
+     * 
+     */
+    public UserNotFoundException createUserNotFoundException() {
+        return new UserNotFoundException();
     }
 
     /**
@@ -73,22 +73,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreateUser }
-     * 
-     */
-    public CreateUser createCreateUser() {
-        return new CreateUser();
-    }
-
-    /**
-     * Create an instance of {@link CreateUserResponse }
-     * 
-     */
-    public CreateUserResponse createCreateUserResponse() {
-        return new CreateUserResponse();
-    }
-
-    /**
      * Create an instance of {@link Logout }
      * 
      */
@@ -105,20 +89,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link RegistryUser }
+     * 
+     */
+    public RegistryUser createRegistryUser() {
+        return new RegistryUser();
+    }
+
+    /**
+     * Create an instance of {@link RegistryUserResponse }
+     * 
+     */
+    public RegistryUserResponse createRegistryUserResponse() {
+        return new RegistryUserResponse();
+    }
+
+    /**
      * Create an instance of {@link Session }
      * 
      */
     public Session createSession() {
         return new Session();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SessionNotFoundException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "SessionNotFoundException")
-    public JAXBElement<SessionNotFoundException> createSessionNotFoundException(SessionNotFoundException value) {
-        return new JAXBElement<SessionNotFoundException>(_SessionNotFoundException_QNAME, SessionNotFoundException.class, null, value);
     }
 
     /**
@@ -128,6 +119,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "UserLoginBusyException")
     public JAXBElement<UserLoginBusyException> createUserLoginBusyException(UserLoginBusyException value) {
         return new JAXBElement<UserLoginBusyException>(_UserLoginBusyException_QNAME, UserLoginBusyException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UserNotFoundException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "UserNotFoundException")
+    public JAXBElement<UserNotFoundException> createUserNotFoundException(UserNotFoundException value) {
+        return new JAXBElement<UserNotFoundException>(_UserNotFoundException_QNAME, UserNotFoundException.class, null, value);
     }
 
     /**
@@ -149,24 +149,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateUser }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "createUser")
-    public JAXBElement<CreateUser> createCreateUser(CreateUser value) {
-        return new JAXBElement<CreateUser>(_CreateUser_QNAME, CreateUser.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateUserResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "createUserResponse")
-    public JAXBElement<CreateUserResponse> createCreateUserResponse(CreateUserResponse value) {
-        return new JAXBElement<CreateUserResponse>(_CreateUserResponse_QNAME, CreateUserResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Logout }{@code >}}
      * 
      */
@@ -182,6 +164,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "logoutResponse")
     public JAXBElement<LogoutResponse> createLogoutResponse(LogoutResponse value) {
         return new JAXBElement<LogoutResponse>(_LogoutResponse_QNAME, LogoutResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RegistryUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "registryUser")
+    public JAXBElement<RegistryUser> createRegistryUser(RegistryUser value) {
+        return new JAXBElement<RegistryUser>(_RegistryUser_QNAME, RegistryUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RegistryUserResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "registryUserResponse")
+    public JAXBElement<RegistryUserResponse> createRegistryUserResponse(RegistryUserResponse value) {
+        return new JAXBElement<RegistryUserResponse>(_RegistryUserResponse_QNAME, RegistryUserResponse.class, null, value);
     }
 
 }

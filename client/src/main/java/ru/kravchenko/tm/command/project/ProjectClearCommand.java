@@ -40,7 +40,6 @@ public class ProjectClearCommand extends AbstractCommand {
             return;
         }
         System.out.println("ALL PROJECT REMOVE");
-
     }
 
 }

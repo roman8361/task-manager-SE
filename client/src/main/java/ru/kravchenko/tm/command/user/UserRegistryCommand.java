@@ -25,8 +25,9 @@ public class UserRegistryCommand extends AbstractCommand {
     public void execute() {
         System.out.println("***User Registry Command***");
         @NotNull final UserEndpoint userEndpoint = serviceLocator.getUserEndpoint();
+
         try {
-            userEndpoint.createUser("rom", "rom");
+            userEndpoint.registryUser("roman", "roman");
         } catch (UserLoginBusyException_Exception e) {
             e.printStackTrace();
             return;

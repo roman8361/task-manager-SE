@@ -20,7 +20,6 @@ public class ProjectUpdateStatusCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-
     }
 
 }

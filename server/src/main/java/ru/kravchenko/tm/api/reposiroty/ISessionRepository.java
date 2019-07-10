@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.entity.Session;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ public interface ISessionRepository {
     Session findById(@Nullable final String sessionId);
 
     @NotNull
-    Collection<Session> findAll();
+    List<Session> findAll();
 
     void removeById(@Nullable final String sessionId);
 
@@ -27,5 +26,7 @@ public interface ISessionRepository {
     void showAllSession();
 
     boolean exist(@NotNull final String idSession);
+
+    Session findByUserId(String userId);
 
 }

@@ -1,15 +1,8 @@
 package ru.kravchenko.tm.test.soap.testcollection;
 
-import org.jetbrains.annotations.NotNull;
-import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.entity.Project;
 import ru.kravchenko.tm.entity.User;
-import ru.kravchenko.tm.exception.AccessForbiddenException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
-import ru.kravchenko.tm.repository.UserRepositoryBean;
-import ru.kravchenko.tm.service.LocatorServiceBean;
-import ru.kravchenko.tm.service.ProjectServiceBean;
-import ru.kravchenko.tm.service.UserServiceBean;
 
 import java.util.Date;
 
@@ -19,7 +12,7 @@ import java.util.Date;
 
 public class Test {
 
-    public static void main(String[] args) throws UserNotFoundException, AccessForbiddenException {
+    public static void main(String[] args) throws UserNotFoundException {
 
         Project project1 = new Project();
         project1.setName("ddd");

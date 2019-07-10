@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="session" type="{http://endpoint.tm.kravchenko.ru/}session" minOccurs="0"/&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="projectId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -29,12 +29,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "removeProject", propOrder = {
     "session",
-    "name"
+    "projectId"
 })
 public class RemoveProject {
 
     protected Session session;
-    protected String name;
+    protected String projectId;
 
     /**
      * Gets the value of the session property.
@@ -61,27 +61,27 @@ public class RemoveProject {
     }
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the projectId property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getProjectId() {
+        return projectId;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the projectId property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setProjectId(String value) {
+        this.projectId = value;
     }
 
 }

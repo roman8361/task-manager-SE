@@ -17,14 +17,17 @@ public class User extends AbstractEntity {
     private String login;
 
     @Nullable
-    private String password;
+    private String passwordHash;
 
     @Nullable
-    private Status userStatus;
+    private Status role = Status.USER;
+
+    @Nullable
+    boolean locked;
 
     @Override
     public String toString() {
-        return "login: " + login + " password: " + password + " userStatus: " + userStatus +
+        return "login: " + login + " password: " + passwordHash + " userStatus: " + role +
                 " id: " + super.getId();
     }
 

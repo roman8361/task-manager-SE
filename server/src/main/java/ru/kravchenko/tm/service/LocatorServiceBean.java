@@ -6,7 +6,6 @@ import ru.kravchenko.tm.api.reposiroty.ISessionRepository;
 import ru.kravchenko.tm.api.reposiroty.ITaskRepository;
 import ru.kravchenko.tm.api.reposiroty.IUserRepository;
 import ru.kravchenko.tm.api.service.*;
-import ru.kravchenko.tm.exception.UserNotFoundException;
 import ru.kravchenko.tm.repository.ProjectRepositoryBean;
 import ru.kravchenko.tm.repository.SessionRepositoryBean;
 import ru.kravchenko.tm.repository.TaskRepositoryBean;
@@ -22,16 +21,19 @@ public class LocatorServiceBean implements IServiceLocator {
     private final ITerminalService terminalService = new TerminalService();
 
     @NotNull
-    private final IProjectRepository projectRepository = new ProjectRepositoryBean();
+    private final IConnectionService connectionService = new ConnectionService();
 
     @NotNull
-    private final ITaskRepository taskRepositoryBean = new TaskRepositoryBean();
+    private final ITaskRepository taskRepositoryBean = new TaskRepositoryBean(this);
 
     @NotNull
-    private final IUserRepository userRepositoryBean = new UserRepositoryBean();
+    private final IUserRepository userRepositoryBean = new UserRepositoryBean(this);
 
     @NotNull
-    private final ISessionRepository sessionRepository = new SessionRepositoryBean();
+    private final ISessionRepository sessionRepository = new SessionRepositoryBean(this);
+
+    @NotNull
+    private final IProjectRepository projectRepository = new ProjectRepositoryBean(this);
 
     @NotNull
     private final ISessionService sessionService = new SessionServiceBean(this);
@@ -45,9 +47,13 @@ public class LocatorServiceBean implements IServiceLocator {
     @NotNull
     private final IProjectService projectService = new ProjectServiceBean(this);
 
-    public LocatorServiceBean() throws UserNotFoundException {
-    }
+    public LocatorServiceBean() throws Exception { }
 
+    @NotNull
+    @Override
+    public IConnectionService getConnectionService() {
+        return connectionService;
+    }
 
     @NotNull
     @Override

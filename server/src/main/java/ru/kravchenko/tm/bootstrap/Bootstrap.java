@@ -12,7 +12,6 @@ import ru.kravchenko.tm.endpoint.ProjectEndpoint;
 import ru.kravchenko.tm.endpoint.SessionEndpoint;
 import ru.kravchenko.tm.endpoint.TaskEndpoint;
 import ru.kravchenko.tm.endpoint.UserEndpoint;
-import ru.kravchenko.tm.exception.UserNotFoundException;
 import ru.kravchenko.tm.service.LocatorServiceBean;
 
 import javax.xml.ws.Endpoint;
@@ -40,7 +39,7 @@ public class Bootstrap {
     @NotNull
     private ITaskEndpoint taskEndpoint = new TaskEndpoint(serviceLocator);
 
-    public Bootstrap() throws UserNotFoundException {  }
+    public Bootstrap() throws Exception {  }
 
     private void registry(final Object endpoint) {
         if (endpoint == null) return;
@@ -53,8 +52,8 @@ public class Bootstrap {
     public void init() {
         System.out.println("SERVER START");
         registry(userEndpoint);
-        registry(projectEndpoint);
         registry(sessionEndpoint);
+        registry(projectEndpoint);
         registry(taskEndpoint);
     }
 

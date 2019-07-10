@@ -64,7 +64,7 @@ public class App {
         JAXBContext jaxbContext = JAXBContext.newInstance(ProjectRepositoryBean.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         ProjectRepositoryBean bean = (ProjectRepositoryBean) jaxbUnmarshaller.unmarshal(new File("d:/ser/tm/jaxbmaptoxml.xml"));
-        bean.showAllProject();
+//        bean.showAllProject();
     }
 
     private static void testJAXBMapToXML() throws JAXBException {
@@ -94,19 +94,19 @@ public class App {
 
         private static void addData() {
         Project project1 = new Project("first");
-        project1.setDisplayName(StatusProjectTask.PROCESS);
+     //   project1.setDisplayName(StatusProjectTask.PROCESS);
         project1.setDescription("FIRST");
         project1.setDateBegin(new Date());
         project1.setDateEnd(new Date());
 
         Project project2 = new Project("second");
-        project2.setDisplayName(StatusProjectTask.PROCESS);
+   ///     project2.setDisplayName(StatusProjectTask.PROCESS);
         project2.setDescription("SECOND");
         project2.setDateBegin(new Date());
         project2.setDateEnd(new Date());
 
         Project project3 = new Project("third");
-        project3.setDisplayName(StatusProjectTask.PROCESS);
+      //  project3.setDisplayName(StatusProjectTask.PROCESS);
         project3.setDescription("THIRD");
         project3.setDateBegin(new Date());
         project3.setDateEnd(new Date());

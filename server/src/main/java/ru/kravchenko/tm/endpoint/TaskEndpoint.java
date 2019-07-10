@@ -37,38 +37,36 @@ public class TaskEndpoint implements ITaskEndpoint {
         serviceLocator.getTaskService().mergeTask(projectId, name, description, session.getUserId());
         System.out.println("TASK CREATE");
         assert session.getUserId() != null;
-        serviceLocator.getTaskRepository().showAllTask(session.getUserId());
     }
 
     @Override
     @WebMethod
-    public void removeTask(@NotNull Session session,
-                           @NotNull String id) throws AccessForbiddenException {
+    public void removeTask(@NotNull final Session session,
+                           @NotNull final String id) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-
+        serviceLocator.getTaskRepository().removeById(id);
     }
 
     @Override
     @WebMethod
-    public Task findOneTask(@NotNull Session session,
-                            @NotNull String id) throws AccessForbiddenException {
+    public Task findOneTask(@NotNull final Session session,
+                            @NotNull final String id) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-        return serviceLocator.getTaskRepository().findOneId(id);
+        return serviceLocator.getTaskRepository().findById(id);
     }
 
     @Override
-    @WebMethod
-    public Collection<Task> showAllTask(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException {
+    public Collection<Task> getAllTaskByUserId(@NotNull final Session session,
+                                               @NotNull final String userId) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-        Collection<Task> result = serviceLocator.getTaskRepository().findAll(session.getUserId());
-        return result;
+        return serviceLocator.getTaskRepository().findAllTaskByUserId(userId);
     }
 
     @Override
-    @WebMethod
-    public void removeAllTask(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException {
+    public void removeAllTaskByUserId(@NotNull final Session session) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-        serviceLocator.getTaskRepository().removeAllTask();
+        serviceLocator.getTaskRepository().removeAllTaskByUserId(session.getUserId());
     }
+
 
 }

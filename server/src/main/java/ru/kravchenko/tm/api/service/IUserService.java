@@ -2,7 +2,6 @@ package ru.kravchenko.tm.api.service;
 
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.exception.UserLoginBusyException;
-import ru.kravchenko.tm.exception.UserNotCorrectInputException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
 
 /**
@@ -12,7 +11,7 @@ import ru.kravchenko.tm.exception.UserNotFoundException;
 public interface IUserService {
 
     boolean checkLoginPassword(@Nullable final String login,
-                               @Nullable final String password) throws UserNotFoundException;
+                               @Nullable final String password);
 
     boolean existLogin(@Nullable final String login);
 
@@ -22,12 +21,9 @@ public interface IUserService {
 
     void displayName(@Nullable final String userId) throws UserNotFoundException;
 
-    void authorization(
-            @Nullable final String login,
-            @Nullable final String password
-    ) throws UserNotCorrectInputException;
+    void authorization(@Nullable final String login,
+                       @Nullable final String password
+    ) throws UserNotFoundException;
 
-    void logout(@Nullable final String login, @Nullable final String password) throws UserNotFoundException;
-
-
+    void logout(final String userId);
 }

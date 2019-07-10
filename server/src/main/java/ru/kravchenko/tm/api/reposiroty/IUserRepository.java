@@ -3,10 +3,8 @@ package ru.kravchenko.tm.api.reposiroty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.entity.User;
-import ru.kravchenko.tm.exception.UserNotFoundException;
 
-import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 
 /**
  * @author Roman Kravchenko
@@ -15,21 +13,19 @@ import java.util.Map;
 public interface IUserRepository {
 
     @Nullable
-    User findByLogin(@Nullable final String login) throws UserNotFoundException;
+    User findByLogin(@Nullable final String login);
 
     User findByUserId(@NotNull final String userId);
 
-    void showAllUsers();
+    void showAllUsers() throws Exception;
 
-    void addUser(@Nullable final User user);
+    void addUser(@Nullable final User user) throws Exception;
 
-    void removeByLogin(@Nullable final String login);
-
-    void putUser(@NotNull final User user);
+    void removeById(@Nullable final String userId) throws Exception;
 
     @NotNull
-    Collection<User> findAll();
+    List<User> findAll() throws Exception;
 
-//    boolean existUser(@NotNull final String userId);
+    void removeAllUsers() throws Exception;
 
 }

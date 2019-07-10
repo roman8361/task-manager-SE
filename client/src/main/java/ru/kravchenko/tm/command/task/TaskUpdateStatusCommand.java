@@ -18,8 +18,6 @@ public class TaskUpdateStatusCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
-
-    }
+    public void execute() {  }
 
 }

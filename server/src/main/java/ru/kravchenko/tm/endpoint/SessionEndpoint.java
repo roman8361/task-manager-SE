@@ -34,10 +34,11 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Override
     @WebMethod
     public Session openSession(@WebParam(name = "login", partName = "login")
-                               @NotNull final String login) throws UserNotFoundException {
+                               @NotNull final String login) throws UserNotFoundException, SessionNotFoundException {
         final User user = serviceLocator.getUserRepository().findByLogin(login);
         if (user == null) throw new UserNotFoundException();
         final Session session = serviceLocator.getSessionService().findOnByUserId(user.getId());
+        if (session == null) throw new SessionNotFoundException();
         return session;
     }
 
@@ -57,13 +58,10 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Override
     @WebMethod
     public void closeSession(@WebParam(name = "session")
-                             @NotNull final Session session) throws SessionNotFoundException {
+                             @NotNull final Session session){
         if (serviceLocator.getSessionRepository().exist(session.getId())) {
             serviceLocator.getSessionRepository().removeById(session.getId());
-            serviceLocator.getSessionRepository().showAllSession();
-            return;
         }
-        throw new SessionNotFoundException();
     }
 
     @Override
@@ -75,6 +73,8 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Override
     @WebMethod
     public User getUser(@Nullable final Session session) {
+        assert session != null;
+        if (session.getUserId() == null) return null;
         return serviceLocator.getUserRepository().findByUserId(session.getUserId());
     }
 

@@ -4,9 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.api.IEndpointServiceLocator;
-import ru.kravchenko.tm.endpoint.AccessForbiddenException_Exception;
-import ru.kravchenko.tm.endpoint.SessionNotFoundException_Exception;
-import ru.kravchenko.tm.endpoint.UserNotFoundException_Exception;
 import ru.kravchenko.tm.service.EndpointServiceLocator;
 
 import java.util.HashMap;
@@ -24,7 +21,7 @@ public class Bootstrap {
     @Nullable
     private final Map<String, AbstractCommand> commandListMap = new HashMap<>();
 
-    public void init(@NotNull final Class[] arrayCommands) throws IllegalAccessException, InstantiationException, AccessForbiddenException_Exception, UserNotFoundException_Exception, SessionNotFoundException_Exception {
+    public void init(@NotNull final Class[] arrayCommands) throws Exception {
         for (@NotNull Class command : arrayCommands) {
             if (command.getSuperclass().equals(AbstractCommand.class)) {
                 @NotNull final AbstractCommand abstractCommand = (AbstractCommand) command.newInstance();

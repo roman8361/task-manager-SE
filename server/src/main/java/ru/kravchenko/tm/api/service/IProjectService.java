@@ -1,10 +1,9 @@
 package ru.kravchenko.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.entity.Session;
-import ru.kravchenko.tm.entity.StatusProjectTask;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
-import ru.kravchenko.tm.exception.UserNotFoundException;
 
 import java.util.Date;
 
@@ -16,7 +15,7 @@ public interface IProjectService {
 
     void createProject(@NotNull final Session session,
                        @NotNull final String projectName,
-                       @NotNull final String projectDescription) throws AccessForbiddenException, UserNotFoundException;
+                       @NotNull final String projectDescription) throws AccessForbiddenException;
 
     void exit();
 
@@ -26,35 +25,11 @@ public interface IProjectService {
 
     void updateProject(@NotNull final String projectId,
                        @NotNull final String newProjectName,
-                       @NotNull final String newDescription) throws AccessForbiddenException;
+                       @NotNull final String newDescription,
+                       @NotNull final Session session);
 
-    void updateStatusProject(@NotNull final String projectId,
-                             @NotNull final StatusProjectTask projectStatus) throws AccessForbiddenException;
+    public void updateStatusProject(@Nullable final String projectId,
+                                    @NotNull final String projectStatus);
 
-    void showAllProjectByAdd(@NotNull final String projectId);
-
-    void searchInName(@NotNull final String text, @NotNull final String userId);
-
-    void searchInDescription(@NotNull final String text, @NotNull final String userId);
-
-    void saveDateSerializ();
-
-    void loadDateSerializ();
-
-    void saveDateJAXBtoXML();
-
-    void loadDateJAXBtoMapFromXML();
-
-    void saveDateJAXBtoJson();
-
-    void loadDateJAXBtoMapFromJson();
-
-    void saveDateOMtoXML();
-
-    void loadDateOMtoXML();
-
-    void saveDateOMtoJson();
-
-    void loadDateOMtoJson();
 
 }

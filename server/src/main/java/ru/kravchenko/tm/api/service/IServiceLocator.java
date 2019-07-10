@@ -29,6 +29,8 @@ public interface IServiceLocator {
 
     ISessionService getSessionService();
 
+    IConnectionService getConnectionService();
+
     IAbout getAbout();
 
 }

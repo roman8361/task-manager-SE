@@ -26,7 +26,7 @@ public class TaskReadCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AccessForbiddenException_Exception {
+    public void execute(){
         @NotNull final TaskEndpoint taskEndpoint = serviceLocator.getTaskEndpoint();
         @NotNull final Session session = serviceLocator.getSession();
         try {
@@ -36,7 +36,14 @@ public class TaskReadCommand extends AbstractCommand {
             return;
         }
         System.out.println("**Task Read Command***");
-        final Collection<Task> list = taskEndpoint.showAllTask(session);
+
+        final Collection<Task> list;
+        try {
+            list = taskEndpoint.getAllTaskByUserId(session, session.getUserId());
+        } catch (AccessForbiddenException_Exception e) {
+            e.printStackTrace();
+            return;
+        }
         for (final Task task : list)
             System.out.println("TASK ID: " + task.getUserId() + " TASK NAME: " + task.getName() +
                     " TASK DESC: " + task.getDescription() + " USER ID" + task.getUserId());

@@ -18,7 +18,6 @@ public class AboutCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-
     }
 
 }

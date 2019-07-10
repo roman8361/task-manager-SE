@@ -7,7 +7,6 @@ import ru.kravchenko.tm.endpoint.*;
  * @author Roman Kravchenko
  */
 
-
 public interface IEndpointServiceLocator {
 
     ProjectEndpoint getProjectEndpoint();
@@ -23,4 +22,5 @@ public interface IEndpointServiceLocator {
     Session getSession();
 
     void setSession(@NotNull final Session session);
+
 }

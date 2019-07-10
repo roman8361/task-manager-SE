@@ -222,61 +222,61 @@ public class MappingTest {
     }
 
     public void addData() {
-        Project project1 = new Project("first");
-        project1.setDisplayName(StatusProjectTask.PROCESS);
-        project1.setDescription("FIRST");
-        project1.setDateBegin(new Date());
-        project1.setDateEnd(new Date());
-
-        Project project2 = new Project("second");
-        project2.setDisplayName(StatusProjectTask.PROCESS);
-        project2.setDescription("SECOND");
-        project2.setDateBegin(new Date());
-        project2.setDateEnd(new Date());
-
-        Project project3 = new Project("third");
-        project3.setDisplayName(StatusProjectTask.PROCESS);
-        project3.setDescription("THIRD");
-        project3.setDateBegin(new Date());
-        project3.setDateEnd(new Date());
+//        Project project1 = new Project("first");
+//        project1.setDisplayName(StatusProjectTask.PROCESS);
+//        project1.setDescription("FIRST");
+//        project1.setDateBegin(new Date());
+//        project1.setDateEnd(new Date());
+//
+//        Project project2 = new Project("second");
+//        project2.setDisplayName(StatusProjectTask.PROCESS);
+//        project2.setDescription("SECOND");
+//        project2.setDateBegin(new Date());
+//        project2.setDateEnd(new Date());
+//
+//        Project project3 = new Project("third");
+//        project3.setDisplayName(StatusProjectTask.PROCESS);
+//        project3.setDescription("THIRD");
+//        project3.setDateBegin(new Date());
+//        project3.setDateEnd(new Date());
 
 //        projectRepository.put(project1.getName(), project1);
 //        projectRepository.put(project2.getName(), project2);
 //        projectRepository.put(project3.getName(), project3);
 
-        projectRepository.put(project1.getId(), project1);
-        projectRepository.put(project2.getId(), project2);
-        projectRepository.put(project3.getId(), project3);
+//        projectRepository.put(project1.getId(), project1);
+//        projectRepository.put(project2.getId(), project2);
+//        projectRepository.put(project3.getId(), project3);
 
       //  System.out.println(projectRepository);
     }
 
     public void addData2() {
-        Project project1 = new Project("first project");
-        project1.setDisplayName(StatusProjectTask.PROCESS);
-        project1.setDescription("FIRST PROJECT");
-        project1.setDateBegin(new Date());
-        project1.setDateEnd(new Date());
-
-        Task task1 = new Task();
-        task1.setDisplayName(StatusProjectTask.PROCESS);
-//        task1.setDescription("FIRST TASK");
-//        task1.setProject(project1);
-        task1.setName("Task1 name");
-
-
-
-        Project project2 = new Project("second");
-        project2.setDisplayName(StatusProjectTask.PROCESS);
-        project2.setDescription("SECOND");
-        project2.setDateBegin(new Date());
-        project2.setDateEnd(new Date());
-
-        Task task2 = new Task();
-        task2.setDisplayName(StatusProjectTask.PROCESS);
-        task2.setDescription("SECOND TASK");
-//        task2.setProject(project2);
-        task2.setName("Task222 name");
+//        Project project1 = new Project("first project");
+//        project1.setDisplayName(StatusProjectTask.PROCESS);
+//        project1.setDescription("FIRST PROJECT");
+//        project1.setDateBegin(new Date());
+//        project1.setDateEnd(new Date());
+//
+//        Task task1 = new Task();
+//        task1.setDisplayName(StatusProjectTask.PROCESS);
+////        task1.setDescription("FIRST TASK");
+////        task1.setProject(project1);
+//        task1.setName("Task1 name");
+//
+//
+//
+//        Project project2 = new Project("second");
+//        project2.setDisplayName(StatusProjectTask.PROCESS);
+//        project2.setDescription("SECOND");
+//        project2.setDateBegin(new Date());
+//        project2.setDateEnd(new Date());
+//
+//        Task task2 = new Task();
+//        task2.setDisplayName(StatusProjectTask.PROCESS);
+//        task2.setDescription("SECOND TASK");
+////        task2.setProject(project2);
+//        task2.setName("Task222 name");
 
 //
 //        Project project3 = new Project("third");
@@ -285,9 +285,9 @@ public class MappingTest {
 //        project3.setDateBegin(new Date());
 //        project3.setDateEnd(new Date());
 //
-        projectRepository.put(task1.getId(), task1);
-        projectRepository.put(task2.getId(), task2);
-//        projectRepository.put(project3.getName(), project3);
+//        projectRepository.put(task1.getId(), task1);
+//        projectRepository.put(task2.getId(), task2);
+////        projectRepository.put(project3.getName(), project3);
 
         //  System.out.println(projectRepository);
     }

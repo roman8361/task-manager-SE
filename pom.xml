@@ -53,7 +53,6 @@
             <artifactId>annotations</artifactId>
             <version>13.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -79,6 +78,11 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thedeanda</groupId>
+            <artifactId>lorem</artifactId>
+            <version>2.1</version>
         </dependency>
     </dependencies>
 
@@ -114,79 +118,6 @@
             </plugin>
 
         </plugins>
-        <!--<finalName>tm</finalName>-->
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-compiler-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<source>1.8</source>-->
-                    <!--<target>1.8</target>-->
-                    <!--<encoding>UTF-8</encoding>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-jar-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<archive>-->
-                        <!--<manifest>-->
-                            <!--<addClasspath>true</addClasspath>-->
-                            <!--<mainClass>ru.kravchenko.tm.App</mainClass>-->
-                        <!--</manifest>-->
-                    <!--</archive>-->
-                    <!--<outputDirectory>-->
-                        <!--${project.build.directory}/release/bin-->
-                    <!--</outputDirectory>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>buildnumber-maven-plugin</artifactId>-->
-                <!--<version>1.1</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>validate</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>create</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                    <!--<revisionOnScmFailure>1</revisionOnScmFailure>-->
-                    <!--<doCheck>true</doCheck>-->
-                    <!--<buildNumberPropertyName>buildNumber</buildNumberPropertyName>-->
-                    <!--<doUpdate>true</doUpdate>-->
-                    <!--<format>{0,number}</format>-->
-                    <!--<items>-->
-                        <!--<item>buildNumber</item>-->
-                    <!--</items>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-dependency-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<outputDirectory>-->
-                        <!--${project.build.directory}/release/lib-->
-                    <!--</outputDirectory>-->
-                    <!--<overWriteReleases>false</overWriteReleases>-->
-                    <!--<overWriteSnapshots>false</overWriteSnapshots>-->
-                    <!--<overWriteIfNewer>true</overWriteIfNewer>-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>copy-dependencies</id>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>copy-dependencies</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
     </build>
 
 

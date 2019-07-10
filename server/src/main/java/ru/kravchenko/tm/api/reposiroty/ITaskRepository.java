@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.entity.Task;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Roman Kravchenko
@@ -13,12 +13,10 @@ import java.util.Collection;
 public interface ITaskRepository {
 
     @NotNull
-    Collection<Task> findAll(@NotNull final String userId);
+    List<Task> findAll();
 
     @NotNull
-    Task findOneId(@Nullable final String taskId);
-
-    void showAllTask(@NotNull final String userId);
+    Task findById(@Nullable final String taskId);
 
     void showAllTask();
 
@@ -28,8 +26,9 @@ public interface ITaskRepository {
 
     void addTask(@Nullable final Task task);
 
-    public void sortByStatus();
+    void removeAllTaskByUserId(final String userId);
 
-    boolean existTask(@Nullable final String taskId);
+    List<Task> findAllTaskByUserId(final String userId);
+
 
 }

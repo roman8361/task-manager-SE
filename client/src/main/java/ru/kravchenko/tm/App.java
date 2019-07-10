@@ -13,6 +13,7 @@ import ru.kravchenko.tm.command.task.TaskReadCommand;
 import ru.kravchenko.tm.command.user.UserAuthorizationCommand;
 import ru.kravchenko.tm.command.user.UserLogoutCommand;
 import ru.kravchenko.tm.command.user.UserRegistryCommand;
+import ru.kravchenko.tm.endpoint.RegistryUser;
 
 /**
  * @author Roman Kravchenko
@@ -25,8 +26,7 @@ public class App {
             AboutCommand.class, ExitCommand.class, ReferenceCommand.class,
 
             ProjectClearCommand.class, ProjectCreateCommand.class, ProjectSearchCommand.class,
-            ProjectReadCommand.class, ProjectRemoveCommand.class, ProjectDumpCommand.class,
-            ProjectLoadCommand.class,
+            ProjectReadCommand.class, ProjectRemoveCommand.class, ProjectEditComman.class,
 
             TaskClearCommand.class, TaskCreateCommand.class, TaskReadCommand.class,
 
