@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.api.service.ITerminalService;
 import ru.kravchenko.tm.api.service.IUserService;
+import ru.kravchenko.tm.exception.UserLoginBusyException;
 
 /**
  * @author Roman Kravchenko
@@ -20,13 +21,17 @@ public class UserRegistryCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("Please enter your login: ");
-        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
-        final @NotNull String userLogin = terminalService.nextLine();
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
+        @NotNull final String userLogin = terminalService.nextLine();
         System.out.println("Please enter your password: ");
-        final @NotNull String userPassword= terminalService.nextLine();
-        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
+        @NotNull final String userPassword= terminalService.nextLine();
+        @NotNull final IUserService userServiceBean = serviceLocator.getUserService();
         if(userServiceBean.registry(userLogin, userPassword)) return;
-        System.out.println("Sorry, login is busy...try again.");
+        try {
+            throw new UserLoginBusyException();
+        } catch (@NotNull final UserLoginBusyException e) {
+            e.printStackTrace();
+        }
     }
 
 }

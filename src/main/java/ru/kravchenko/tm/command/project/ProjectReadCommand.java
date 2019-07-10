@@ -24,20 +24,56 @@ public class ProjectReadCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
         System.out.println("Please enter your login: ");
-        final @NotNull String userLogin = terminalService.nextLine();
-        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
-        if (userServiceBean.existsLoginBase(userLogin)) {
-            showAllProject();
+        @NotNull final String userLogin = terminalService.nextLine();
+        @NotNull final IUserService userServiceBean = serviceLocator.getUserService();
+        if (userServiceBean.existsLoginBase(userLogin)) { // проверка валидации пользователя
+            System.out.println("Please enter sort selection (1 - by add; 2 - by date begin; 3 - by date end; 4 - by status)");
+            @NotNull final String userSelect = terminalService.nextLine();
+            switch (userSelect) {
+                case "1":
+                    showAllProjectByAdd();
+                    break;
+
+                case "2":
+                    sortByDateBegin();
+                    break;
+
+                case "3":
+                    sortByDateEnd();
+                    break;
+
+                case "4":
+                    sortByDateStatus();
+                    break;
+
+                default:
+                    System.out.println("Unidentified command, please try again");
+            }
             return;
         }
         System.out.println("This command is available only to authorized users. Please login.");
     }
 
-    private void showAllProject() {
-        final @NotNull IProjectRepository projectRepository = serviceLocator.getProjectRepository();
+    private void showAllProjectByAdd() {
+        @NotNull final IProjectRepository projectRepository = serviceLocator.getProjectRepository();
         projectRepository.showAllProject();
+    }
+
+    private void sortByDateBegin() {
+        @NotNull final IProjectRepository projectRepository = serviceLocator.getProjectRepository();
+        projectRepository.sortByDateBegin();
+    }
+
+    private void sortByDateEnd() {
+        @NotNull final IProjectRepository projectRepository = serviceLocator.getProjectRepository();
+        projectRepository.sortByDateEnd();
+    }
+
+    private void sortByDateStatus() {
+        @NotNull final IProjectRepository projectRepository = serviceLocator.getProjectRepository();
+        projectRepository.sortByStatus();
     }
 
 }

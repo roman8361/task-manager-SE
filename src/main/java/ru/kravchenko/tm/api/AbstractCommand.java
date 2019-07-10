@@ -2,6 +2,7 @@ package ru.kravchenko.tm.api;
 
 import lombok.Setter;
 import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.exception.UserNotCorrectInputException;
 
 /**
  * @author Roman Kravchenko

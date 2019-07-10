@@ -2,6 +2,7 @@ package ru.kravchenko.tm.service;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -9,6 +10,7 @@ import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.api.service.IUserService;
 import ru.kravchenko.tm.entity.Status;
 import ru.kravchenko.tm.entity.User;
+import ru.kravchenko.tm.exception.UserNotFoundException;
 import ru.kravchenko.tm.repository.UserRepositoryBean;
 
 /**
@@ -33,7 +35,7 @@ public class UserServiceBean implements IUserService {
     }
 
     private void initAdmin() {
-        final @NotNull User admin = new User();
+        @NotNull final User admin = new User();
         admin.setLogin("admin");
         admin.setPassword(DigestUtils.md5Hex("admin"));
         admin.setUserStatus(Status.ADMIN);
@@ -42,7 +44,7 @@ public class UserServiceBean implements IUserService {
     }
 
     private void initSimpleUser() {
-        final @NotNull User simpleUser = new User();
+        @NotNull final User simpleUser = new User();
         simpleUser.setLogin("11");
         simpleUser.setPassword(DigestUtils.md5Hex("11"));
         simpleUser.setUserStatus(Status.USER);
@@ -54,7 +56,7 @@ public class UserServiceBean implements IUserService {
     public boolean registry(@Nullable final String login, @Nullable final String password) {
         if (login == null || login.isEmpty()) return false;
         if (password == null || password.isEmpty()) return false;
-        if (existsDateBase(login)) return false;
+        if (existsDateBase(login)){ return false; }
         @NotNull final User user = new User();
         user.setLogin(login);
         user.setPassword(DigestUtils.md5Hex(password));
@@ -74,8 +76,6 @@ public class UserServiceBean implements IUserService {
             userRepositoryBean.addUser(login, user, userRepositoryBean.getUsersLoginBase());
             return;
         }
-        System.out.println("Not logged in");
-        System.out.println("Try again...");
     }
 
     @Override
@@ -89,11 +89,18 @@ public class UserServiceBean implements IUserService {
         System.out.println("Not correct logout. Try again.");
     }
 
+    @Override
+    @SneakyThrows
     public boolean checkAuthorization(@Nullable final String login, @Nullable final String password) {
         if (login == null || login.isEmpty()) return false;
         if (password == null || password.isEmpty()) return false;
         @Nullable final User user = userRepositoryBean.findByLogin(login, userRepositoryBean.getUsersBaseDate());
-        if (user == null) return false;
+        try {
+            if (user == null) throw new UserNotFoundException();
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
         return password.equals(user.getPassword());
     }
 

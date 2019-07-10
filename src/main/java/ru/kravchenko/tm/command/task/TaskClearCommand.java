@@ -22,9 +22,9 @@ public class TaskClearCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("Please enter your login: ");
-        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
-        final @NotNull String userLogin = terminalService.nextLine();
-        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
+        @NotNull final String userLogin = terminalService.nextLine();
+        @NotNull final IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)){
             removeAllTask();
             System.out.println("You remove all task");
@@ -34,7 +34,7 @@ public class TaskClearCommand extends AbstractCommand {
     }
 
     private void removeAllTask() {
-        final @NotNull ITaskRepository taskRepositoryBean = serviceLocator.getTaskRepository();
+        @NotNull final ITaskRepository taskRepositoryBean = serviceLocator.getTaskRepository();
         taskRepositoryBean.removeAllTask();
     }
 

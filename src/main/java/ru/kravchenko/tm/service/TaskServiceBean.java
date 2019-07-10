@@ -8,6 +8,7 @@ import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.api.service.ITaskService;
 import ru.kravchenko.tm.api.service.ITerminalService;
 import ru.kravchenko.tm.entity.Project;
+import ru.kravchenko.tm.entity.StatusProjectTask;
 import ru.kravchenko.tm.entity.Task;
 
 /**
@@ -63,6 +64,15 @@ public class TaskServiceBean implements ITaskService {
         task.setDescription(taskDescription);
         taskRepositoryBean.addTask(task.getId(),task);
         System.out.println("Task is update to project");
+    }
+
+    @Override
+    public void updateTaskStatus(@NotNull final String taskId, @NotNull final StatusProjectTask taskStatus) {
+        if (taskId == null || taskId.isEmpty()) return;
+        @NotNull final Task task = taskRepositoryBean.findOneId(taskId);
+        task.setDisplayName(taskStatus);
+        taskRepositoryBean.addTask(taskId, task);
+        System.out.println("Task status update");
     }
 
 }

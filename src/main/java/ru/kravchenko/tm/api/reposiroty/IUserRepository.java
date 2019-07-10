@@ -3,6 +3,7 @@ package ru.kravchenko.tm.api.reposiroty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.entity.User;
+
 import java.util.Collection;
 import java.util.Map;
 
@@ -24,6 +25,8 @@ public interface IUserRepository {
     void removeById(@Nullable final String userLogin, @NotNull final Map map);
 
     @NotNull
-    Collection<User> findAll(Map map);
+    Collection<User> findAll(@Nullable final Map map);
+
+    boolean existUser(@NotNull final String userLogin);
 
 }

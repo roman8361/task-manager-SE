@@ -7,7 +7,8 @@ import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.api.service.ITerminalService;
-import ru.kravchenko.tm.service.ServiceLocatorBean;
+import ru.kravchenko.tm.exception.UserNotCorrectInputException;
+import ru.kravchenko.tm.service.LocatorServiceBean;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,14 +21,14 @@ import java.util.Map;
 @Setter
 public class Bootstrap {
 
-    private IServiceLocator serviceLocator = new ServiceLocatorBean();
+    @NotNull private IServiceLocator serviceLocator = new LocatorServiceBean();
 
-    private final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
+    @NotNull private final ITerminalService terminalService = serviceLocator.getTerminalService();
 
-    private final @Nullable Map<String, AbstractCommand> commandListMap = new HashMap<>();
+    @Nullable private final Map<String, AbstractCommand> commandListMap = new HashMap<>();
 
-    public void init(final @NotNull Class[] arrayCommands) throws IllegalAccessException, InstantiationException {
-        for (@NotNull Class command : arrayCommands) {
+    public void init(@NotNull final Class[] arrayCommands) throws IllegalAccessException, InstantiationException, UserNotCorrectInputException {
+        for (@NotNull final Class command : arrayCommands) {
             if (command.getSuperclass().equals(AbstractCommand.class)) {
                 AbstractCommand abstractCommand = (AbstractCommand) command.newInstance();
                 abstractCommand.setServiceLocator(serviceLocator);
@@ -39,7 +40,7 @@ public class Bootstrap {
 
         while (true) {
             System.out.println("Please enter command (help: Show all command): ");
-            final @NotNull String userInput = terminalService.nextLine();
+            @NotNull final String userInput = terminalService.nextLine();
             if (commandListMap.containsKey(userInput)) commandListMap.get(userInput).execute();
             if (!commandListMap.containsKey(userInput)) System.out.println("Not correct command, please try again");
         }

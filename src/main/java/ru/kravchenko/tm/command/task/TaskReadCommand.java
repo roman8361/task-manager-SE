@@ -25,7 +25,20 @@ public class TaskReadCommand extends AbstractCommand {
         final @NotNull String userLogin = terminalService.nextLine();
         final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)){
-            showAllTask();
+            System.out.println("Please enter sort selection (1 - by add; 2 - by status)");
+            @NotNull final String userSelect = terminalService.nextLine();
+            switch (userSelect) {
+                case "1":
+                    showAllTask();
+                    break;
+
+                case "2":
+                    sortByDateBegin();
+                    break;
+
+                default:
+                    System.out.println("Unidentified command, please try again");
+            }
             return;
         }
         System.out.println("This command is available only to authorized users. Please login.");
@@ -34,6 +47,11 @@ public class TaskReadCommand extends AbstractCommand {
     private void showAllTask() {
         final @NotNull ITaskRepository taskRepositoryBean = serviceLocator.getTaskRepository();
         taskRepositoryBean.showAllTask();
+    }
+
+    private void sortByDateBegin() {
+        final @NotNull ITaskRepository taskRepositoryBean = serviceLocator.getTaskRepository();
+        taskRepositoryBean.sortByStatus();
     }
 
 }

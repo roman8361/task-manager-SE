@@ -7,14 +7,13 @@ import ru.kravchenko.tm.api.service.IProjectService;
 import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.api.service.ITerminalService;
 import ru.kravchenko.tm.entity.Project;
+import ru.kravchenko.tm.entity.StatusProjectTask;
 import ru.kravchenko.tm.entity.User;
 import ru.kravchenko.tm.repository.ProjectRepositoryBean;
 import ru.kravchenko.tm.repository.UserRepositoryBean;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Roman Kravchenko
@@ -48,11 +47,18 @@ public class ProjectServiceBean implements IProjectService {
         project.setDateBegin(new Date());
         project.setDateEnd(new Date());
         projectRepository.addProject(project.getId(), project);
+
+        final @NotNull Project project2 = new Project("testProject2");
+        project2.setDescription("test Project 2");
+        project2.setDateBegin(new Date(1));
+        project2.setDateEnd(new Date(1));
+        project2.setDisplayName(StatusProjectTask.PROCESS);
+        projectRepository.addProject(project2.getId(), project2);
     }
 
     @Override
-    public @NotNull void createProject(@Nullable final String nameProject, @Nullable final String descriptionProject) {
-        final @NotNull Project project = new Project(nameProject);
+    public void createProject(@NotNull final String nameProject, @NotNull final String descriptionProject) {
+        @NotNull final Project project = new Project(nameProject);
         project.setDescription(descriptionProject);
         project.setDateBegin(addDateBeginProject());
         project.setDateEnd(addDateEndProject());
@@ -70,9 +76,9 @@ public class ProjectServiceBean implements IProjectService {
     @SneakyThrows
     public Date addDateBeginProject() {
         System.out.println("Please enter date begin project: (dd.MM.yyyy)");
-        final @NotNull String dateBegin = terminalService.nextLine();
-        final @NotNull SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        final @NotNull Date newDate = simpleDateFormat.parse(dateBegin);
+        @NotNull final String dateBegin = terminalService.nextLine();
+        @NotNull final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        @NotNull final Date newDate = simpleDateFormat.parse(dateBegin);
         return newDate;
     }
 
@@ -80,16 +86,16 @@ public class ProjectServiceBean implements IProjectService {
     @SneakyThrows
     public Date addDateEndProject() {
         System.out.println("Please enter date end project: (dd.MM.yyyy)");
-        final @NotNull String dateEnd = terminalService.nextLine();
-        final @NotNull SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        final @NotNull Date endDate = simpleDateFormat.parse(dateEnd);
+        @NotNull final String dateEnd = terminalService.nextLine();
+        @NotNull final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        @NotNull final Date endDate = simpleDateFormat.parse(dateEnd);
         return endDate;
     }
 
     @Override
-    public void updateProject(@Nullable final String projectId,
-                              @Nullable final String newProjectName,
-                              @Nullable final String newDescription) {
+    public void updateProject(@NotNull final String projectId,
+                              @NotNull final String newProjectName,
+                              @NotNull final String newDescription) {
         if (projectId == null || projectId.isEmpty()) return;
         if (!projectRepository.existKeys(projectId)) return;
         final @NotNull Project project = new Project(newProjectName);
@@ -98,6 +104,45 @@ public class ProjectServiceBean implements IProjectService {
         project.setDateEnd(addDateEndProject());
         projectRepository.addProject(projectId, project);
         System.out.println("Project id: " + projectId + "  update");
+    }
+
+    @Override
+    public void updateStatusProject(@Nullable final String projectId, @NotNull final StatusProjectTask projectStatus) {
+        if (projectId == null || projectId.isEmpty()) return;
+        @NotNull final Project project = projectRepository.findOne(projectId);
+        project.setDisplayName(projectStatus);
+        projectRepository.addProject(projectId, project);
+        System.out.println("Project status update");
+    }
+
+    @Override
+    public void showAllProjectByAdd() {
+        LinkedList<Project> linkedList = (LinkedList<Project>) projectRepository.findAll();
+        System.out.println(linkedList);
+    }
+
+    @Override
+    public void searchInName(@NotNull final String text) {
+        Collection<Project> list = projectRepository.findAll();
+        for (final Project project : list) {
+            if (project.getName().contains(text)) {
+                System.out.println(project);
+            } else {
+                System.out.println("Text not found.");
+            }
+        }
+    }
+
+    @Override
+    public void searchInDescription(@NotNull final String text) {
+        Collection<Project> list = projectRepository.findAll();
+        for (final Project project : list) {
+            if (project.getDescription().contains(text)) {
+                System.out.println(project);
+            } else {
+                System.out.println("Text not found.");
+            }
+        }
     }
 
     @Override
@@ -115,11 +160,14 @@ public class ProjectServiceBean implements IProjectService {
         System.out.println("project-create: Create new project.");
         System.out.println("project-list: Show all project.");
         System.out.println("project-update: Update project by id.");
+        System.out.println("project-update-status: Update project status by id.");
         System.out.println("project-remove: Remove selected project by id.");
+        System.out.println("project-search: Search project by name or description.");
         System.out.println("task-clear: Remove all tasks.");
         System.out.println("task-create: Create new task.");
         System.out.println("task-list: Show all tasks.");
         System.out.println("task-update: Update task by id.");
+        System.out.println("task-update-status: Update project status by id.");
         System.out.println("exit: Exit");
     }
 

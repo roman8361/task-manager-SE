@@ -2,6 +2,7 @@ package ru.kravchenko.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.kravchenko.tm.exception.UserNotCorrectInputException;
 
 /**
  * @author Roman Kravchenko
@@ -33,7 +34,11 @@ public interface IUserService {
     void authorization(
             @Nullable final String login,
             @Nullable final String password
-    );
+    ) throws UserNotCorrectInputException;
+
+    boolean checkAuthorization(@Nullable final String login,
+                               @Nullable final String password
+    ) throws UserNotCorrectInputException;
 
     void logout(@Nullable final String login);
 

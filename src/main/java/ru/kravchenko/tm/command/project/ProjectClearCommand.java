@@ -21,9 +21,9 @@ public class ProjectClearCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("Please enter your login: ");
-        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
-        final @NotNull String userLogin = terminalService.nextLine();
-        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
+        @NotNull final String userLogin = terminalService.nextLine();
+        @NotNull final IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)){
             removeAllProject();
             System.out.println("You remove all project");
@@ -33,7 +33,7 @@ public class ProjectClearCommand extends AbstractCommand {
     }
 
     private void removeAllProject(){
-        final @NotNull IProjectRepository projectRepository = serviceLocator.getProjectRepository();
+        @NotNull final IProjectRepository projectRepository = serviceLocator.getProjectRepository();
         projectRepository.removeAllProject();
     }
 

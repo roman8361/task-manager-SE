@@ -7,10 +7,7 @@ import ru.kravchenko.tm.command.additional.AboutCommand;
 import ru.kravchenko.tm.command.additional.ExitCommand;
 import ru.kravchenko.tm.command.additional.ReferenceCommand;
 import ru.kravchenko.tm.command.project.*;
-import ru.kravchenko.tm.command.task.TaskClearCommand;
-import ru.kravchenko.tm.command.task.TaskCreateCommand;
-import ru.kravchenko.tm.command.task.TaskReadCommand;
-import ru.kravchenko.tm.command.task.TaskUpdateCommand;
+import ru.kravchenko.tm.command.task.*;
 import ru.kravchenko.tm.command.user.*;
 
 /**
@@ -24,9 +21,10 @@ public class App {
 
             ProjectAddToUser.class, ProjectClearCommand.class, ProjectCreateCommand.class,
             ProjectReadCommand.class, ProjectRemoveCommand.class, ProjectUpdateCommand.class,
+            ProjectUpdateStatusCommand.class, ProjectSearchCommand.class,
 
             TaskClearCommand.class, TaskCreateCommand.class, TaskReadCommand.class,
-            TaskUpdateCommand.class,
+            TaskUpdateCommand.class, TaskUpdateStatusCommand.class,
 
             UserAuthorizationCommand.class, UserChangePasswordCommand.class, UserChangeProfileCommand.class,
             UserLogoutCommand.class, UserRegistryCommand.class, UserShowDateBaseCommand.class,

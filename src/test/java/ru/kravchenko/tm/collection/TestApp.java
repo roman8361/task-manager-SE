@@ -34,6 +34,7 @@ public class TestApp {
         towns.put(UUID.randomUUID().toString(), "Мурманск");
         towns.put(UUID.randomUUID().toString(), "Нижневартовск");
         towns.put(UUID.randomUUID().toString(), "Хабаровск");
+
         System.out.println(towns);
     }
 

@@ -13,7 +13,7 @@ import ru.kravchenko.tm.repository.UserRepositoryBean;
  * @author Roman Kravchenko
  */
 
-public class ServiceLocatorBean implements IServiceLocator {
+public class LocatorServiceBean implements IServiceLocator {
 
     @NotNull
     private final ITerminalService terminalService = new TerminalService();

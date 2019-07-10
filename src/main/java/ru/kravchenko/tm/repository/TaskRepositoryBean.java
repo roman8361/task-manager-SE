@@ -4,10 +4,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.reposiroty.ITaskRepository;
 import ru.kravchenko.tm.entity.Task;
+import ru.kravchenko.tm.sort.ComparatorTaskStatus;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Roman Kravchenko
@@ -31,7 +30,8 @@ public class TaskRepositoryBean implements ITaskRepository {
 
     @Override
     public void showAllTask() {
-        System.out.println(findAll());
+        System.out.println("SORT BY ADD TO REPOSITORY");
+        for (final Task task : findAll()) System.out.println(task);
     }
 
     @Override
@@ -52,5 +52,21 @@ public class TaskRepositoryBean implements ITaskRepository {
         taskRepository.put(id, task);
     }
 
+    @Override
+    public void sortByStatus() {
+        System.out.println("SORT BY STATUS");
+        @NotNull final List<Task> list = new ArrayList<>();
+        for (Map.Entry<String, Task> map : taskRepository.entrySet()) {
+            list.add(map.getValue());
+        }
+        Collections.sort(list, new ComparatorTaskStatus());
+        for (@Nullable final Task task : list) System.out.println(task);
+    }
+
+    @Override
+    public boolean existTask(@Nullable final String taskId) {
+        if (taskId == null || taskId.isEmpty()) return false;
+        return taskRepository.containsKey(taskId);
+    }
 
 }

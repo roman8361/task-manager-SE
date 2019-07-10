@@ -22,7 +22,7 @@ public class UserShowDateBaseCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final @NotNull UserRepositoryBean userRepositoryBean = (UserRepositoryBean) serviceLocator.getUserRepository();
+        @NotNull final UserRepositoryBean userRepositoryBean = (UserRepositoryBean) serviceLocator.getUserRepository();
         userRepositoryBean.showAllUsers(userRepositoryBean.getUsersBaseDate());
     }
 

@@ -3,6 +3,7 @@ package ru.kravchenko.tm.api.reposiroty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.entity.Project;
+
 import java.util.Collection;
 
 /**
@@ -24,5 +25,13 @@ public interface IProjectRepository {
     void removeAllProject();
 
     void addProject(@Nullable final String projectId, @Nullable final Project project);
+
+    void sortByDateBegin();
+
+    void sortByDateEnd();
+
+    void sortByStatus();
+
+    boolean existProject(@NotNull final String id);
 
 }

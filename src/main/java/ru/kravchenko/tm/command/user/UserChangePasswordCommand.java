@@ -26,9 +26,9 @@ public class UserChangePasswordCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("Please enter your login: ");
-        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
         userLogin = terminalService.nextLine();
-        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
+        @NotNull final IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)){
             changePassword();
             return;
@@ -38,9 +38,9 @@ public class UserChangePasswordCommand extends AbstractCommand {
 
     private void changePassword() {
         System.out.println("Please enter old password: ");
-        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
-        final @NotNull String oldPassword = terminalService.nextLine();
-        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
+        @NotNull final String oldPassword = terminalService.nextLine();
+        @NotNull final IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.check(userLogin, DigestUtils.md5Hex(oldPassword))) {
             System.out.println("Please enter new password: ");
             final @NotNull String newPassword = terminalService.nextLine();

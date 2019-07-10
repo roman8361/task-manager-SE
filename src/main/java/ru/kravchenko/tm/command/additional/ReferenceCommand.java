@@ -22,7 +22,7 @@ public class ReferenceCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final @NotNull ProjectServiceBean projectRepositoryBean = (ProjectServiceBean) serviceLocator.getProjectService();
+        @NotNull final ProjectServiceBean projectRepositoryBean = (ProjectServiceBean) serviceLocator.getProjectService();
         projectRepositoryBean.showAllCommand();
     }
 

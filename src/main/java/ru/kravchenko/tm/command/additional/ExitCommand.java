@@ -18,7 +18,7 @@ public class ExitCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final @NotNull IProjectService projectServiceBean = serviceLocator.getProjectService();
+        @NotNull final IProjectService projectServiceBean = serviceLocator.getProjectService();
         projectServiceBean.exit(); }
 
 }

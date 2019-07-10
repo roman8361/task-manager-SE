@@ -2,6 +2,7 @@ package ru.kravchenko.tm.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.AbstractEntity;
 
@@ -30,16 +31,19 @@ public class Project extends AbstractEntity {
     @Nullable
     private Date dateEnd;
 
+    @NotNull
+    private StatusProjectTask displayName = StatusProjectTask.PLANNED;
+
     @Override
     public String toString() {
-        String pattern = "dd.MM.yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String dateBering = simpleDateFormat.format(this.dateBegin);
-        String dateEnd = simpleDateFormat.format(this.dateEnd);
+        @NotNull final String pattern = "dd.MM.yyyy";
+        @NotNull final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        @NotNull final String dateBering = simpleDateFormat.format(this.dateBegin);
+        @NotNull final String dateEnd = simpleDateFormat.format(this.dateEnd);
 
         return "PROJECT NAME: \"" + this.name + "\" DESCRIPTION PROJECT: \"" + this.description + "\" "
                 + "PROJECT ID: \"" + super.getId() + "\" DATE BEGIN: \"" + dateBering + "\" DATE END: \""
-                + dateEnd + "\"";
+                + dateEnd + "\"" + " STATUS: " + this.displayName;
     }
 
 }

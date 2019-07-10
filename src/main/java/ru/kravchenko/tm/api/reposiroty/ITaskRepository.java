@@ -26,4 +26,8 @@ public interface ITaskRepository {
 
     void addTask(@Nullable final String id, final Task task);
 
+    public void sortByStatus();
+
+    boolean existTask(@Nullable final String taskId);
+
 }

@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 /**
- * Unit test for simple App.
+ * Unit test for simple ExceptionTest.
  */
 
 public class AppTest {

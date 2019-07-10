@@ -55,4 +55,10 @@ public class UserRepositoryBean implements IUserRepository {
         return map.values();
     }
 
+    @Override
+    public boolean existUser(@NotNull final String userLogin) {
+        assert usersLoginBase != null;
+        return usersLoginBase.containsKey(userLogin);
+    }
+
 }

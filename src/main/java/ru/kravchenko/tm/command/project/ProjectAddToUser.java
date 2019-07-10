@@ -4,6 +4,10 @@ import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.api.service.ITerminalService;
 import ru.kravchenko.tm.api.service.IUserService;
+import ru.kravchenko.tm.exception.ProjectNotFoundException;
+import ru.kravchenko.tm.exception.UserNotFoundException;
+import ru.kravchenko.tm.repository.ProjectRepositoryBean;
+import ru.kravchenko.tm.repository.UserRepositoryBean;
 import ru.kravchenko.tm.service.ProjectServiceBean;
 
 /**
@@ -24,10 +28,10 @@ public class ProjectAddToUser extends AbstractCommand {
 
     @Override
     public void execute() {
-        final  @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
         System.out.println("Please enter your login: ");
-        final @NotNull String userLogin = terminalService.nextLine();
-        final @NotNull IUserService userServiceBean  = serviceLocator.getUserService();
+        @NotNull final String userLogin = terminalService.nextLine();
+        @NotNull final IUserService userServiceBean  = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)){
             addProjectToIdUser();
             return;
@@ -36,12 +40,30 @@ public class ProjectAddToUser extends AbstractCommand {
     }
 
     private void addProjectToIdUser() {
-        final  @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
         System.out.println("Please enter user login: ");
-        final @NotNull String userId = terminalService.nextLine();
+        @NotNull final String userId = terminalService.nextLine();
+        @NotNull final UserRepositoryBean userRepositoryBean = (UserRepositoryBean) serviceLocator.getUserRepository();
+        if (!userRepositoryBean.existUser(userId)){
+            try {
+                throw new UserNotFoundException();
+            } catch (UserNotFoundException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
         System.out.println("Please enter id project: ");
-        final @NotNull String projectId = terminalService.nextLine();
-        final@NotNull ProjectServiceBean projectServiceBean = (ProjectServiceBean) serviceLocator.getProjectService();
+        @NotNull final String projectId = terminalService.nextLine();
+        @NotNull final ProjectRepositoryBean projectRepositoryBean = (ProjectRepositoryBean) serviceLocator.getProjectRepository();
+        if (!projectRepositoryBean.existProject(projectId)) {
+            try {
+                throw new ProjectNotFoundException();
+            } catch (@NotNull final ProjectNotFoundException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+        @NotNull final ProjectServiceBean projectServiceBean = (ProjectServiceBean) serviceLocator.getProjectService();
         projectServiceBean.addProjectToUser(userId, projectId);
     }
 

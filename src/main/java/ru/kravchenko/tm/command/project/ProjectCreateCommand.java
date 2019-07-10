@@ -21,9 +21,9 @@ public class ProjectCreateCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("Please enter your login: ");
-        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
-        final @NotNull String userLogin = terminalService.nextLine();
-        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
+        @NotNull final String userLogin = terminalService.nextLine();
+        @NotNull final IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)){
             createProject();
             return;
@@ -32,12 +32,12 @@ public class ProjectCreateCommand extends AbstractCommand {
     }
 
     private void createProject() {
-        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
+        @NotNull final ITerminalService terminalService = serviceLocator.getTerminalService();
         System.out.println("Please enter project name: ");
-        final @NotNull String nameProject = terminalService.nextLine();
+        @NotNull final String nameProject = terminalService.nextLine();
         System.out.println("Please enter description for project: ");
-        final @NotNull String descriptionProject = terminalService.nextLine();
-        final @NotNull IProjectService projectServiceBean = serviceLocator.getProjectService();
+        @NotNull final String descriptionProject = terminalService.nextLine();
+        @NotNull final IProjectService projectServiceBean = serviceLocator.getProjectService();
         projectServiceBean.createProject(nameProject, descriptionProject);
     }
 

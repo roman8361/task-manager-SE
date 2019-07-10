@@ -24,7 +24,7 @@ public class UserLogoutCommand extends AbstractCommand {
     public void execute() {
         System.out.println("Please enter login: ");
         final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
-        final String userLogin = terminalService.nextLine();
+        final @NotNull String userLogin = terminalService.nextLine();
         final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
         userServiceBean.logout(userLogin);
     }

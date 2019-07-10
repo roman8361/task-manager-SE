@@ -1,6 +1,8 @@
 package ru.kravchenko.tm.api.service;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import ru.kravchenko.tm.entity.StatusProjectTask;
+
 import java.util.Date;
 
 /**
@@ -9,12 +11,13 @@ import java.util.Date;
 
 public interface IProjectService {
 
-    void createProject(@Nullable final String projectName,
-                       @Nullable final String projectDescription);
+    void createProject(@NotNull final String projectName,
+                       @NotNull final String projectDescription);
 
     void showAllCommand();
 
-    void addProjectToUser(@Nullable final String userId, @Nullable final String projectId);
+    void addProjectToUser(@NotNull final String userId,
+                          @NotNull final String projectId);
 
     void exit();
 
@@ -22,8 +25,17 @@ public interface IProjectService {
 
     Date addDateEndProject();
 
-    void updateProject(@Nullable final String projectId,
-                       @Nullable final String newProjectName,
-                       @Nullable final String newDescription);
+    void updateProject(@NotNull final String projectId,
+                       @NotNull final String newProjectName,
+                       @NotNull final String newDescription);
+
+    void updateStatusProject(@NotNull final String projectId,
+                             @NotNull final StatusProjectTask projectStatus);
+
+    void showAllProjectByAdd();
+
+    void searchInName(@NotNull final String text);
+
+    void searchInDescription(@NotNull final String text);
 
 }
