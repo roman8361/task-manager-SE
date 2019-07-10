@@ -9,7 +9,9 @@ import ru.kravchenko.tm.api.AbstractCommand;
 public class AboutCommand extends AbstractCommand {
 
     @Override
-    public String getName() { return "about"; }
+    public String getName() {
+        return "about";
+    }
 
     @Override
     public void getDescription() {

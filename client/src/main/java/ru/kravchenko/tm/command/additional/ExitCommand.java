@@ -9,10 +9,14 @@ import ru.kravchenko.tm.api.AbstractCommand;
 public class ExitCommand extends AbstractCommand {
 
     @Override
-    public String getName() { return "exit"; }
+    public String getName() {
+        return "exit";
+    }
 
     @Override
-    public void getDescription() { System.out.println("exit: Exit"); }
+    public void getDescription() {
+        System.out.println("exit: Exit");
+    }
 
     @Override
     public void execute() {

@@ -52,55 +52,29 @@ public class ProjectEndpoint implements IProjectEndpoint {
     public void removeProject(@WebParam(name = "session") @NotNull final Session session,
                               @WebParam(name = "projectId") @NotNull final String projectId) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-        serviceLocator.getProjectRepository().removeById(projectId);
+        serviceLocator.getProjectService().removeById(projectId);
     }
 
     @Override
     public Project findOneProject(@NotNull final Session session,
                                   @NotNull final String projectId) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-        return serviceLocator.getProjectRepository().findById(projectId);
+        return serviceLocator.getProjectService().findById(projectId);
     }
 
     @Override
     @WebMethod
     public void removeAllProject(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-        serviceLocator.getProjectRepository().removeAllProjectByUserId(session.getUserId());
+        serviceLocator.getProjectService().removeAllProjectByUserId(session.getUserId());
     }
 
     @Override
     @WebMethod
     public Collection<Project> showAllProject(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-        final Collection<Project> result = serviceLocator.getProjectRepository().findAllProjectByUserId(session.getUserId());
+        final Collection<Project> result = serviceLocator.getProjectService().findAllProjectByUserId(session.getUserId());
         return result;
     }
-
-
-//
-//    @Override
-//    @WebMethod
-//    public Collection<Project> sortByStatus(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException {
-//        serviceLocator.getSessionService().validate(session);
-//        final Collection<Project> result = serviceLocator.getProjectRepository().sortByStatus(session.getUserId());
-//        return result;
-//    }
-//
-//    @Override
-//    @WebMethod
-//    public Collection<Project> sortByDateBegin(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException {
-//        serviceLocator.getSessionService().validate(session);
-//        final Collection<Project> result = serviceLocator.getProjectRepository().sortByDateBegin(session.getUserId());
-//        return result;
-//    }
-//
-//    @Override
-//    @WebMethod
-//    public Collection<Project> sortByDateEnd(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException {
-//        serviceLocator.getSessionService().validate(session);
-//        final Collection<Project> result = serviceLocator.getProjectRepository().sortByDateEnd(session.getUserId());
-//        return result;
-//    }
 
 }

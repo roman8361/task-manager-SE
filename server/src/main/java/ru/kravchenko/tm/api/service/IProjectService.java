@@ -1,35 +1,46 @@
 package ru.kravchenko.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import ru.kravchenko.tm.entity.Project;
 import ru.kravchenko.tm.entity.Session;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
 
-import java.util.Date;
+import java.util.List;
 
 /**
  * @author Roman Kravchenko
  */
 
+
 public interface IProjectService {
 
-    void createProject(@NotNull final Session session,
-                       @NotNull final String projectName,
-                       @NotNull final String projectDescription) throws AccessForbiddenException;
+    List<Project> findAll();
 
-    void exit();
+    List<String> ids();
 
-    Date addDateBeginProject();
+    Project findById(String id);
 
-    Date addDateEndProject();
+    List<Project> findAllProjectByUserId(String userId);
 
-    void updateProject(@NotNull final String projectId,
-                       @NotNull final String newProjectName,
-                       @NotNull final String newDescription,
-                       @NotNull final Session session);
+    void removeById(String id);
 
-    public void updateStatusProject(@Nullable final String projectId,
-                                    @NotNull final String projectStatus);
+    void removeAllProjectByUserId(String userId);
 
+    void insert(Project project);
+
+    void clear();
+
+    public void commit();
+
+    public void roolback();
+
+    public void createProject(@NotNull final Session session,
+                              @NotNull final String nameProject,
+                              @NotNull final String descriptionProject) throws AccessForbiddenException;
+
+    public void updateProject(@NotNull final String projectId,
+                              @NotNull final String newProjectName,
+                              @NotNull final String newDescription,
+                              @NotNull final Session session);
 
 }

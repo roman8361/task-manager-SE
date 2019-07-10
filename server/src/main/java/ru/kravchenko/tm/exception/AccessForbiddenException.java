@@ -6,6 +6,6 @@ package ru.kravchenko.tm.exception;
 
 public class AccessForbiddenException extends Exception {
 
-    public AccessForbiddenException(String message) { super("Access Forbidden Exception"); }
+    public AccessForbiddenException(final String message) { super("Access Forbidden Exception"); }
 
 }

@@ -27,7 +27,7 @@ public class UserRegistryCommand extends AbstractCommand {
         @NotNull final UserEndpoint userEndpoint = serviceLocator.getUserEndpoint();
 
         try {
-            userEndpoint.registryUser("roman", "roman");
+            userEndpoint.registryUser("roma", "roma");
         } catch (UserLoginBusyException_Exception e) {
             e.printStackTrace();
             return;

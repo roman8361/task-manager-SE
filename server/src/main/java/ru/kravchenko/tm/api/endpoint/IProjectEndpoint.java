@@ -18,10 +18,10 @@ import java.util.Collection;
 @WebService
 public interface IProjectEndpoint {
     @WebMethod
-    void editProject  (@WebParam(name = "session") @NotNull final Session session,
-                       @WebParam(name = "projectId") @NotNull final String id,
-                       @WebParam(name = "name") @NotNull final String name,
-                       @WebParam(name = "description") @NotNull final String description
+    void editProject(@WebParam(name = "session") @NotNull final Session session,
+                     @WebParam(name = "projectId") @NotNull final String id,
+                     @WebParam(name = "name") @NotNull final String name,
+                     @WebParam(name = "description") @NotNull final String description
     ) throws AccessForbiddenException;
 
 
@@ -29,7 +29,7 @@ public interface IProjectEndpoint {
     void createProject(@WebParam(name = "session") @NotNull final Session session,
                        @WebParam(name = "name") @NotNull final String name,
                        @WebParam(name = "description") @NotNull final String description
-    )throws AccessForbiddenException;
+    ) throws AccessForbiddenException;
 
     @WebMethod
     void removeProject(@WebParam(name = "session") @NotNull final Session session,

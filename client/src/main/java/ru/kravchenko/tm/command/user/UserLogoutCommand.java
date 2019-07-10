@@ -33,6 +33,7 @@ public class UserLogoutCommand extends AbstractCommand {
         }
         serviceLocator.getUserEndpoint().logout(session);
         System.out.println("Come back later...");
+        System.exit(0);
     }
 
 }

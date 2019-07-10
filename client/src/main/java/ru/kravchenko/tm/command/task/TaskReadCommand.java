@@ -26,7 +26,7 @@ public class TaskReadCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(){
+    public void execute() {
         @NotNull final TaskEndpoint taskEndpoint = serviceLocator.getTaskEndpoint();
         @NotNull final Session session = serviceLocator.getSession();
         try {

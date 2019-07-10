@@ -13,16 +13,21 @@ import ru.kravchenko.tm.endpoint.Session;
 public class ProjectCreateCommand extends AbstractCommand {
 
     @Override
-    public String getName() { return "project-create"; }
+    public String getName() {
+        return "project-create";
+    }
 
     @Override
-    public void getDescription() { System.out.println("project-create: Create new project."); }
+    public void getDescription() {
+        System.out.println("project-create: Create new project.");
+    }
 
     @Override
 
     public void execute() {
         @NotNull final ProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
         @NotNull final Session session = serviceLocator.getSession();
+        System.out.println("SESSION ID: " + session.getId());
         try {
             serviceLocator.getSessionEndpoint().validateSession(session);
         } catch (AccessForbiddenException_Exception e) {
@@ -31,7 +36,7 @@ public class ProjectCreateCommand extends AbstractCommand {
         }
 
         try {
-            projectEndpoint.createProject(serviceLocator.getSession(),"22222", "dfsdasdad");
+            projectEndpoint.createProject(serviceLocator.getSession(), "22222", "dfsdasdad");
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;

@@ -44,7 +44,7 @@ public class TaskEndpoint implements ITaskEndpoint {
     public void removeTask(@NotNull final Session session,
                            @NotNull final String id) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-        serviceLocator.getTaskRepository().removeById(id);
+        serviceLocator.getTaskService().removeById(id);
     }
 
     @Override
@@ -52,21 +52,20 @@ public class TaskEndpoint implements ITaskEndpoint {
     public Task findOneTask(@NotNull final Session session,
                             @NotNull final String id) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-        return serviceLocator.getTaskRepository().findById(id);
+        return serviceLocator.getTaskService().findById(id);
     }
 
     @Override
     public Collection<Task> getAllTaskByUserId(@NotNull final Session session,
                                                @NotNull final String userId) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-        return serviceLocator.getTaskRepository().findAllTaskByUserId(userId);
+        return serviceLocator.getTaskService().findAllTaskByUserId(userId);
     }
 
     @Override
     public void removeAllTaskByUserId(@NotNull final Session session) throws AccessForbiddenException {
         serviceLocator.getSessionService().validate(session);
-        serviceLocator.getTaskRepository().removeAllTaskByUserId(session.getUserId());
+        serviceLocator.getTaskService().removeAllTaskByUserId(session.getUserId());
     }
-
 
 }

@@ -24,8 +24,7 @@ public class ProjectReadCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(){
-
+    public void execute() {
         try {
             serviceLocator.getSessionEndpoint().validateSession(serviceLocator.getSession());
         } catch (AccessForbiddenException_Exception e) {

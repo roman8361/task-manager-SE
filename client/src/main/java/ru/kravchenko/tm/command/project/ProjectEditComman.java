@@ -36,7 +36,7 @@ public class ProjectEditComman extends AbstractCommand {
         String idProject = serviceLocator.getTerminalService().nextLine();
 
         try {
-            projectEndpoint.editProject(session, idProject, "new name", "new descr" );
+            projectEndpoint.editProject(session, idProject, "new name", "new descr");
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;

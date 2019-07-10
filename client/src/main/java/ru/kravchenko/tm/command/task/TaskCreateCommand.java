@@ -26,6 +26,7 @@ public class TaskCreateCommand extends AbstractCommand {
     public void execute() {
         @NotNull final TaskEndpoint taskEndpoint = serviceLocator.getTaskEndpoint();
         @NotNull final Session session = serviceLocator.getSession();
+        System.out.println("SESSIO ID: " + session.getId());
         try {
             serviceLocator.getSessionEndpoint().validateSession(session);
         } catch (AccessForbiddenException_Exception e) {

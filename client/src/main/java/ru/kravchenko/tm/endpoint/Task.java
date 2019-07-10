@@ -24,7 +24,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="dateBegin" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="dateEnd" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
- *         &lt;element name="displayName" type="{http://endpoint.tm.kravchenko.ru/}statusProjectTask" minOccurs="0"/&gt;
+ *         &lt;element name="status" type="{http://endpoint.tm.kravchenko.ru/}statusProjectTask" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
@@ -41,7 +41,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "description",
     "dateBegin",
     "dateEnd",
-    "displayName"
+    "status"
 })
 public class Task
     extends AbstractEntity
@@ -56,7 +56,7 @@ public class Task
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateEnd;
     @XmlSchemaType(name = "string")
-    protected StatusProjectTask displayName;
+    protected StatusProjectTask status;
 
     /**
      * Gets the value of the projectId property.
@@ -203,27 +203,27 @@ public class Task
     }
 
     /**
-     * Gets the value of the displayName property.
+     * Gets the value of the status property.
      * 
      * @return
      *     possible object is
      *     {@link StatusProjectTask }
      *     
      */
-    public StatusProjectTask getDisplayName() {
-        return displayName;
+    public StatusProjectTask getStatus() {
+        return status;
     }
 
     /**
-     * Sets the value of the displayName property.
+     * Sets the value of the status property.
      * 
      * @param value
      *     allowed object is
      *     {@link StatusProjectTask }
      *     
      */
-    public void setDisplayName(StatusProjectTask value) {
-        this.displayName = value;
+    public void setStatus(StatusProjectTask value) {
+        this.status = value;
     }
 
 }

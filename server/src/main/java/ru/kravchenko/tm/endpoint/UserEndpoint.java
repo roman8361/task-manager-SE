@@ -38,7 +38,7 @@ public class UserEndpoint implements IUserEndpoint {
     @Override
     @WebMethod
     public void authorization(@WebParam(name = "login") final String login,
-                              @WebParam(name = "password") final String password) throws UserNotFoundException  {
+                              @WebParam(name = "password") final String password) throws UserNotFoundException {
         serviceLocator.getUserService().authorization(login, password);
         System.out.println("USER AUTORIZATION: " + login);
     }
@@ -47,7 +47,7 @@ public class UserEndpoint implements IUserEndpoint {
     @WebMethod
     public void logout(@WebParam(name = "session") @NotNull final Session session) {
         System.out.println("ID SESSION: " + session.getId());
-        serviceLocator.getUserService().logout(session.getUserId());
+        serviceLocator.getSessionService().removeById(session.getId());
         System.out.println("USER LOGOUT");
     }
 

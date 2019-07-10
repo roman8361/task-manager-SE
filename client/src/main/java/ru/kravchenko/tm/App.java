@@ -13,7 +13,6 @@ import ru.kravchenko.tm.command.task.TaskReadCommand;
 import ru.kravchenko.tm.command.user.UserAuthorizationCommand;
 import ru.kravchenko.tm.command.user.UserLogoutCommand;
 import ru.kravchenko.tm.command.user.UserRegistryCommand;
-import ru.kravchenko.tm.endpoint.RegistryUser;
 
 /**
  * @author Roman Kravchenko

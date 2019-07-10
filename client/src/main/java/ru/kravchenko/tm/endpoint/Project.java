@@ -23,7 +23,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="dateBegin" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="dateEnd" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="status" type="{http://endpoint.tm.kravchenko.ru/}statusProjectTask" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
@@ -52,7 +52,8 @@ public class Project
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateEnd;
     protected String userId;
-    protected String status;
+    @XmlSchemaType(name = "string")
+    protected StatusProjectTask status;
 
     /**
      * Gets the value of the name property.
@@ -179,10 +180,10 @@ public class Project
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link StatusProjectTask }
      *     
      */
-    public String getStatus() {
+    public StatusProjectTask getStatus() {
         return status;
     }
 
@@ -191,10 +192,10 @@ public class Project
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link StatusProjectTask }
      *     
      */
-    public void setStatus(String value) {
+    public void setStatus(StatusProjectTask value) {
         this.status = value;
     }
 

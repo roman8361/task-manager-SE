@@ -43,23 +43,7 @@ public class Project extends AbstractEntity implements Serializable {
     private String userId;
 
     @NotNull
-    private String status = "PLANED";
-
-    public Project(@Nullable final String name) {
-        this.name = name;
-    }
-
-    public Date getDateBeginSql() {
-        dateBegin = new Date();
-        java.sql.Date sqlDate = new java.sql.Date(dateBegin.getTime());
-        return sqlDate;
-    }
-
-    public Date getDateEndSql() {
-        dateEnd = new Date();
-        java.sql.Date sqlDate = new java.sql.Date(dateEnd.getTime());
-        return sqlDate;
-    }
+    private StatusProjectTask status = StatusProjectTask.PLANNED;
 
     @Override
     public String toString() {

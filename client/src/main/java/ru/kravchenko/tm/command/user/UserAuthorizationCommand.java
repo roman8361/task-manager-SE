@@ -29,13 +29,13 @@ public class UserAuthorizationCommand extends AbstractCommand {
         @NotNull final UserEndpoint userEndpoint = serviceLocator.getUserEndpoint();
         @NotNull final SessionEndpoint sessionEndpoint = serviceLocator.getSessionEndpoint();
         try {
-            userEndpoint.authorization("roman", "roman");
+            userEndpoint.authorization("roma", "roma");
         } catch (UserNotFoundException_Exception e) {
             e.printStackTrace();
             return;
         }
         try {
-            serviceLocator.setSession(sessionEndpoint.openSession("roman"));
+            serviceLocator.setSession(sessionEndpoint.openSession("roma"));
         } catch (SessionNotFoundException_Exception e) {
             e.printStackTrace();
             return;

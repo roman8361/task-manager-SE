@@ -26,12 +26,6 @@ public class Session extends AbstractEntity {
     @Nullable
     private Date timestamp;
 
-    public Date getTimestampSql() {
-        timestamp = new Date();
-        java.sql.Date sqlDate = new java.sql.Date(timestamp.getTime());
-        return sqlDate;
-    }
-
     @Override
     public String toString() {
         return "Session{" +

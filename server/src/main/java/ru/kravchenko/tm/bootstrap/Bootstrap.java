@@ -31,15 +31,16 @@ public class Bootstrap {
     private IUserEndpoint userEndpoint = new UserEndpoint(serviceLocator);
 
     @NotNull
-    private IProjectEndpoint projectEndpoint = new ProjectEndpoint(serviceLocator);
+    private ISessionEndpoint sessionEndpoint = new SessionEndpoint(serviceLocator);
 
     @NotNull
-    private ISessionEndpoint sessionEndpoint = new SessionEndpoint(serviceLocator);
+    private IProjectEndpoint projectEndpoint = new ProjectEndpoint(serviceLocator);
 
     @NotNull
     private ITaskEndpoint taskEndpoint = new TaskEndpoint(serviceLocator);
 
-    public Bootstrap() throws Exception {  }
+    public Bootstrap() throws Exception {
+    }
 
     private void registry(final Object endpoint) {
         if (endpoint == null) return;
