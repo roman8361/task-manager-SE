@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.reposiroty.IUserRepository;
 import ru.kravchenko.tm.entity.User;
+
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,20 +27,20 @@ public class UserRepositoryBean implements IUserRepository {
 
 
     @Override
-    public @Nullable User findByLogin(@Nullable final String login, final Map map) {
+    public @Nullable User findByLogin(@Nullable final String login, final @Nullable Map map) {
         final User user = (User) map.get(login);
         return user;
     }
 
     @Override
-    public void showAllUsers(final Map map) {
+    public void showAllUsers(final @Nullable Map map) {
         System.out.println(findAll(map));
     }
 
     @Override
     public void addUser(@Nullable final String userLogin,
-                        final User user,
-                        final Map map) {
+                        @Nullable final User user,
+                        @Nullable final Map map) {
         map.put(userLogin, user);
     }
 
@@ -50,7 +51,7 @@ public class UserRepositoryBean implements IUserRepository {
     }
 
     @Override
-    public @NotNull Collection<User> findAll(Map map) {
+    public @NotNull Collection<User> findAll(final @Nullable Map map) {
         return map.values();
     }
 

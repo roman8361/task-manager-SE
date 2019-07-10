@@ -2,7 +2,6 @@ package ru.kravchenko.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.api.service.ITerminalService;
 import ru.kravchenko.tm.api.service.IUserService;
 
@@ -11,21 +10,6 @@ import ru.kravchenko.tm.api.service.IUserService;
  */
 
 public class UserRegistryCommand extends AbstractCommand {
-
-    @NotNull
-    private final IServiceLocator serviceLocator;
-
-    @NotNull
-    private final ITerminalService terminalService;
-
-    @NotNull
-    private final IUserService userServiceBean;
-
-    public UserRegistryCommand(final @NotNull IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-        this.terminalService = serviceLocator.getTerminalService();
-        this.userServiceBean = serviceLocator.getUserService();
-    }
 
     @Override
     public String getName() { return "user-registry"; }
@@ -36,9 +20,11 @@ public class UserRegistryCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("Please enter your login: ");
-        final String userLogin = terminalService.nextLine();
+        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
+        final @NotNull String userLogin = terminalService.nextLine();
         System.out.println("Please enter your password: ");
-        final String userPassword= terminalService.nextLine();
+        final @NotNull String userPassword= terminalService.nextLine();
+        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
         if(userServiceBean.registry(userLogin, userPassword)) return;
         System.out.println("Sorry, login is busy...try again.");
     }

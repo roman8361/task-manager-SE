@@ -4,7 +4,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.api.service.ITerminalService;
 import ru.kravchenko.tm.api.service.IUserService;
 
@@ -15,21 +14,6 @@ public class UserChangeProfileCommand extends AbstractCommand {
 
     @Nullable
     private String userLogin;
-
-    @Nullable
-    private final IServiceLocator serviceLocator;
-
-    @NotNull
-    private final ITerminalService terminalService;
-
-    @NotNull
-    private final IUserService userServiceBean;
-
-    public UserChangeProfileCommand(final @NotNull IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-        this.terminalService = serviceLocator.getTerminalService();
-        this.userServiceBean = serviceLocator.getUserService();
-    }
 
     @Override
     public String getName() { return "user-change-profile"; }
@@ -42,7 +26,9 @@ public class UserChangeProfileCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("Please enter your login: ");
+        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
         userLogin = terminalService.nextLine();
+        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)){
             changeProfileUser();
             return;
@@ -52,12 +38,14 @@ public class UserChangeProfileCommand extends AbstractCommand {
 
     private void changeProfileUser() {
         System.out.println("Please enter password: ");
-        final String oldPassword = terminalService.nextLine();
+        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
+        final @NotNull String oldPassword = terminalService.nextLine();
+        final @NotNull  IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.check(userLogin, DigestUtils.md5Hex(oldPassword))){
             System.out.println("Please enter new login: ");
-            final String newLogin = terminalService.nextLine();
+            final @NotNull String newLogin = terminalService.nextLine();
             System.out.println("Please enter new password: ");
-            final String newPassword = terminalService.nextLine();
+            final @NotNull String newPassword = terminalService.nextLine();
             userServiceBean.changeProfileUser(userLogin, newLogin, newPassword);
             return;
         }

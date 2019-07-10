@@ -25,11 +25,13 @@ public class ProjectServiceBean implements IProjectService {
     @NotNull
     private final IServiceLocator serviceLocator;
 
+    @NotNull
     private final ITerminalService terminalService;
 
-    @Nullable
+    @NotNull
     private final ProjectRepositoryBean projectRepository;
 
+    @NotNull
     private final UserRepositoryBean userRepositoryBean;
 
     public ProjectServiceBean(@NotNull final IServiceLocator serviceLocator) {
@@ -41,7 +43,7 @@ public class ProjectServiceBean implements IProjectService {
     }
 
     private void initProject() {
-        final Project project = new Project("testProject");
+        final @NotNull Project project = new Project("testProject");
         project.setDescription("setDescription");
         project.setDateBegin(new Date());
         project.setDateEnd(new Date());
@@ -50,7 +52,7 @@ public class ProjectServiceBean implements IProjectService {
 
     @Override
     public @NotNull void createProject(@Nullable final String nameProject, @Nullable final String descriptionProject) {
-        final Project project = new Project(nameProject);
+        final @NotNull Project project = new Project(nameProject);
         project.setDescription(descriptionProject);
         project.setDateBegin(addDateBeginProject());
         project.setDateEnd(addDateEndProject());
@@ -68,9 +70,9 @@ public class ProjectServiceBean implements IProjectService {
     @SneakyThrows
     public Date addDateBeginProject() {
         System.out.println("Please enter date begin project: (dd.MM.yyyy)");
-        final String dateBegin = terminalService.nextLine();
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        final Date newDate = simpleDateFormat.parse(dateBegin);
+        final @NotNull String dateBegin = terminalService.nextLine();
+        final @NotNull SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        final @NotNull Date newDate = simpleDateFormat.parse(dateBegin);
         return newDate;
     }
 
@@ -78,9 +80,9 @@ public class ProjectServiceBean implements IProjectService {
     @SneakyThrows
     public Date addDateEndProject() {
         System.out.println("Please enter date end project: (dd.MM.yyyy)");
-        final String dateEnd = terminalService.nextLine();
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        final Date endDate = simpleDateFormat.parse(dateEnd);
+        final @NotNull String dateEnd = terminalService.nextLine();
+        final @NotNull SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        final @NotNull Date endDate = simpleDateFormat.parse(dateEnd);
         return endDate;
     }
 
@@ -90,7 +92,7 @@ public class ProjectServiceBean implements IProjectService {
                               @Nullable final String newDescription) {
         if (projectId == null || projectId.isEmpty()) return;
         if (!projectRepository.existKeys(projectId)) return;
-        final Project project = new Project(newProjectName);
+        final @NotNull Project project = new Project(newProjectName);
         project.setDescription(newDescription);
         project.setDateBegin(addDateBeginProject());
         project.setDateEnd(addDateEndProject());
@@ -123,8 +125,8 @@ public class ProjectServiceBean implements IProjectService {
 
     @Override
     public void addProjectToUser(@Nullable final String userLogin, @Nullable final String projectId) {
-        final User user = userRepositoryBean.findByLogin(userLogin, userRepositoryBean.getUsersLoginBase());
-        final Map<String, User> usersBaseDateThisProject = new LinkedHashMap<>();
+        final @NotNull User user = userRepositoryBean.findByLogin(userLogin, userRepositoryBean.getUsersLoginBase());
+        final @NotNull Map<String, User> usersBaseDateThisProject = new LinkedHashMap<>();
         user.setProject(projectRepository.findOne(projectId));
         usersBaseDateThisProject.put(user.getLogin(), user);
         userRepositoryBean.setUsersBaseDate(usersBaseDateThisProject);

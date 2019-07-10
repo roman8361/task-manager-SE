@@ -2,10 +2,6 @@ package ru.kravchenko.tm.command.additional;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.api.reposiroty.IProjectRepository;
-import ru.kravchenko.tm.api.service.IProjectService;
-import ru.kravchenko.tm.api.service.IServiceLocator;
-import ru.kravchenko.tm.repository.ProjectRepositoryBean;
 import ru.kravchenko.tm.service.ProjectServiceBean;
 
 /**
@@ -13,13 +9,6 @@ import ru.kravchenko.tm.service.ProjectServiceBean;
  */
 
 public class ReferenceCommand extends AbstractCommand {
-
-    @NotNull
-    private final IServiceLocator serviceLocator;
-
-    public ReferenceCommand(final @NotNull IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-    }
 
     @Override
     public String getName() {
@@ -33,7 +22,7 @@ public class ReferenceCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        final ProjectServiceBean projectRepositoryBean = (ProjectServiceBean) serviceLocator.getProjectService();
+        final @NotNull ProjectServiceBean projectRepositoryBean = (ProjectServiceBean) serviceLocator.getProjectService();
         projectRepositoryBean.showAllCommand();
     }
 

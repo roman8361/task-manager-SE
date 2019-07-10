@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.reposiroty.IProjectRepository;
 import ru.kravchenko.tm.entity.Project;
+
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class ProjectRepositoryBean implements IProjectRepository {
     private final Map<String, Project> projectRepository = new LinkedHashMap<>();
 
     @Override
-    public @NotNull Collection<Project> findAll() {
+    public @Nullable Collection<Project> findAll() {
         return projectRepository.values();
     }
 
@@ -32,7 +33,7 @@ public class ProjectRepositoryBean implements IProjectRepository {
     }
 
     @Override
-    public @NotNull Project findOne(@Nullable final String id) {
+    public @Nullable Project findOne(@Nullable final String id) {
         if (id == null || id.isEmpty()) return null;
         return projectRepository.get(id);
     }

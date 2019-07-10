@@ -3,7 +3,6 @@ package ru.kravchenko.tm.command.project;
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.api.service.IProjectService;
-import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.api.service.ITerminalService;
 import ru.kravchenko.tm.api.service.IUserService;
 
@@ -12,25 +11,6 @@ import ru.kravchenko.tm.api.service.IUserService;
  */
 
 public class ProjectUpdateCommand extends AbstractCommand {
-
-    @NotNull
-    private final IServiceLocator serviceLocator;
-
-    @NotNull
-    private final ITerminalService terminalService;
-
-    @NotNull
-    private final IUserService userServiceBean;
-
-    @NotNull
-    private final IProjectService projectServiceBean;
-
-    public ProjectUpdateCommand(@NotNull final IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-        this.terminalService = serviceLocator.getTerminalService();
-        this.userServiceBean = serviceLocator.getUserService();
-        this.projectServiceBean = serviceLocator.getProjectService();
-    }
 
     @Override
     public String getName() { return "project-update"; }
@@ -43,7 +23,9 @@ public class ProjectUpdateCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("Please enter your login: ");
-        final String userLogin = terminalService.nextLine();
+        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
+        final @NotNull String userLogin = terminalService.nextLine();
+        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)){
             update();
             System.out.println("You remove all project");
@@ -54,11 +36,13 @@ public class ProjectUpdateCommand extends AbstractCommand {
 
     private void update() {
         System.out.println("Please enter id project: ");
-        final String projectId = terminalService.nextLine();
+        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
+        final @NotNull String projectId = terminalService.nextLine();
         System.out.println("Please enter project name: ");
-        final String newProjectName = terminalService.nextLine();
+        final @NotNull String newProjectName = terminalService.nextLine();
         System.out.println("Please enter description for project: ");
-        final String newDescription = terminalService.nextLine();
+        final @NotNull String newDescription = terminalService.nextLine();
+        final @NotNull IProjectService projectServiceBean = serviceLocator.getProjectService();
         projectServiceBean.updateProject(projectId, newProjectName, newDescription);
     }
 

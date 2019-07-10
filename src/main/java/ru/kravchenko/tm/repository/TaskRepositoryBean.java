@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.reposiroty.ITaskRepository;
 import ru.kravchenko.tm.entity.Task;
+
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class TaskRepositoryBean implements ITaskRepository {
     }
 
     @Override
-    public void addTask(@Nullable final String id, final Task task) {
+    public void addTask(@Nullable final String id, @Nullable final Task task) {
         taskRepository.put(id, task);
     }
 

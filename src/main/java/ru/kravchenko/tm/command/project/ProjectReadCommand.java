@@ -3,34 +3,14 @@ package ru.kravchenko.tm.command.project;
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.api.reposiroty.IProjectRepository;
-import ru.kravchenko.tm.api.service.IServiceLocator;
-import ru.kravchenko.tm.service.TerminalService;
-import ru.kravchenko.tm.service.UserServiceBean;
+import ru.kravchenko.tm.api.service.ITerminalService;
+import ru.kravchenko.tm.api.service.IUserService;
 
 /**
  * @author Roman Kravchenko
  */
 
 public class ProjectReadCommand extends AbstractCommand {
-
-    @NotNull
-    private final IServiceLocator serviceLocator;
-
-    @NotNull
-    private final TerminalService terminalService;
-
-    @NotNull
-    private final UserServiceBean userServiceBean;
-
-    @NotNull
-    private final IProjectRepository projectRepository;
-
-    public ProjectReadCommand(final IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-        this.terminalService = (TerminalService) serviceLocator.getTerminalService();
-        this.userServiceBean = (UserServiceBean) serviceLocator.getUserService();
-        this.projectRepository = serviceLocator.getProjectRepository();
-    }
 
     @Override
     public String getName() {
@@ -44,8 +24,10 @@ public class ProjectReadCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
         System.out.println("Please enter your login: ");
-        final String userLogin = terminalService.nextLine();
+        final @NotNull String userLogin = terminalService.nextLine();
+        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)) {
             showAllProject();
             return;
@@ -54,6 +36,7 @@ public class ProjectReadCommand extends AbstractCommand {
     }
 
     private void showAllProject() {
+        final @NotNull IProjectRepository projectRepository = serviceLocator.getProjectRepository();
         projectRepository.showAllProject();
     }
 

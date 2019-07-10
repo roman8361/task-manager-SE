@@ -33,7 +33,7 @@ public class UserServiceBean implements IUserService {
     }
 
     private void initAdmin() {
-        final User admin = new User();
+        final @NotNull User admin = new User();
         admin.setLogin("admin");
         admin.setPassword(DigestUtils.md5Hex("admin"));
         admin.setUserStatus(Status.ADMIN);
@@ -42,7 +42,7 @@ public class UserServiceBean implements IUserService {
     }
 
     private void initSimpleUser() {
-        final User simpleUser = new User();
+        final @NotNull User simpleUser = new User();
         simpleUser.setLogin("11");
         simpleUser.setPassword(DigestUtils.md5Hex("11"));
         simpleUser.setUserStatus(Status.USER);
@@ -137,9 +137,9 @@ public class UserServiceBean implements IUserService {
     }
 
     @Override
-    public void changePasswordUser(@Nullable final String login,
+    public void changePasswordUser(@NotNull final String login,
                                    @NotNull final String newPassword) {
-        final User user = userRepositoryBean.findByLogin(login, userRepositoryBean.getUsersBaseDate());
+        @NotNull final User user = userRepositoryBean.findByLogin(login, userRepositoryBean.getUsersBaseDate());
         user.setPassword(DigestUtils.md5Hex(newPassword));
     }
 

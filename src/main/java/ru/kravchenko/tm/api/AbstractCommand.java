@@ -1,10 +1,16 @@
 package ru.kravchenko.tm.api;
 
+import lombok.Setter;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+
 /**
  * @author Roman Kravchenko
  */
 
 public abstract class AbstractCommand {
+
+    @Setter
+    public IServiceLocator serviceLocator;
 
     public abstract String getName();
 

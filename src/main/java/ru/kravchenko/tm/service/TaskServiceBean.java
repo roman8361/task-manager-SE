@@ -19,10 +19,13 @@ public class TaskServiceBean implements ITaskService {
     @NotNull
     private final IServiceLocator serviceLocator;
 
+    @NotNull
     private final ITerminalService terminalService1;
 
+    @NotNull
     private ITaskRepository taskRepositoryBean;
 
+    @NotNull
     private IProjectRepository projectRepository;
 
     public TaskServiceBean(@NotNull final IServiceLocator serviceLocator) {
@@ -35,8 +38,8 @@ public class TaskServiceBean implements ITaskService {
     public void mergeTask(@Nullable final String projectId,
                           @Nullable final String taskName,
                           @Nullable final String taskDescription) {
-        final Project project = projectRepository.findOne(projectId);
-        final Task task = new Task();
+        final @NotNull Project project = projectRepository.findOne(projectId);
+        final @NotNull Task task = new Task();
         task.setName(taskName);
         task.setDescription(taskDescription);
         task.setProject(project);
@@ -47,7 +50,7 @@ public class TaskServiceBean implements ITaskService {
     @Override
     public String getIdFromUser() {
         System.out.println("Please enter id task: ");
-        final String idTask = terminalService1.nextLine();
+        final @NotNull String idTask = terminalService1.nextLine();
         return idTask;
     }
 
@@ -55,7 +58,7 @@ public class TaskServiceBean implements ITaskService {
     public void updateTask(@Nullable final String taskId,
                            @Nullable final String taskName,
                            @Nullable final String taskDescription) {
-        final Task task = taskRepositoryBean.findOneId(taskId);
+        final @NotNull Task task = taskRepositoryBean.findOneId(taskId);
         task.setName(taskName);
         task.setDescription(taskDescription);
         taskRepositoryBean.addTask(task.getId(),task);

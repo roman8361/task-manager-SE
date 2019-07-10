@@ -5,6 +5,7 @@ import ru.kravchenko.tm.api.AbstractCommand;
 /**
  * @author Roman Kravchenko
  */
+
 public class AboutCommand extends AbstractCommand {
 
     @Override

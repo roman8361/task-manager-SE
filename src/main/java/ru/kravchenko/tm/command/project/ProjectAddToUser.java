@@ -2,7 +2,6 @@ package ru.kravchenko.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.api.service.ITerminalService;
 import ru.kravchenko.tm.api.service.IUserService;
 import ru.kravchenko.tm.service.ProjectServiceBean;
@@ -12,21 +11,6 @@ import ru.kravchenko.tm.service.ProjectServiceBean;
  */
 
 public class ProjectAddToUser extends AbstractCommand {
-
-    @NotNull
-    private final IServiceLocator serviceLocator;
-
-    @NotNull
-    private final ITerminalService terminalService;
-
-    @NotNull
-    private final IUserService userServiceBean;
-
-    public ProjectAddToUser(final @NotNull IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-        this.terminalService = serviceLocator.getTerminalService();
-        this.userServiceBean = serviceLocator.getUserService();
-    }
 
     @Override
     public String getName() {
@@ -40,8 +24,10 @@ public class ProjectAddToUser extends AbstractCommand {
 
     @Override
     public void execute() {
+        final  @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
         System.out.println("Please enter your login: ");
-        final String userLogin = terminalService.nextLine();
+        final @NotNull String userLogin = terminalService.nextLine();
+        final @NotNull IUserService userServiceBean  = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)){
             addProjectToIdUser();
             return;
@@ -50,11 +36,12 @@ public class ProjectAddToUser extends AbstractCommand {
     }
 
     private void addProjectToIdUser() {
+        final  @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
         System.out.println("Please enter user login: ");
-        final String userId = terminalService.nextLine();
+        final @NotNull String userId = terminalService.nextLine();
         System.out.println("Please enter id project: ");
-        final String projectId = terminalService.nextLine();
-        ProjectServiceBean projectServiceBean = (ProjectServiceBean) serviceLocator.getProjectService();
+        final @NotNull String projectId = terminalService.nextLine();
+        final@NotNull ProjectServiceBean projectServiceBean = (ProjectServiceBean) serviceLocator.getProjectService();
         projectServiceBean.addProjectToUser(userId, projectId);
     }
 

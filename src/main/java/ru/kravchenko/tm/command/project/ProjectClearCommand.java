@@ -3,37 +3,14 @@ package ru.kravchenko.tm.command.project;
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.api.reposiroty.IProjectRepository;
-import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.api.service.ITerminalService;
 import ru.kravchenko.tm.api.service.IUserService;
-import ru.kravchenko.tm.repository.ProjectRepositoryBean;
-import ru.kravchenko.tm.service.TerminalService;
-import ru.kravchenko.tm.service.UserServiceBean;
 
 /**
  * @author Roman Kravchenko
  */
 
 public class ProjectClearCommand extends AbstractCommand {
-
-    @NotNull
-    private final IServiceLocator serviceLocator;
-
-    @NotNull
-    private final ITerminalService terminalService;
-
-    @NotNull
-    private final IUserService userServiceBean;
-
-    @NotNull
-    private final IProjectRepository projectRepository;
-
-    public ProjectClearCommand(@NotNull final IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-        this.terminalService = serviceLocator.getTerminalService();
-        this.projectRepository = serviceLocator.getProjectRepository();
-        this.userServiceBean = serviceLocator.getUserService();
-    }
 
     @Override
     public String getName() { return "project-clear"; }
@@ -44,7 +21,9 @@ public class ProjectClearCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("Please enter your login: ");
-        final String userLogin = terminalService.nextLine();
+        final @NotNull ITerminalService terminalService = serviceLocator.getTerminalService();
+        final @NotNull String userLogin = terminalService.nextLine();
+        final @NotNull IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)){
             removeAllProject();
             System.out.println("You remove all project");
@@ -53,6 +32,9 @@ public class ProjectClearCommand extends AbstractCommand {
         System.out.println("This command is available only to authorized users. Please login.");
     }
 
-    private void removeAllProject(){ projectRepository.removeAllProject(); }
+    private void removeAllProject(){
+        final @NotNull IProjectRepository projectRepository = serviceLocator.getProjectRepository();
+        projectRepository.removeAllProject();
+    }
 
 }
