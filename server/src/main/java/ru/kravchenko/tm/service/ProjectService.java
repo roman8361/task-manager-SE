@@ -3,13 +3,15 @@ package ru.kravchenko.tm.service;
 import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 import ru.kravchenko.tm.api.repository.IProjectRepository;
+import ru.kravchenko.tm.api.repository.IUserRepository;
 import ru.kravchenko.tm.api.service.IProjectService;
-import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.model.dto.ProjectDTO;
 import ru.kravchenko.tm.model.dto.SessionDTO;
 import ru.kravchenko.tm.model.entity.Project;
 import ru.kravchenko.tm.model.entity.User;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,17 +20,16 @@ import java.util.List;
  * @author Roman Kravchenko
  */
 
+@ApplicationScoped
 public class ProjectService implements IProjectService {
 
+    @Inject
     @NotNull
-    private final IServiceLocator serviceLocator;
+    private IProjectRepository projectRepository;
 
-    private final IProjectRepository projectRepository;
-
-    public ProjectService(@NotNull final IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-        this.projectRepository = serviceLocator.getProjectRepository();
-    }
+    @Inject
+    @NotNull
+    private IUserRepository userRepository;
 
     public void insert(@Nullable final Project project) {
         projectRepository.insert(project);
@@ -76,7 +77,7 @@ public class ProjectService implements IProjectService {
         project.setName(nameProject);
         project.setDateBegin(new Date());
         project.setDateEnd(new Date());
-        @NotNull final User user = serviceLocator.getUserRepository().findById(sessionDTO.getUserId());
+        @NotNull final User user = userRepository.findById(sessionDTO.getUserId());
         project.setUser(user);  //   setUserId(session.getUserId());
         insert(project);
         System.out.println("Project add to repository");
@@ -91,7 +92,7 @@ public class ProjectService implements IProjectService {
         if (!existProject(projectId)) return;
         final @NotNull Project project = new Project();
         project.setName(newProjectName);
-        @NotNull final User user = serviceLocator.getUserRepository().findById(sessionDTO.getUserId());
+        @NotNull final User user = userRepository.findById(sessionDTO.getUserId());
         project.setUser(user);
         project.setId(projectId);
         project.setDescription(newDescription);

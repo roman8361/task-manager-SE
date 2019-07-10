@@ -12,7 +12,6 @@ import java.util.List;
  * @author Roman Kravchenko
  */
 
-
 public interface IProjectService {
 
     List<Project> findAll();

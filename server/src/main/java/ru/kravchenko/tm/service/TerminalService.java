@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.service.ITerminalService;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.Scanner;
 
 /**
@@ -12,6 +13,7 @@ import java.util.Scanner;
  */
 
 @Getter
+@ApplicationScoped
 public class TerminalService implements ITerminalService {
 
     @NotNull

@@ -3,14 +3,17 @@ package ru.kravchenko.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.kravchenko.tm.api.repository.IProjectRepository;
 import ru.kravchenko.tm.api.repository.ITaskRepository;
-import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.repository.IUserRepository;
 import ru.kravchenko.tm.api.service.ITaskService;
 import ru.kravchenko.tm.model.dto.TaskDTO;
 import ru.kravchenko.tm.model.entity.Project;
 import ru.kravchenko.tm.model.entity.Task;
 import ru.kravchenko.tm.model.entity.User;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,18 +21,20 @@ import java.util.List;
  * @author Roman Kravchenko
  */
 
+@ApplicationScoped
 public class TaskService implements ITaskService {
 
+    @Inject
     @NotNull
-    private final IServiceLocator serviceLocator;
+    private ITaskRepository taskRepository;
+
+    @Inject
+    @NotNull
+    private IProjectRepository projectRepository;
 
     @NotNull
-    private final ITaskRepository taskRepository;
-
-    public TaskService(@NotNull final IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-        this.taskRepository = serviceLocator.getTaskRepository();
-    }
+    @Inject
+    private IUserRepository userRepository;
 
     public List<Task> findAll() {
         return taskRepository.findAll();
@@ -46,7 +51,6 @@ public class TaskService implements ITaskService {
     public List<TaskDTO> findAllTaskByUserId(@Nullable final String userId) {
         List<TaskDTO> result = new ArrayList<>();
         for (Task t : taskRepository.findAllTaskByUserId(userId)) result.add(t.getDTO());
-
         return result;
     }
 
@@ -73,9 +77,9 @@ public class TaskService implements ITaskService {
         final @NotNull Task task = new Task();
         task.setName(taskName);
         task.setDescription(taskDescription);
-        @NotNull final Project project = serviceLocator.getProjectRepository().findById(projectId);
+        @NotNull final Project project = projectRepository.findById(projectId);
         task.setProject(project);
-        @NotNull final User user = serviceLocator.getUserRepository().findById(userId);
+        @NotNull final User user = userRepository.findById(userId);
         task.setUser(user);
         insert(task);
     }
@@ -99,7 +103,7 @@ public class TaskService implements ITaskService {
         task.setDateEnd(taskDTO.getDateEnd());
         task.setDescription(taskDTO.getDescription());
         task.setName(taskDTO.getName());
-        task.setUser(serviceLocator.getUserService().findById(taskDTO.getUserId()));
+        task.setUser(userRepository.findById(taskDTO.getUserId()));
         return task;
     }
 

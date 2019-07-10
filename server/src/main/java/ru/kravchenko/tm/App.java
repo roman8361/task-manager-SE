@@ -1,7 +1,11 @@
 package ru.kravchenko.tm;
 
+import javafx.application.Application;
 import lombok.NonNull;
 import ru.kravchenko.tm.bootstrap.Bootstrap;
+
+import javax.enterprise.inject.se.SeContainerInitializer;
+import javax.enterprise.inject.spi.CDI;
 
 /**
  * @author Roman Kravchenko
@@ -10,7 +14,8 @@ import ru.kravchenko.tm.bootstrap.Bootstrap;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        @NonNull final Bootstrap bootstrap = new Bootstrap();
+        SeContainerInitializer.newInstance() .addPackages(Application.class).initialize();
+        @NonNull final Bootstrap bootstrap = CDI.current().select(Bootstrap.class).get();
         bootstrap.init();
     }
 

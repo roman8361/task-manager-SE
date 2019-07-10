@@ -39,6 +39,4 @@ public interface ISessionEndpoint {
 
     User getUser(@WebParam(name = "session", partName = "session") Session session);
 
-    String test(@WebParam(name = "login", partName = "login") @NotNull final String login);
-
 }

@@ -1,11 +1,14 @@
 package ru.kravchenko.tm.repository;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.repository.IUserRepository;
-import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.model.entity.User;
+import ru.kravchenko.tm.service.EntityManagerService;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -13,18 +16,17 @@ import java.util.List;
  * @author Roman Kravchenko
  */
 
+@ApplicationScoped
+@NoArgsConstructor
 public class UserRepository implements IUserRepository {
 
+    @Inject
     @NotNull
-    private IServiceLocator serviceLocator;
-
-    public UserRepository(@NotNull final IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-    }
+    private EntityManagerService entityManagerService;
 
     @Override
     public List<User> findAll() {
-        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        @NotNull final EntityManager em = entityManagerService.getEntityManager();
         em.getTransaction().begin();
         List<User> users = em.createQuery("SELECT e FROM User e", User.class).getResultList();
         em.close();
@@ -34,7 +36,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public List<String> ids() {
-        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        @NotNull final EntityManager em = entityManagerService.getEntityManager();
         em.getTransaction().begin();
         List<String> ids = em.createQuery("SELECT id FROM User e", String.class).getResultList();
         em.close();
@@ -43,7 +45,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User findById(@NotNull final String id) {
-        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        @NotNull final EntityManager em = entityManagerService.getEntityManager();
         em.getTransaction().begin();
         @NotNull final User user = em.find(User.class, id);
         em.close();
@@ -52,7 +54,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User findByLogin(@NotNull final String login) {
-        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        @NotNull final EntityManager em = entityManagerService.getEntityManager();
         em.getTransaction().begin();
         @NotNull final User user = em.createQuery("SELECT e FROM User e WHERE e.login =:login", User.class)
                 .setParameter("login", login).getSingleResult();
@@ -62,7 +64,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void removeById(@NotNull final String id) {
-        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        @NotNull final EntityManager em = entityManagerService.getEntityManager();
         em.getTransaction().begin();
         @NotNull final User user = em.find(User.class, id);
         em.remove(user);
@@ -72,7 +74,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void insert(@NotNull final User user) {
-        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        @NotNull final EntityManager em = entityManagerService.getEntityManager();
         em.getTransaction().begin();
         em.persist(user);
         em.getTransaction().commit();
@@ -81,7 +83,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void clear() {
-        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        @NotNull final EntityManager em = entityManagerService.getEntityManager();
         em.getTransaction().begin();
         @Nullable final List<User> users = em.createQuery("SELECT e FROM User e", User.class).getResultList();
         for (final User u : users) em.remove(u);
@@ -91,7 +93,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public List<String> loginList() {
-        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        @NotNull final EntityManager em = entityManagerService.getEntityManager();
         em.getTransaction().begin();
         @Nullable final List<String> loginList = em.createQuery("SELECT login FROM User e", String.class).getResultList();
         em.close();

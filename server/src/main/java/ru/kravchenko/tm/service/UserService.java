@@ -3,31 +3,32 @@ package ru.kravchenko.tm.service;
 import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 import org.apache.commons.codec.digest.DigestUtils;
-import ru.kravchenko.tm.api.repository.IUserRepository;
-import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.api.service.IUserService;
 import ru.kravchenko.tm.exception.UserLoginBusyException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
 import ru.kravchenko.tm.model.entity.Session;
 import ru.kravchenko.tm.model.entity.Status;
 import ru.kravchenko.tm.model.entity.User;
+import ru.kravchenko.tm.repository.UserRepository;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.List;
 
 /**
  * @author Roman Kravchenko
  */
 
+@ApplicationScoped
 public class UserService implements IUserService {
 
-    private IServiceLocator serviceLocator;
+    @Inject
+    @NotNull
+    private UserRepository userRepository;
 
-    private final IUserRepository userRepository;
-
-    public UserService(IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-        userRepository = serviceLocator.getUserRepository();
-    }
+    @Inject
+    @NotNull
+    private SessionService sessionService;
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -58,7 +59,7 @@ public class UserService implements IUserService {
     }
 
 
-    public List<String> loginList() {
+    private List<String> loginList() {
         return userRepository.loginList();
     }
 
@@ -84,7 +85,7 @@ public class UserService implements IUserService {
         if (checkLoginPassword(login, password)) {
             System.out.println("Welcome to TASK MANAGER!");
             final User user = findByLogin(login);
-            serviceLocator.getSessionService().createSession(user.getId());
+            sessionService.createSession(user.getId());
             System.out.println("USER: " + login + " AUTORIZATION");
             return;
         }
@@ -104,8 +105,8 @@ public class UserService implements IUserService {
     @Override
     public void logout(@Nullable final String userId) {
         if (userId == null || userId.isEmpty()) return;
-        final Session session = serviceLocator.getSessionService().findOnByUserId(userId);
-        serviceLocator.getSessionService().removeById(session.getId());
+        final Session session = sessionService.findOnByUserId(userId);
+        sessionService.removeById(session.getId());
     }
 
 }

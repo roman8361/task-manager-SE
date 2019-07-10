@@ -16,6 +16,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <version>3.1.0.Final</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>com.webcohesion.enunciate</groupId>
             <artifactId>enunciate-core</artifactId>
             <version>2.11.1</version>
@@ -38,9 +44,7 @@
             <scope>compile</scope>
         </dependency>
 
-
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -130,5 +134,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

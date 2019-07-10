@@ -1,9 +1,10 @@
 package ru.kravchenko.tm.service;
 
-import com.sun.istack.internal.Nullable;
+
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.repository.ISessionRepository;
-import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.repository.IUserRepository;
 import ru.kravchenko.tm.api.service.ISessionService;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
 import ru.kravchenko.tm.model.dto.SessionDTO;
@@ -11,6 +12,8 @@ import ru.kravchenko.tm.model.entity.Session;
 import ru.kravchenko.tm.model.entity.User;
 import ru.kravchenko.tm.util.SignatureUtil;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
@@ -18,17 +21,16 @@ import java.util.List;
  * @author Roman Kravchenko
  */
 
-
+@ApplicationScoped
 public class SessionService implements ISessionService {
 
-    private final IServiceLocator serviceLocator;
+    @Inject
+    @NotNull
+    private ISessionRepository sessionRepository;
 
-    private final ISessionRepository sessionRepository;
-
-    public SessionService(@NotNull final IServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-        this.sessionRepository = serviceLocator.getSessionRepository();
-    }
+    @Inject
+    @NotNull
+    private IUserRepository userRepository;
 
 
     public List<Session> findAll() {
@@ -40,7 +42,7 @@ public class SessionService implements ISessionService {
     }
 
     public Session findById(@Nullable final String id) {
-        return sessionRepository.findOne(id);
+        return sessionRepository.findById(id);
     }
 
     public void removeById(@Nullable final String id) {
@@ -60,7 +62,6 @@ public class SessionService implements ISessionService {
         sessionRepository.clear();
     }
 
-
     @Override
     public void addSession(@NotNull final Session session) {
         if (session == null) return;
@@ -74,7 +75,7 @@ public class SessionService implements ISessionService {
         @NotNull final String salt = "salt";
         @NotNull final SessionDTO session = new SessionDTO();
         session.setTimestamp(new Date());
-        @NotNull final User user = serviceLocator.getUserRepository().findById(userId);
+        @NotNull final User user = userRepository.findById(userId);
         session.setUserId(user.getId());
         session.setSignature(SignatureUtil.sign(session, salt, cycle));
         addSession(convertDTOtoSession(session));
@@ -86,11 +87,10 @@ public class SessionService implements ISessionService {
         session.setId(sessionDTO.getId());
         session.setSignature(sessionDTO.getSignature());
         session.setTimestamp(sessionDTO.getTimestamp());
-        final User user = serviceLocator.getUserService().findById(sessionDTO.getUserId());
+        final User user = userRepository.findById(sessionDTO.getUserId());
         session.setUser(user);
         return session;
     }
-
 
     @Override
     public void validate(@Nullable final SessionDTO sessionDTO) throws AccessForbiddenException {

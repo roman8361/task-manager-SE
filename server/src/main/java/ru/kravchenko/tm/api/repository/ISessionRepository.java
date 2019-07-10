@@ -13,7 +13,7 @@ public interface ISessionRepository {
 
     List<String> ids();
 
-    Session findOne(final String id);
+    Session findById(final String id);
 
     Session findOnByUserId(final String userId);
 

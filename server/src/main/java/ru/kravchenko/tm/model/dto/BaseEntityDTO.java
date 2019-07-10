@@ -1,6 +1,7 @@
 package ru.kravchenko.tm.model.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.model.entity.StatusProjectTask;
@@ -13,6 +14,7 @@ import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class BaseEntityDTO extends AbstractEntityDTO {
 
     @Nullable

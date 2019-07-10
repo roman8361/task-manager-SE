@@ -7,17 +7,9 @@ import ru.kravchenko.tm.api.endpoint.IProjectEndpoint;
 import ru.kravchenko.tm.api.endpoint.ISessionEndpoint;
 import ru.kravchenko.tm.api.endpoint.ITaskEndpoint;
 import ru.kravchenko.tm.api.endpoint.IUserEndpoint;
-import ru.kravchenko.tm.api.service.IServiceLocator;
-import ru.kravchenko.tm.endpoint.ProjectEndpoint;
-import ru.kravchenko.tm.endpoint.SessionEndpoint;
-import ru.kravchenko.tm.endpoint.TaskEndpoint;
-import ru.kravchenko.tm.endpoint.UserEndpoint;
-import ru.kravchenko.tm.exception.AccessForbiddenException;
-import ru.kravchenko.tm.exception.SessionNotFoundException;
-import ru.kravchenko.tm.exception.UserLoginBusyException;
-import ru.kravchenko.tm.exception.UserNotFoundException;
-import ru.kravchenko.tm.service.LocatorServiceBean;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.xml.ws.Endpoint;
 
 /**
@@ -28,20 +20,21 @@ import javax.xml.ws.Endpoint;
 @Setter
 public class Bootstrap {
 
+    @Inject
     @NotNull
-    private IServiceLocator serviceLocator = new LocatorServiceBean();
+    private IUserEndpoint userEndpoint;
 
+    @Inject
     @NotNull
-    private IUserEndpoint userEndpoint = new UserEndpoint(serviceLocator);
+    private ISessionEndpoint sessionEndpoint;
 
+    @Inject
     @NotNull
-    private ISessionEndpoint sessionEndpoint = new SessionEndpoint(serviceLocator);
+    private IProjectEndpoint projectEndpoint;
 
+    @Inject
     @NotNull
-    private IProjectEndpoint projectEndpoint = new ProjectEndpoint(serviceLocator);
-
-    @NotNull
-    private ITaskEndpoint taskEndpoint = new TaskEndpoint(serviceLocator);
+    private ITaskEndpoint taskEndpoint;
 
     public Bootstrap() throws Exception {
     }
