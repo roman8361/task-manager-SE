@@ -17,6 +17,7 @@ import java.util.Collection;
 
 @WebService
 public interface IProjectEndpoint {
+
     @WebMethod
     void editProject(@WebParam(name = "sessionDTO") @NotNull final SessionDTO sessionDTO,
                      @WebParam(name = "projectId") @NotNull final String id,

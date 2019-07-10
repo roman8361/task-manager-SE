@@ -7,6 +7,13 @@ import ru.kravchenko.tm.api.endpoint.IProjectEndpoint;
 import ru.kravchenko.tm.api.endpoint.ISessionEndpoint;
 import ru.kravchenko.tm.api.endpoint.ITaskEndpoint;
 import ru.kravchenko.tm.api.endpoint.IUserEndpoint;
+import ru.kravchenko.tm.api.service.ISessionService;
+import ru.kravchenko.tm.exception.UserLoginBusyException;
+import ru.kravchenko.tm.exception.UserNotFoundException;
+import ru.kravchenko.tm.model.entity.Session;
+import ru.kravchenko.tm.model.entity.User;
+import ru.kravchenko.tm.repository.UserRepositoryDAO;
+import ru.kravchenko.tm.service.UserService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -47,7 +54,7 @@ public class Bootstrap {
         Endpoint.publish(wsdl, endpoint);
     }
 
-    public void init() {
+    public void init() throws UserLoginBusyException, UserNotFoundException {
         System.out.println("SERVER START");
         registry(userEndpoint);
         registry(sessionEndpoint);

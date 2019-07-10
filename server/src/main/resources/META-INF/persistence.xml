@@ -8,10 +8,10 @@
         <provider>
             org.hibernate.jpa.HibernatePersistenceProvider
         </provider>
+        <class>ru.kravchenko.tm.model.entity.Task</class>
+        <class>ru.kravchenko.tm.model.entity.Project</class>
+        <class>ru.kravchenko.tm.model.entity.Session</class>
         <class>ru.kravchenko.tm.model.entity.User</class>
-        <!--<class>ru.kravchenko.se.entity.Project</class>-->
-        <!--<class>ru.kravchenko.se.entity.Task</class>-->
-        <!--<class>ru.kravchenko.se.entity.Session</class>-->
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test_db"/>
@@ -42,7 +42,5 @@
         </properties>
     </persistence-unit>
 </persistence>
-
-
 
 

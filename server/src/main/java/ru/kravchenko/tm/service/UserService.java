@@ -1,15 +1,15 @@
 package ru.kravchenko.tm.service;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.service.IUserService;
 import ru.kravchenko.tm.exception.UserLoginBusyException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
 import ru.kravchenko.tm.model.entity.Session;
 import ru.kravchenko.tm.model.entity.Status;
 import ru.kravchenko.tm.model.entity.User;
-import ru.kravchenko.tm.repository.UserRepository;
+import ru.kravchenko.tm.repository.UserRepositoryDAO;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -24,7 +24,7 @@ public class UserService implements IUserService {
 
     @Inject
     @NotNull
-    private UserRepository userRepository;
+    private UserRepositoryDAO userRepository;
 
     @Inject
     @NotNull

@@ -9,6 +9,7 @@ import ru.kravchenko.tm.exception.UserLoginBusyException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
 import ru.kravchenko.tm.model.dto.SessionDTO;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;

@@ -9,6 +9,7 @@ import ru.kravchenko.tm.exception.AccessForbiddenException;
 import ru.kravchenko.tm.model.dto.SessionDTO;
 import ru.kravchenko.tm.model.dto.TaskDTO;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;

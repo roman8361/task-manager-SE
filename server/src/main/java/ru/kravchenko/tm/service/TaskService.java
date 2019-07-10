@@ -3,9 +3,9 @@ package ru.kravchenko.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.kravchenko.tm.api.repository.IProjectRepository;
-import ru.kravchenko.tm.api.repository.ITaskRepository;
-import ru.kravchenko.tm.api.repository.IUserRepository;
+import ru.kravchenko.tm.api.repository.old.IProjectRepository;
+import ru.kravchenko.tm.api.repository.old.ITaskRepository;
+import ru.kravchenko.tm.api.repository.old.IUserRepository;
 import ru.kravchenko.tm.api.service.ITaskService;
 import ru.kravchenko.tm.model.dto.TaskDTO;
 import ru.kravchenko.tm.model.entity.Project;

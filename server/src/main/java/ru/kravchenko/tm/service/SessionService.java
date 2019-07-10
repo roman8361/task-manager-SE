@@ -3,8 +3,8 @@ package ru.kravchenko.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.kravchenko.tm.api.repository.ISessionRepository;
-import ru.kravchenko.tm.api.repository.IUserRepository;
+import ru.kravchenko.tm.api.repository.old.ISessionRepository;
+import ru.kravchenko.tm.api.repository.old.IUserRepository;
 import ru.kravchenko.tm.api.service.ISessionService;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
 import ru.kravchenko.tm.model.dto.SessionDTO;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @ApplicationScoped
-public class SessionService implements ISessionService {
+public class SessionService implements ISessionService{
 
     @Inject
     @NotNull

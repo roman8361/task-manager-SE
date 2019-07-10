@@ -2,8 +2,8 @@ package ru.kravchenko.tm.service;
 
 import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
-import ru.kravchenko.tm.api.repository.IProjectRepository;
-import ru.kravchenko.tm.api.repository.IUserRepository;
+import ru.kravchenko.tm.api.repository.old.IProjectRepository;
+import ru.kravchenko.tm.api.repository.old.IUserRepository;
 import ru.kravchenko.tm.api.service.IProjectService;
 import ru.kravchenko.tm.model.dto.ProjectDTO;
 import ru.kravchenko.tm.model.dto.SessionDTO;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @ApplicationScoped
-public class ProjectService implements IProjectService {
+public class ProjectService implements IProjectService{
 
     @Inject
     @NotNull
