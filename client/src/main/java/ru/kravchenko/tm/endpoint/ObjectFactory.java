@@ -1,0 +1,187 @@
+
+package ru.kravchenko.tm.endpoint;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
+import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
+
+
+/**
+ * This object contains factory methods for each 
+ * Java content interface and Java element interface 
+ * generated in the ru.kravchenko.tm.endpoint package. 
+ * <p>An ObjectFactory allows you to programatically 
+ * construct new instances of the Java representation 
+ * for XML content. The Java representation of XML 
+ * content can consist of schema derived interfaces 
+ * and classes representing the binding of schema 
+ * type definitions, element declarations and model 
+ * groups.  Factory methods for each of these are 
+ * provided in this class.
+ * 
+ */
+@XmlRegistry
+public class ObjectFactory {
+
+    private final static QName _SessionNotFoundException_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "SessionNotFoundException");
+    private final static QName _UserLoginBusyException_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "UserLoginBusyException");
+    private final static QName _Authorization_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "authorization");
+    private final static QName _AuthorizationResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "authorizationResponse");
+    private final static QName _CreateUser_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "createUser");
+    private final static QName _CreateUserResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "createUserResponse");
+    private final static QName _Logout_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "logout");
+    private final static QName _LogoutResponse_QNAME = new QName("http://endpoint.tm.kravchenko.ru/", "logoutResponse");
+
+    /**
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.kravchenko.tm.endpoint
+     * 
+     */
+    public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link SessionNotFoundException }
+     * 
+     */
+    public SessionNotFoundException createSessionNotFoundException() {
+        return new SessionNotFoundException();
+    }
+
+    /**
+     * Create an instance of {@link UserLoginBusyException }
+     * 
+     */
+    public UserLoginBusyException createUserLoginBusyException() {
+        return new UserLoginBusyException();
+    }
+
+    /**
+     * Create an instance of {@link Authorization }
+     * 
+     */
+    public Authorization createAuthorization() {
+        return new Authorization();
+    }
+
+    /**
+     * Create an instance of {@link AuthorizationResponse }
+     * 
+     */
+    public AuthorizationResponse createAuthorizationResponse() {
+        return new AuthorizationResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateUser }
+     * 
+     */
+    public CreateUser createCreateUser() {
+        return new CreateUser();
+    }
+
+    /**
+     * Create an instance of {@link CreateUserResponse }
+     * 
+     */
+    public CreateUserResponse createCreateUserResponse() {
+        return new CreateUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link Logout }
+     * 
+     */
+    public Logout createLogout() {
+        return new Logout();
+    }
+
+    /**
+     * Create an instance of {@link LogoutResponse }
+     * 
+     */
+    public LogoutResponse createLogoutResponse() {
+        return new LogoutResponse();
+    }
+
+    /**
+     * Create an instance of {@link Session }
+     * 
+     */
+    public Session createSession() {
+        return new Session();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SessionNotFoundException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "SessionNotFoundException")
+    public JAXBElement<SessionNotFoundException> createSessionNotFoundException(SessionNotFoundException value) {
+        return new JAXBElement<SessionNotFoundException>(_SessionNotFoundException_QNAME, SessionNotFoundException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UserLoginBusyException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "UserLoginBusyException")
+    public JAXBElement<UserLoginBusyException> createUserLoginBusyException(UserLoginBusyException value) {
+        return new JAXBElement<UserLoginBusyException>(_UserLoginBusyException_QNAME, UserLoginBusyException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Authorization }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "authorization")
+    public JAXBElement<Authorization> createAuthorization(Authorization value) {
+        return new JAXBElement<Authorization>(_Authorization_QNAME, Authorization.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AuthorizationResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "authorizationResponse")
+    public JAXBElement<AuthorizationResponse> createAuthorizationResponse(AuthorizationResponse value) {
+        return new JAXBElement<AuthorizationResponse>(_AuthorizationResponse_QNAME, AuthorizationResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "createUser")
+    public JAXBElement<CreateUser> createCreateUser(CreateUser value) {
+        return new JAXBElement<CreateUser>(_CreateUser_QNAME, CreateUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateUserResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "createUserResponse")
+    public JAXBElement<CreateUserResponse> createCreateUserResponse(CreateUserResponse value) {
+        return new JAXBElement<CreateUserResponse>(_CreateUserResponse_QNAME, CreateUserResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Logout }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "logout")
+    public JAXBElement<Logout> createLogout(Logout value) {
+        return new JAXBElement<Logout>(_Logout_QNAME, Logout.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LogoutResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.kravchenko.ru/", name = "logoutResponse")
+    public JAXBElement<LogoutResponse> createLogoutResponse(LogoutResponse value) {
+        return new JAXBElement<LogoutResponse>(_LogoutResponse_QNAME, LogoutResponse.class, null, value);
+    }
+
+}
