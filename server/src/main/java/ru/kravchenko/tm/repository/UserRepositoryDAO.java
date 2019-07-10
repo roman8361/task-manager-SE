@@ -1,29 +1,23 @@
 package ru.kravchenko.tm.repository;
 
-import lombok.NoArgsConstructor;
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ru.kravchenko.tm.api.repository.IUserRepository;
 import ru.kravchenko.tm.api.repository.UserRepository;
-import ru.kravchenko.tm.api.repository.old.IUserRepository;
 import ru.kravchenko.tm.model.entity.User;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
  * @author Roman Kravchenko
  */
 
-@Transactional
-@ApplicationScoped
-@NoArgsConstructor
+@Service
 public class UserRepositoryDAO implements IUserRepository {
 
-    @Inject
     @NotNull
+    @Autowired
     private UserRepository userRepository;
 
     @Override
@@ -38,7 +32,7 @@ public class UserRepositoryDAO implements IUserRepository {
 
     @Override
     public User findById(@NotNull final String id) {
-        return userRepository.findBy(id);
+        return userRepository.findById(id).get();
     }
 
     @Override
@@ -48,17 +42,17 @@ public class UserRepositoryDAO implements IUserRepository {
 
     @Override
     public void removeById(@NotNull final String id) {
-        userRepository.removeById(id);
+        userRepository.deleteById(id);
     }
 
     @Override
     public void insert(@NotNull final User user) {
-        userRepository.persist(user);
+        userRepository.save(user);
     }
 
     @Override
     public void clear() {
-        userRepository.removeAll();
+        userRepository.deleteAll();
     }
 
     @Override

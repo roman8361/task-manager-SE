@@ -1,34 +1,30 @@
 package ru.kravchenko.tm.repository;
 
-import lombok.NoArgsConstructor;
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.kravchenko.tm.api.repository.ISessionRepository;
 import ru.kravchenko.tm.api.repository.SessionRepository;
 import ru.kravchenko.tm.api.repository.UserRepository;
-import ru.kravchenko.tm.api.repository.old.ISessionRepository;
 import ru.kravchenko.tm.model.entity.Session;
 import ru.kravchenko.tm.model.entity.User;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
  * @author Roman Kravchenko
  */
 
-@Transactional
-@ApplicationScoped
-@NoArgsConstructor
+@Service
 public class SessionRepositoryDAO implements ISessionRepository {
 
-    @Inject
     @NotNull
+    @Autowired
     private SessionRepository sessionRepository;
 
-    @Inject
     @NotNull
+    @Autowired
     private UserRepository userRepository;
 
     @Override
@@ -43,29 +39,30 @@ public class SessionRepositoryDAO implements ISessionRepository {
 
     @Override
     public Session findById(@NotNull final String id) {
-        return sessionRepository.findBy(id);
+        return sessionRepository.findById(id).get();
     }
 
     @Override
     public Session findOnByUserId(@NotNull final String userId) {
-        final User user = userRepository.findBy(userId);
+        final User user = userRepository.findById(userId).get();
         final Session session = sessionRepository.findByUser(user).get(0);
         return session;
     }
 
     @Override
+    @Transactional
     public void removeById(@NotNull final String id) {
         sessionRepository.removeById(id);
     }
 
     @Override
     public void insert(@NotNull final Session session) {
-        sessionRepository.persist(session);
+        sessionRepository.save(session);
     }
 
     @Override
     public void clear() {
-        sessionRepository.removeAll();
+        sessionRepository.deleteAll();
     }
 
 }

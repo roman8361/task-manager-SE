@@ -1,8 +1,9 @@
 package ru.kravchenko.tm.endpoint;
 
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import ru.kravchenko.tm.api.endpoint.ISessionEndpoint;
 import ru.kravchenko.tm.api.service.ISessionService;
 import ru.kravchenko.tm.api.service.IUserService;
@@ -13,8 +14,6 @@ import ru.kravchenko.tm.model.dto.SessionDTO;
 import ru.kravchenko.tm.model.entity.Session;
 import ru.kravchenko.tm.model.entity.User;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -25,13 +24,15 @@ import java.util.List;
  */
 
 @WebService
-@NoArgsConstructor
+@Controller
 public class SessionEndpoint implements ISessionEndpoint {
 
-    @Inject
+    @NotNull
+    @Autowired
     private IUserService userService;
 
-    @Inject
+    @NotNull
+    @Autowired
     private ISessionService sessionService;
 
     @Override
@@ -80,10 +81,5 @@ public class SessionEndpoint implements ISessionEndpoint {
         if (session.getUser().getId() == null) return null;
         return userService.findById(session.getUser().getId());
     }
-
-//    @Override
-//    public String test(@NotNull String login) {
-//        return login + " your login";
-//    }
 
 }

@@ -52,6 +52,7 @@
       <div class="col-sm-3 col-md-2 sidebar" id="apinav">
         <ul class="nav nav-sidebar">
           <li><a href="#artifact_c_client_library"><abbr title="C Client Library"><span class="sideoverflow">C Client Library</span></abbr></a></li>
+          <li><a href="#artifact_csharp_client_library"><abbr title="C# Client Library"><span class="sideoverflow">C# Client Library</span></abbr></a></li>
           <li><a href="#artifact_java_xml_client_library"><abbr title="Java XML Client Library"><span class="sideoverflow">Java XML Client Library</span></abbr></a></li>
           <li><a href="#artifact_ns0_wsdl"><abbr title="ns0.wsdl"><span class="sideoverflow">ns0.wsdl</span></abbr></a></li>
           <li><a href="#artifact_ns0_xsd"><abbr title="ns0.xsd"><span class="sideoverflow">ns0.xsd</span></abbr></a></li>
@@ -75,7 +76,7 @@
   <h1 class="page-header">Files and Libraries</h1>
 
   <h3 id="artifact_c_client_library">C Client Library</h3>
-  <p class="lead">Created June 6, 2019</p>
+  <p class="lead">Created June 10, 2019</p>
   <p><p>
   The C module generates the source code for the ANSI-C-compatible data structures and (de)serialization
   functions that can be used in conjunction with <a href="http://xmlsoft.org/">libxml2</a> to (de)serialize
@@ -123,8 +124,47 @@
     </tr>
     </tbody>
   </table>
+  <h3 id="artifact_csharp_client_library">C# Client Library</h3>
+  <p class="lead">Created June 10, 2019</p>
+  <p>
+<p>
+  The C# client-side library may be used to access the SOAP API for this application via the C# runtime.
+</p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">C# Service Example</div>
+  <div class="panel-body">
+    <pre class="prettyprint lang-java">
+//instantiate a new service...
+ISessionEndpoint service = new ISessionEndpoint();
+
+//make the remote call...
+result = service.OpenSession(login);
+
+//handle the result as needed...
+    </pre>
+  </div>
+</div>
+</p>
+  <table class="table table-hover downloadfiles">
+    <caption>Files</caption>
+    <thead>
+    <tr>
+      <th>name</th>
+      <th>size</th>
+      <th>description</th>
+    </tr>
+    </thead>
+    <tbody data-link="row" class="rowlink">
+    <tr class="clickable-row" data-href="server-dotnet.zip">
+      <td><span class="downloadfile-name">server-dotnet.zip</span></td>
+      <td><span class="downloadfile-size">2,70K</span></td>
+      <td><span class="downloadfile-description">The C# source code for the C# client library.</span></td>
+    </tr>
+    </tbody>
+  </table>
   <h3 id="artifact_java_xml_client_library">Java XML Client Library</h3>
-  <p class="lead">Created June 6, 2019</p>
+  <p class="lead">Created June 10, 2019</p>
   <p><p>
   The Java client-side library is used to access the Web service API for this application using Java.
 </p>
@@ -140,10 +180,10 @@
     <pre class="prettyprint lang-java">
 // instantiate a new service with an impl
 // (or through dependency injection, or whatever)...
-ITaskEndpoint service = new ITaskEndpoint();
+ISessionEndpoint service = new ISessionEndpoint();
 
 //make the remote call to read the result...
-result = service.findOneTask(sessionDTO, id);
+result = service.openSession(login);
 
 //handle the result as needed...
     </pre>
@@ -174,7 +214,7 @@ result = service.findOneTask(sessionDTO, id);
     </tbody>
   </table>
   <h3 id="artifact_ns0_wsdl">ns0.wsdl</h3>
-  <p class="lead">Created June 6, 2019</p>
+  <p class="lead">Created June 10, 2019</p>
   <table class="table table-hover downloadfiles">
     <caption>Files</caption>
     <thead>
@@ -193,7 +233,7 @@ result = service.findOneTask(sessionDTO, id);
     </tbody>
   </table>
   <h3 id="artifact_ns0_xsd">ns0.xsd</h3>
-  <p class="lead">Created June 6, 2019</p>
+  <p class="lead">Created June 10, 2019</p>
   <table class="table table-hover downloadfiles">
     <caption>Files</caption>
     <thead>
@@ -212,7 +252,7 @@ result = service.findOneTask(sessionDTO, id);
     </tbody>
   </table>
   <h3 id="artifact_ns1_xsd">ns1.xsd</h3>
-  <p class="lead">Created June 6, 2019</p>
+  <p class="lead">Created June 10, 2019</p>
   <table class="table table-hover downloadfiles">
     <caption>Files</caption>
     <thead>
@@ -231,7 +271,7 @@ result = service.findOneTask(sessionDTO, id);
     </tbody>
   </table>
   <h3 id="artifact_ns2_xsd">ns2.xsd</h3>
-  <p class="lead">Created June 6, 2019</p>
+  <p class="lead">Created June 10, 2019</p>
   <table class="table table-hover downloadfiles">
     <caption>Files</caption>
     <thead>
@@ -250,7 +290,7 @@ result = service.findOneTask(sessionDTO, id);
     </tbody>
   </table>
   <h3 id="artifact_ns3_wsdl">ns3.wsdl</h3>
-  <p class="lead">Created June 6, 2019</p>
+  <p class="lead">Created June 10, 2019</p>
   <table class="table table-hover downloadfiles">
     <caption>Files</caption>
     <thead>
@@ -269,7 +309,7 @@ result = service.findOneTask(sessionDTO, id);
     </tbody>
   </table>
   <h3 id="artifact_ns3_xsd">ns3.xsd</h3>
-  <p class="lead">Created June 6, 2019</p>
+  <p class="lead">Created June 10, 2019</p>
   <table class="table table-hover downloadfiles">
     <caption>Files</caption>
     <thead>
@@ -288,7 +328,7 @@ result = service.findOneTask(sessionDTO, id);
     </tbody>
   </table>
   <h3 id="artifact_objc_client_library">Objective C Client Library</h3>
-  <p class="lead">Created June 6, 2019</p>
+  <p class="lead">Created June 10, 2019</p>
   <p><p>
   The Objective C module generates the source code for the Objective C classes and (de)serialization
   functions that can be used in conjunction with <a href="http://xmlsoft.org/">libxml2</a> to (de)serialize
@@ -356,7 +396,7 @@ result = service.findOneTask(sessionDTO, id);
     </tbody>
   </table>
   <h3 id="artifact_php_xml_client_library">PHP XML Client Library</h3>
-  <p class="lead">Created June 6, 2019</p>
+  <p class="lead">Created June 10, 2019</p>
   <p><p>
   The PHP client-side library defines the PHP classes that can be (de)serialized to/from XML.
   This is useful for accessing the resources that are published by this application, but only

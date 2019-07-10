@@ -3,8 +3,10 @@ package ru.kravchenko.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.kravchenko.tm.api.repository.old.ISessionRepository;
-import ru.kravchenko.tm.api.repository.old.IUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ru.kravchenko.tm.api.repository.ISessionRepository;
+import ru.kravchenko.tm.api.repository.IUserRepository;
 import ru.kravchenko.tm.api.service.ISessionService;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
 import ru.kravchenko.tm.model.dto.SessionDTO;
@@ -12,8 +14,6 @@ import ru.kravchenko.tm.model.entity.Session;
 import ru.kravchenko.tm.model.entity.User;
 import ru.kravchenko.tm.util.SignatureUtil;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
@@ -21,15 +21,15 @@ import java.util.List;
  * @author Roman Kravchenko
  */
 
-@ApplicationScoped
-public class SessionService implements ISessionService{
+@Service
+public class SessionService implements ISessionService {
 
-    @Inject
     @NotNull
+    @Autowired
     private ISessionRepository sessionRepository;
 
-    @Inject
     @NotNull
+    @Autowired
     private IUserRepository userRepository;
 
 

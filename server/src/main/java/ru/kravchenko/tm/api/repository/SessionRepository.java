@@ -1,10 +1,9 @@
 package ru.kravchenko.tm.api.repository;
 
-import org.apache.deltaspike.data.api.FullEntityRepository;
-import org.apache.deltaspike.data.api.Modifying;
-import org.apache.deltaspike.data.api.Query;
-import org.apache.deltaspike.data.api.Repository;
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kravchenko.tm.model.entity.Session;
 import ru.kravchenko.tm.model.entity.User;
 
@@ -15,16 +14,11 @@ import java.util.List;
  */
 
 @Repository
-@Transactional
-public interface SessionRepository extends FullEntityRepository<Session, String> {
+public interface SessionRepository extends JpaRepository<Session, String> {
 
-    @Modifying
-    @Query("DELETE FROM Session")
-    void removeAll();
-
+    @Transactional
     void removeById(final String id);
 
-    @Modifying
     @Query("SELECT id FROM Session")
     List<String> findAllId();
 

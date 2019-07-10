@@ -1,11 +1,11 @@
 package ru.kravchenko.tm.service;
 
+import com.sun.istack.internal.NotNull;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Service;
 import ru.kravchenko.tm.api.service.ITerminalService;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.Scanner;
 
 /**
@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 
 @Getter
-@ApplicationScoped
+@Service
 public class TerminalService implements ITerminalService {
 
     @NotNull

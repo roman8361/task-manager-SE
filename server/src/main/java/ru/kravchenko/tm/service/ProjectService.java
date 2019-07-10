@@ -3,16 +3,16 @@ package ru.kravchenko.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.kravchenko.tm.api.repository.old.IProjectRepository;
-import ru.kravchenko.tm.api.repository.old.IUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ru.kravchenko.tm.api.repository.IProjectRepository;
+import ru.kravchenko.tm.api.repository.IUserRepository;
 import ru.kravchenko.tm.api.service.IProjectService;
 import ru.kravchenko.tm.model.dto.ProjectDTO;
 import ru.kravchenko.tm.model.dto.SessionDTO;
 import ru.kravchenko.tm.model.entity.Project;
 import ru.kravchenko.tm.model.entity.User;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,15 +21,15 @@ import java.util.List;
  * @author Roman Kravchenko
  */
 
-@ApplicationScoped
+@Service
 public class ProjectService implements IProjectService{
 
-    @Inject
     @NotNull
+    @Autowired
     private IProjectRepository projectRepository;
 
-    @Inject
     @NotNull
+    @Autowired
     private IUserRepository userRepository;
 
     public void insert(@Nullable final Project project) {
@@ -78,8 +78,6 @@ public class ProjectService implements IProjectService{
         project.setName(nameProject);
         project.setDateBegin(new Date());
         project.setDateEnd(new Date());
-        @NotNull final User user = userRepository.findById(sessionDTO.getUserId());
-        project.setUser(user);  //   setUserId(session.getUserId());
         insert(project);
         System.out.println("Project add to repository");
     }
@@ -93,8 +91,6 @@ public class ProjectService implements IProjectService{
         if (!existProject(projectId)) return;
         final @NotNull Project project = new Project();
         project.setName(newProjectName);
-        @NotNull final User user = userRepository.findById(sessionDTO.getUserId());
-        project.setUser(user);
         project.setId(projectId);
         project.setDescription(newDescription);
         project.setDateBegin(new Date());

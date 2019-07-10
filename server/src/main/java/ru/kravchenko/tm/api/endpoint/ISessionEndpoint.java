@@ -2,6 +2,7 @@ package ru.kravchenko.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Controller;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
 import ru.kravchenko.tm.exception.SessionNotFoundException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
@@ -18,6 +19,7 @@ import java.util.List;
  * @author Roman Kravchenko
  */
 
+@Controller
 @WebService
 public interface ISessionEndpoint {
 

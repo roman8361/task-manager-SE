@@ -2,10 +2,10 @@ package ru.kravchenko.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Service;
 import ru.kravchenko.tm.App;
 import ru.kravchenko.tm.api.service.IPropertyService;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -14,7 +14,7 @@ import java.util.Properties;
  * @author Roman Kravchenko
  */
 
-@ApplicationScoped
+@Service
 public class PropertyService implements IPropertyService {
 
     @NotNull
@@ -24,7 +24,7 @@ public class PropertyService implements IPropertyService {
         init();
     }
 
-    private void init() {
+    public void init() {
 
         try (InputStream resourceStream = App.class.getClassLoader().getResourceAsStream("application.properties")) {
             properties.load(resourceStream);
@@ -39,6 +39,41 @@ public class PropertyService implements IPropertyService {
         if (host != null && !host.isEmpty()) {
             properties.setProperty("server.host", host);
         }
+    }
+
+    @Override
+    public String getJdbcPassword() {
+        return properties.getProperty("password");
+    }
+
+    @Override
+    public String getJdbcUser() {
+        return properties.getProperty("user");
+    }
+
+    @Override
+    public String getJdbcURL() {
+        return properties.getProperty("url");
+    }
+
+    @Override
+    public String getJdbcDriver() {
+        return properties.getProperty("driver");
+    }
+
+    @Override
+    public String getDialect() {
+        return properties.getProperty("dialect");
+    }
+
+    @Override
+    public String getShowSQL() {
+        return properties.getProperty("showSQL");
+    }
+
+    @Override
+    public String getHBM2DDL_AUTO() {
+        return properties.getProperty("HBM2DDL_AUTO");
     }
 
     @Override

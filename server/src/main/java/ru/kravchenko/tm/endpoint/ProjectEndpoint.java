@@ -1,7 +1,8 @@
 package ru.kravchenko.tm.endpoint;
 
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import ru.kravchenko.tm.api.endpoint.IProjectEndpoint;
 import ru.kravchenko.tm.api.service.IProjectService;
 import ru.kravchenko.tm.api.service.ISessionService;
@@ -9,8 +10,6 @@ import ru.kravchenko.tm.exception.AccessForbiddenException;
 import ru.kravchenko.tm.model.dto.ProjectDTO;
 import ru.kravchenko.tm.model.dto.SessionDTO;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -21,13 +20,15 @@ import java.util.Collection;
  */
 
 @WebService
-@NoArgsConstructor
+@Controller
 public class ProjectEndpoint implements IProjectEndpoint {
 
-    @Inject
+    @NotNull
+    @Autowired
     private IProjectService projectService;
 
-    @Inject
+    @NotNull
+    @Autowired
     private ISessionService sessionService;
 
     @Override

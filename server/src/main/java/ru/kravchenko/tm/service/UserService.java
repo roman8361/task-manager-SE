@@ -3,6 +3,8 @@ package ru.kravchenko.tm.service;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.kravchenko.tm.api.service.IUserService;
 import ru.kravchenko.tm.exception.UserLoginBusyException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
@@ -11,23 +13,21 @@ import ru.kravchenko.tm.model.entity.Status;
 import ru.kravchenko.tm.model.entity.User;
 import ru.kravchenko.tm.repository.UserRepositoryDAO;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.List;
 
 /**
  * @author Roman Kravchenko
  */
 
-@ApplicationScoped
+@Service
 public class UserService implements IUserService {
 
-    @Inject
     @NotNull
+    @Autowired
     private UserRepositoryDAO userRepository;
 
-    @Inject
     @NotNull
+    @Autowired
     private SessionService sessionService;
 
     public List<User> findAll() {
@@ -57,7 +57,6 @@ public class UserService implements IUserService {
     public void clear() {
         userRepository.clear();
     }
-
 
     private List<String> loginList() {
         return userRepository.loginList();

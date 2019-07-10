@@ -2,17 +2,20 @@ package ru.kravchenko.tm;
 
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
-import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import ru.kravchenko.tm.api.repository.ProjectRepository;
 import ru.kravchenko.tm.api.repository.TaskRepository;
 import ru.kravchenko.tm.api.repository.UserRepository;
+import ru.kravchenko.tm.bootstrap.AppConfig;
 import ru.kravchenko.tm.model.entity.Task;
 import ru.kravchenko.tm.model.entity.User;
 
-import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
@@ -20,27 +23,28 @@ import java.util.List;
  * @author Roman Kravchenko
  */
 
-@RunWith(CdiTestRunner.class)
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = AppConfig.class)
 public class TaskTest {
 
     private Lorem lorem = new LoremIpsum();
 
-    @Inject
+    @Autowired
     private TaskRepository taskRepository;
 
-    @Inject
+    @Autowired
     private ProjectRepository projectRepository;
 
-    @Inject
+    @Autowired
     private UserRepository userRepository;
 
-   // @Test
+//    @Test
     public void addAnyTask() {
-        for (int i = 0; i < 3; i++) addOneTask();
+        for (int i = 0; i < 7; i++) addOneTask();
     }
 
     private void addOneTask() {
-        taskRepository.persist(date());
+        taskRepository.save(date());
     }
 
     private Task date() {
@@ -49,53 +53,46 @@ public class TaskTest {
         task.setDateEnd(new Date());
         task.setDescription(lorem.getWords(4));
         task.setName(lorem.getWords(1));
-        task.setUser(userRepository.findBy("6fee953d-0c0f-4968-9a10-043292780fd0"));
-        task.setProject(projectRepository.findBy("091a54e4-1799-45ba-99b3-e9fde856ab4a"));
+        task.setUser(userRepository.findById("5d9a7949-5bfd-4028-be60-a6b5a1583419").get());
+        task.setProject(projectRepository.findById("22ef9558-e0d1-4911-b52f-73f2c627fc75").get());
         return task;
     }
 
-   // @Test
+//    @Test
     public void clear() {
-        taskRepository.removeAll();
+        taskRepository.deleteAll();
     }
 
-  //  @Test
-    public void clear2() {
-        List<String> ids = taskRepository.findAllId();
-        for (String s: ids) taskRepository.removeById(s);
-    }
-
-
- //   @Test
+//    @Test
     public void findAll() {
         System.out.println(taskRepository.findAll());
     }
 
-  //  @Test
+//    @Test
     public void findTaskById() {
-        System.out.println(taskRepository.findBy("97047aa5-481b-4224-bc3e-0c58e80ddfdf").getName());
+        System.out.println(taskRepository.findById("119f3110-04c1-4120-9b54-f7fefc41a4f0").get().getName());
     }
 
- //   @Test
+//    @Test
     public void removeById() {
-        taskRepository.removeById("97047aa5-481b-4224-bc3e-0c58e80ddfdf");
+        taskRepository.removeById("119f3110-04c1-4120-9b54-f7fefc41a4f0");
     }
 
-  //  @Test
+//    @Test
     public void findAllTaskId() {
         System.out.println(taskRepository.findAllId());
     }
 
-   // @Test
+//    @Test
     public void findAllTaskByUserId() {
-        final User user = userRepository.findBy("e3c39bb6-59e9-443a-b1db-ae39a3a7c6a3");
+        final User user = userRepository.findById("5d9a7949-5bfd-4028-be60-a6b5a1583419").get();
         System.out.println(taskRepository.findByUser(user));
     }
 
- //   @Test
+//    @Test
     public void removeAllProjectByUserId() {
-        final String userId = "e3c39bb6-59e9-443a-b1db-ae39a3a7c6a3";
-        final User user = userRepository.findBy(userId);
+        final String userId = "5d9a7949-5bfd-4028-be60-a6b5a1583419";
+        final User user = userRepository.findById(userId).get();
         final List<Task> tasks = taskRepository.findByUser(user);
         for (Task t: tasks) taskRepository.removeById(t.getId());
     }
@@ -108,14 +105,12 @@ public class TaskTest {
         task.setDateBegin(new Date());
         task.setDateEnd(new Date());
         task.setDescription(lorem.getWords(4));
-        task.setProject(projectRepository.findBy("7534c50c-8e1e-4110-a085-8c1f420a6dad"));
-        task.setUser(userRepository.findBy("e3c39bb6-59e9-443a-b1db-ae39a3a7c6a3"));
-        taskRepository.persist(task);
+        taskRepository.save(task);
 
-        final Task projectInsert = taskRepository.findBy(task.getId());
+        final Task projectInsert = taskRepository.findById(task.getId()).get();
         Assert.assertNotNull(projectInsert);
         taskRepository.removeById(projectInsert.getId());
-        Assert.assertNull(taskRepository.findBy(task.getId()));
+        Assert.assertNotNull(taskRepository.findById(task.getId()));
     }
 
 }

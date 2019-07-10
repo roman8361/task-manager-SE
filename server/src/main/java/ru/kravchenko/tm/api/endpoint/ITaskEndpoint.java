@@ -1,6 +1,7 @@
 package ru.kravchenko.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Controller;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
 import ru.kravchenko.tm.model.dto.SessionDTO;
 import ru.kravchenko.tm.model.dto.TaskDTO;
@@ -14,6 +15,7 @@ import java.util.Collection;
  * @author Roman Kravchenko
  */
 
+@Controller
 @WebService
 public interface ITaskEndpoint {
 

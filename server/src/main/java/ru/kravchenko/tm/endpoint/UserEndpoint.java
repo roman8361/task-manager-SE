@@ -1,7 +1,8 @@
 package ru.kravchenko.tm.endpoint;
 
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import ru.kravchenko.tm.api.endpoint.IUserEndpoint;
 import ru.kravchenko.tm.api.service.ISessionService;
 import ru.kravchenko.tm.api.service.IUserService;
@@ -9,8 +10,6 @@ import ru.kravchenko.tm.exception.UserLoginBusyException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
 import ru.kravchenko.tm.model.dto.SessionDTO;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -20,13 +19,13 @@ import javax.jws.WebService;
  */
 
 @WebService
-@NoArgsConstructor
+@Controller
 public class UserEndpoint implements IUserEndpoint {
 
-    @Inject
+    @Autowired
     private IUserService userService;
 
-    @Inject
+    @Autowired
     private ISessionService sessionService;
 
     @Override

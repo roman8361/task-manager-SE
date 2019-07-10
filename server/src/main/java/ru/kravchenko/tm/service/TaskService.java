@@ -3,17 +3,17 @@ package ru.kravchenko.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.kravchenko.tm.api.repository.old.IProjectRepository;
-import ru.kravchenko.tm.api.repository.old.ITaskRepository;
-import ru.kravchenko.tm.api.repository.old.IUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ru.kravchenko.tm.api.repository.IProjectRepository;
+import ru.kravchenko.tm.api.repository.ITaskRepository;
+import ru.kravchenko.tm.api.repository.IUserRepository;
 import ru.kravchenko.tm.api.service.ITaskService;
 import ru.kravchenko.tm.model.dto.TaskDTO;
 import ru.kravchenko.tm.model.entity.Project;
 import ru.kravchenko.tm.model.entity.Task;
 import ru.kravchenko.tm.model.entity.User;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,19 +21,19 @@ import java.util.List;
  * @author Roman Kravchenko
  */
 
-@ApplicationScoped
+@Service
 public class TaskService implements ITaskService {
 
-    @Inject
     @NotNull
+    @Autowired
     private ITaskRepository taskRepository;
 
-    @Inject
     @NotNull
+    @Autowired
     private IProjectRepository projectRepository;
 
     @NotNull
-    @Inject
+    @Autowired
     private IUserRepository userRepository;
 
     public List<Task> findAll() {

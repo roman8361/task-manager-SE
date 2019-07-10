@@ -1,5 +1,7 @@
 package ru.kravchenko.tm.api.endpoint;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import ru.kravchenko.tm.exception.UserLoginBusyException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
 import ru.kravchenko.tm.model.dto.SessionDTO;
@@ -12,6 +14,8 @@ import javax.jws.WebService;
  * @author Roman Kravchenko
  */
 
+@Component
+@Controller
 @WebService
 public interface IUserEndpoint {
 

@@ -1,4 +1,4 @@
-package ru.kravchenko.tm.api.repository.old;
+package ru.kravchenko.tm.api.repository;
 
 import ru.kravchenko.tm.model.entity.Task;
 

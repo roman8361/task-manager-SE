@@ -1,10 +1,8 @@
 package ru.kravchenko.tm.api.repository;
 
-import org.apache.deltaspike.data.api.FullEntityRepository;
-import org.apache.deltaspike.data.api.Modifying;
-import org.apache.deltaspike.data.api.Query;
-import org.apache.deltaspike.data.api.Repository;
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import ru.kravchenko.tm.model.entity.User;
 
 import java.util.List;
@@ -14,23 +12,14 @@ import java.util.List;
  */
 
 @Repository
-@Transactional
-public interface UserRepository extends FullEntityRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     User findByLogin(final String login);
 
-    @Modifying
-    @Query("SELECT id FROM User")
-    List<String> findByAllId();
-
-    @Modifying
     @Query("SELECT login FROM User")
     List<String> loginList();
 
-    void removeById(String id);
-
-    @Modifying
-    @Query("DELETE FROM User")
-    void removeAll();
+    @Query("SELECT id FROM User")
+    List<String> findByAllId();
 
 }

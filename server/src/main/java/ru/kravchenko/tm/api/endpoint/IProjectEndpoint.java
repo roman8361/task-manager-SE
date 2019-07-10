@@ -2,6 +2,7 @@ package ru.kravchenko.tm.api.endpoint;
 
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Controller;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
 import ru.kravchenko.tm.model.dto.ProjectDTO;
 import ru.kravchenko.tm.model.dto.SessionDTO;
@@ -15,6 +16,7 @@ import java.util.Collection;
  * @author Roman Kravchenko
  */
 
+@Controller
 @WebService
 public interface IProjectEndpoint {
 

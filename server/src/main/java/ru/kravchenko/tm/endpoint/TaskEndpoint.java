@@ -1,7 +1,8 @@
 package ru.kravchenko.tm.endpoint;
 
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import ru.kravchenko.tm.api.endpoint.ITaskEndpoint;
 import ru.kravchenko.tm.api.service.ISessionService;
 import ru.kravchenko.tm.api.service.ITaskService;
@@ -9,8 +10,6 @@ import ru.kravchenko.tm.exception.AccessForbiddenException;
 import ru.kravchenko.tm.model.dto.SessionDTO;
 import ru.kravchenko.tm.model.dto.TaskDTO;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -21,15 +20,15 @@ import java.util.Collection;
  */
 
 @WebService
-@NoArgsConstructor
+@Controller
 public class TaskEndpoint implements ITaskEndpoint {
 
-    @Inject
     @NotNull
+    @Autowired
     private ISessionService sessionService;
 
-    @Inject
     @NotNull
+    @Autowired
     private ITaskService taskService;
 
     @Override

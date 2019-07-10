@@ -1,11 +1,12 @@
 package ru.kravchenko.tm;
 
-import javafx.application.Application;
-import lombok.NonNull;
-import ru.kravchenko.tm.bootstrap.Bootstrap;
 
-import javax.enterprise.inject.se.SeContainerInitializer;
-import javax.enterprise.inject.spi.CDI;
+import lombok.SneakyThrows;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.kravchenko.tm.bootstrap.AppConfig;
+import ru.kravchenko.tm.bootstrap.Bootstrap;
 
 /**
  * @author Roman Kravchenko
@@ -13,9 +14,10 @@ import javax.enterprise.inject.spi.CDI;
 
 public class App {
 
+    @SneakyThrows
     public static void main(String[] args) {
-        SeContainerInitializer.newInstance() .addPackages(Application.class).initialize();
-        @NonNull final Bootstrap bootstrap = CDI.current().select(Bootstrap.class).get();
+        @NotNull final ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        @NotNull final Bootstrap bootstrap = context.getBean(Bootstrap.class);
         bootstrap.init();
     }
 

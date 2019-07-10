@@ -2,94 +2,86 @@ package ru.kravchenko.tm;
 
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
-import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
-import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import ru.kravchenko.tm.api.repository.UserRepository;
+import ru.kravchenko.tm.bootstrap.AppConfig;
 import ru.kravchenko.tm.model.entity.User;
 
-import javax.inject.Inject;
 import java.util.List;
 
 /**
  * @author Roman Kravchenko
  */
 
-@RunWith(CdiTestRunner.class)
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = AppConfig.class)
 public class UserTest {
-
-    @Inject
-    private UserRepository userRepository;
 
     private Lorem lorem = new LoremIpsum();
 
- //   @Test
-    public void addAnyUser() {
-        for (int i = 0; i < 5; i++) addOneUser();
-    }
+    @Autowired
+    private UserRepository userRepository;
 
-    private void addOneUser() {
-        userRepository.persist(date());
-    }
+//    @Test
+    public void addAnyUser() { for (int i = 0; i < 5; i++) addOneUser(); }
 
-    private User date() {
+    private void addOneUser() { userRepository.save(dateUser()); }
+
+    private User dateUser() {
         final User user = new User();
         user.setLogin(lorem.getFirstName());
         user.setPasswordHash(lorem.getZipCode());
         return user;
     }
 
-  //  @Test
-    public void findById() {
-        System.out.println(userRepository.findBy("48c7d462-1023-43d2-9c49-7d253a3fe2a0").getLogin());
+//    @Test
+    public void findByLogin() {
+        System.out.println(userRepository.findByLogin("Clair").getPasswordHash());
     }
 
-   // @Test
+//    @Test
+    public void removeByUser() {
+        userRepository.delete(userRepository.findById("25ba227a-ec2e-4451-a6f1-539cb47a10a2").get());
+    }
+
+//    @Test
     public void removeById() {
-        userRepository.removeById("e9770985-a9c3-4235-8431-fe2fbf718797");
+        userRepository.deleteById("e8807b25-18b1-4f80-ab54-7da8ec5e9ec1");
     }
 
-   // @Test
-    public void clear() {
-        userRepository.removeAll();
+//    @Test
+    public void clearAll() {
+        userRepository.deleteAll();
     }
 
-  //  @Test
-    public void clear2() {
-        List<String> ids = userRepository.findByAllId();
-        for (String s: ids) userRepository.removeById(s);
+//    @Test
+    public void findAll() {
+        List<User> users = userRepository.findAll();
+        for (User u: users) System.out.println(u);
     }
 
-    @Test
+//    @Test
+    public void loginList() {
+        List<String> loginList = userRepository.loginList();
+        for (String s: loginList) System.out.println(s);
+    }
+
+    @Test //OK
     public void userCRUD() {
         final List<User> userList = userRepository.findAll();
         final User user = new User();
         user.setLogin(lorem.getFirstName());
         user.setPasswordHash(lorem.getZipCode());
-        userRepository.persist(user);
-
-        final User catInsert = userRepository.findBy(user.getId());
-        Assert.assertNotNull(catInsert);
-        userRepository.removeById(catInsert.getId());
-        Assert.assertNull(userRepository.findBy(user.getId()));
-    }
-
- //   @Test
-    public void ids() {
-        List<String> ids = userRepository.findByAllId();
-        System.out.println(ids);
-    }
-
-   // @Test
-    public void findByLogin() {
-        System.out.println(userRepository.findByLogin("Gay").getPasswordHash());
-    }
-
-  //  @Test
-    public void findLoginList() {
-        for (String s: userRepository.loginList()) System.out.println(s);
+        userRepository.save(user);
+        final User userInsert = userRepository.findById(user.getId()).get();
+        Assert.assertNotNull(userInsert);
+        userRepository.deleteById(userInsert.getId());
+        Assert.assertNull(userRepository.findByLogin(user.getId()));
     }
 
 }
