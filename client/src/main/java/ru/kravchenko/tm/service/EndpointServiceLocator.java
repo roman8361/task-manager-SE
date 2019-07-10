@@ -3,6 +3,7 @@ package ru.kravchenko.tm.service;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.IEndpointServiceLocator;
 import ru.kravchenko.tm.api.ITerminalService;
 import ru.kravchenko.tm.endpoint.*;
@@ -26,6 +27,19 @@ public class EndpointServiceLocator implements IEndpointServiceLocator {
 
     public TaskEndpoint taskEndpoint = new TaskEndpointService().getTaskEndpointPort();
 
-    private Session session;
+    @Nullable
+    private SessionDTO sessionDTO;
+
+    @Override
+    public SessionDTO getCurrentSession() {
+        return sessionDTO;
+    }
+
+    @Override
+    public void setCurrentSession(
+            @Nullable final SessionDTO sessionDTO) {
+        this.sessionDTO = sessionDTO;
+    }
+
 
 }

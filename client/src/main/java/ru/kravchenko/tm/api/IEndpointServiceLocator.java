@@ -1,6 +1,6 @@
 package ru.kravchenko.tm.api;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.endpoint.*;
 
 /**
@@ -19,8 +19,9 @@ public interface IEndpointServiceLocator {
 
     ITerminalService getTerminalService();
 
-    Session getSession();
+    SessionDTO getCurrentSession();
 
-    void setSession(@NotNull final Session session);
+    void setCurrentSession(@Nullable final SessionDTO sessionDTO);
+
 
 }

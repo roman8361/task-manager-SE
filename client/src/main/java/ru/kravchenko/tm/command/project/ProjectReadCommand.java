@@ -2,7 +2,7 @@ package ru.kravchenko.tm.command.project;
 
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.endpoint.AccessForbiddenException_Exception;
-import ru.kravchenko.tm.endpoint.Project;
+import ru.kravchenko.tm.endpoint.ProjectDTO;
 import ru.kravchenko.tm.endpoint.ProjectEndpoint;
 
 import java.util.List;
@@ -25,8 +25,13 @@ public class ProjectReadCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (serviceLocator.getCurrentSession() == null) {
+            System.out.println("PLEASE AUTORISATION");
+            return;
+        }
+
         try {
-            serviceLocator.getSessionEndpoint().validateSession(serviceLocator.getSession());
+            serviceLocator.getSessionEndpoint().validateSession(serviceLocator.getCurrentSession());
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;
@@ -34,8 +39,8 @@ public class ProjectReadCommand extends AbstractCommand {
         System.out.println("***Project Read Command***");
         ProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
         try {
-            List<Project> list = projectEndpoint.showAllProject(serviceLocator.getSession());
-            for (final Project project : list) System.out.println(project.getDescription());
+            List<ProjectDTO> list = projectEndpoint.showAllProject(serviceLocator.getCurrentSession());
+            for (final ProjectDTO projectDTO : list) System.out.println(projectDTO.getDescription());
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;

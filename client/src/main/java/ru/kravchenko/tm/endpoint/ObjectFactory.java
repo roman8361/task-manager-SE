@@ -105,11 +105,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Session }
+     * Create an instance of {@link SessionDTO }
      * 
      */
-    public Session createSession() {
-        return new Session();
+    public SessionDTO createSessionDTO() {
+        return new SessionDTO();
     }
 
     /**

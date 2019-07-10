@@ -12,6 +12,10 @@ import ru.kravchenko.tm.endpoint.ProjectEndpoint;
 import ru.kravchenko.tm.endpoint.SessionEndpoint;
 import ru.kravchenko.tm.endpoint.TaskEndpoint;
 import ru.kravchenko.tm.endpoint.UserEndpoint;
+import ru.kravchenko.tm.exception.AccessForbiddenException;
+import ru.kravchenko.tm.exception.SessionNotFoundException;
+import ru.kravchenko.tm.exception.UserLoginBusyException;
+import ru.kravchenko.tm.exception.UserNotFoundException;
 import ru.kravchenko.tm.service.LocatorServiceBean;
 
 import javax.xml.ws.Endpoint;

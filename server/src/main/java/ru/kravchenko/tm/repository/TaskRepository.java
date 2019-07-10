@@ -1,41 +1,103 @@
 package ru.kravchenko.tm.repository;
 
-import org.apache.ibatis.annotations.*;
-import ru.kravchenko.tm.entity.Task;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import ru.kravchenko.tm.api.repository.ITaskRepository;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.model.entity.Task;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
  * @author Roman Kravchenko
  */
 
-public interface TaskRepository {
+public class TaskRepository implements ITaskRepository {
 
-    @Select("SELECT * FROM `task`")
-    List<Task> findAll();
+    @NotNull
+    private IServiceLocator serviceLocator;
 
-    @Select("SELECT id FROM `task`")
-    List<String> ids();
+    public TaskRepository(@NotNull final IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+    }
 
-    @Select("SELECT * FROM `task` WHERE id = #{id}")
-    @Results(@Result(column = "user_id", property = "userId"))
-    Task findById(String id);
+    @Override
+    public List<Task> findAll() {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @Nullable final List<Task> task = em.createQuery("SELECT e FROM Task e", Task.class).getResultList();
+        em.close();
+        return task;
+    }
 
-    @Results(@Result(column = "user_id", property = "userId"))
-    @Select("SELECT * FROM `task` WHERE user_id = #{userId}")
-    List<Task> findAllTaskByUserId(final String userId);
+    @Override
+    public List<String> ids() {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @Nullable final List<String> tasks = em.createQuery("SELECT id FROM Task e", String.class).getResultList();
+        em.close();
+        return tasks;
+    }
 
-    @Delete("DELETE FROM `task` WHERE id = #{id}")
-    void removeById(String id);
+    @Override
+    public Task findById(@NotNull final String id) {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @NotNull final Task task = em.find(Task.class, id);
+        em.close();
+        return task;
+    }
 
-    @Delete("DELETE FROM `task` WHERE user_id = #{userId}")
-    void removeAllTaskByUserId(final String userId);
+    @Override
+    public List<Task> findAllTaskByUserId(@NotNull final String userId) {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @NotNull final List<Task> tasks = em.createQuery("SELECT e FROM Task e WHERE e.user.id =:userId", Task.class)
+                .setParameter("userId", userId)
+                .getResultList();
+        return tasks;
+    }
 
-    @Insert("INSERT INTO `task`(`id`, `name`, `description`, `project_id`, `user_id`, `dateBegin`, `dateEnd`, `status`) " +
-            "VALUES (#{id}, #{name}, #{description}, #{projectId}, #{userId}, #{dateBegin}, #{dateEnd}, #{status})")
-    void insert(final Task task);
+    @Override
+    public void removeById(@NotNull final String id) {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @NotNull final Task task = em.find(Task.class, id);
+        em.remove(task);
+        em.getTransaction().commit();
+        em.close();
+    }
 
-    @Delete("DELETE FROM `task`")
-    void clear();
+    @Override
+    public void removeAllTaskByUserId(@NotNull final String userId) {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @NotNull final List<Task> tasks = em.createQuery("SELECT e FROM Task e WHERE e.user.id =:userId", Task.class)
+                .setParameter("userId", userId)
+                .getResultList();
+        for (Task t : tasks) em.remove(t);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    @Override
+    public void insert(@NotNull final Task task) {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        em.persist(task);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    @Override
+    public void clear() {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @Nullable final List<Task> tasks = em.createQuery("SELECT e FROM Task e", Task.class).getResultList();
+        for (Task t : tasks) em.remove(t);
+        em.getTransaction().commit();
+        em.close();
+    }
 
 }

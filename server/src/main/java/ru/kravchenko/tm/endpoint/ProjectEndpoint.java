@@ -4,9 +4,9 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.endpoint.IProjectEndpoint;
 import ru.kravchenko.tm.api.service.IServiceLocator;
-import ru.kravchenko.tm.entity.Project;
-import ru.kravchenko.tm.entity.Session;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
+import ru.kravchenko.tm.model.dto.ProjectDTO;
+import ru.kravchenko.tm.model.dto.SessionDTO;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -29,51 +29,48 @@ public class ProjectEndpoint implements IProjectEndpoint {
     }
 
     @Override
-    public void editProject(@NotNull Session session,
+    public void editProject(@NotNull SessionDTO sessionDTO,
                             @NotNull String projectId,
                             @WebParam(name = "name") @NotNull final String name,
                             @WebParam(name = "description") @NotNull final String description) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
-        serviceLocator.getProjectService().updateProject(projectId, name, description, session);
+        serviceLocator.getProjectService().updateProject(projectId, name, description, sessionDTO);
         System.out.println("PROJECT EDIT");
     }
 
     @Override
     @WebMethod
-    public void createProject(@WebParam(name = "session") @NotNull final Session session,
+    public void createProject(@WebParam(name = "sessionDTO") @NotNull final SessionDTO sessionDTO,
                               @WebParam(name = "name") @NotNull final String name,
                               @WebParam(name = "description") @NotNull final String description) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
-        serviceLocator.getProjectService().createProject(session, name, description);
+        serviceLocator.getProjectService().createProject(sessionDTO, name, description);
         System.out.println("PROJECT CREATE");
     }
 
     @Override
-    public void removeProject(@WebParam(name = "session") @NotNull final Session session,
+    public void removeProject(@WebParam(name = "sessionDTO") @NotNull final SessionDTO sessionDTO,
                               @WebParam(name = "projectId") @NotNull final String projectId) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
+        serviceLocator.getSessionService().validate(sessionDTO);
         serviceLocator.getProjectService().removeById(projectId);
     }
 
     @Override
-    public Project findOneProject(@NotNull final Session session,
-                                  @NotNull final String projectId) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
+    public ProjectDTO findOneProject(@NotNull final SessionDTO sessionDTO,
+                                     @NotNull final String projectId) throws AccessForbiddenException {
+        serviceLocator.getSessionService().validate(sessionDTO);
         return serviceLocator.getProjectService().findById(projectId);
     }
 
     @Override
     @WebMethod
-    public void removeAllProject(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
-        serviceLocator.getProjectService().removeAllProjectByUserId(session.getUserId());
+    public void removeAllProject(@WebParam(name = "sessionDTO") @NotNull final SessionDTO sessionDTO) throws AccessForbiddenException {
+        serviceLocator.getSessionService().validate(sessionDTO);
+        serviceLocator.getProjectService().removeAllProjectByUserId(sessionDTO.getUserId());
     }
 
     @Override
     @WebMethod
-    public Collection<Project> showAllProject(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
-        final Collection<Project> result = serviceLocator.getProjectService().findAllProjectByUserId(session.getUserId());
+    public Collection<ProjectDTO> showAllProject(@WebParam(name = "sessionDTO") @NotNull final SessionDTO sessionDTO) throws AccessForbiddenException {
+        final Collection<ProjectDTO> result = serviceLocator.getProjectService().findAllProjectByUserId(sessionDTO.getUserId());
         return result;
     }
 

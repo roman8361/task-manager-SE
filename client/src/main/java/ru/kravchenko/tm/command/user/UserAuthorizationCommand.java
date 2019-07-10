@@ -2,10 +2,7 @@ package ru.kravchenko.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.endpoint.SessionEndpoint;
-import ru.kravchenko.tm.endpoint.SessionNotFoundException_Exception;
-import ru.kravchenko.tm.endpoint.UserEndpoint;
-import ru.kravchenko.tm.endpoint.UserNotFoundException_Exception;
+import ru.kravchenko.tm.endpoint.*;
 
 /**
  * @author Roman Kravchenko
@@ -24,29 +21,17 @@ public class UserAuthorizationCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws SessionNotFoundException_Exception, UserNotFoundException_Exception {
         System.out.println("***User Authorization Command***");
         @NotNull final UserEndpoint userEndpoint = serviceLocator.getUserEndpoint();
         @NotNull final SessionEndpoint sessionEndpoint = serviceLocator.getSessionEndpoint();
-        try {
-            userEndpoint.authorization("roma", "roma");
-        } catch (UserNotFoundException_Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        try {
-            serviceLocator.setSession(sessionEndpoint.openSession("roma"));
-        } catch (SessionNotFoundException_Exception e) {
-            e.printStackTrace();
-            return;
-        } catch (UserNotFoundException_Exception e) {
-            e.printStackTrace();
-            return;
-        }
 
-        System.out.println("USER AUTORIZATION");
-        System.out.println("SESSION getId: " + serviceLocator.getSession().getId());
-        System.out.println(serviceLocator.getSession());
+        userEndpoint.authorization("1", "1");
+        final @NotNull SessionDTO sessionDTO = sessionEndpoint.openSession("1");
+        serviceLocator.setCurrentSession(sessionDTO);
+        System.out.println("USER ID: " + sessionDTO.getUserId());
     }
 
 }
+
+

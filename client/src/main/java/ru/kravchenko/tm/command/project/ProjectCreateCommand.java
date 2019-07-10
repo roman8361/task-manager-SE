@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.endpoint.AccessForbiddenException_Exception;
 import ru.kravchenko.tm.endpoint.ProjectEndpoint;
-import ru.kravchenko.tm.endpoint.Session;
+import ru.kravchenko.tm.endpoint.SessionDTO;
 
 /**
  * @author Roman Kravchenko
@@ -26,17 +26,20 @@ public class ProjectCreateCommand extends AbstractCommand {
 
     public void execute() {
         @NotNull final ProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
-        @NotNull final Session session = serviceLocator.getSession();
-        System.out.println("SESSION ID: " + session.getId());
+        @NotNull final SessionDTO sessionDTO = serviceLocator.getCurrentSession();
+
+        if (sessionDTO == null) {
+            System.out.println("PLEASE AUTORISATION");
+            return;
+        }
         try {
-            serviceLocator.getSessionEndpoint().validateSession(session);
+            serviceLocator.getSessionEndpoint().validateSession(sessionDTO);
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;
         }
-
         try {
-            projectEndpoint.createProject(serviceLocator.getSession(), "22222", "dfsdasdad");
+            projectEndpoint.createProject(sessionDTO, "22222", "dfsdasdad");
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;

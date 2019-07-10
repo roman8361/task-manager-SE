@@ -4,9 +4,9 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.endpoint.ITaskEndpoint;
 import ru.kravchenko.tm.api.service.IServiceLocator;
-import ru.kravchenko.tm.entity.Session;
-import ru.kravchenko.tm.entity.Task;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
+import ru.kravchenko.tm.model.dto.SessionDTO;
+import ru.kravchenko.tm.model.dto.TaskDTO;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -29,43 +29,41 @@ public class TaskEndpoint implements ITaskEndpoint {
 
     @Override
     @WebMethod
-    public void createTask(@WebParam(name = "session") @NotNull final Session session,
+    public void createTask(@WebParam(name = "sessionDTO") @NotNull final SessionDTO sessionDTO,
                            @WebParam(name = "projectId") @NotNull final String projectId,
                            @WebParam(name = "name") @NotNull final String name,
                            @WebParam(name = "description") @NotNull final String description) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
-        serviceLocator.getTaskService().mergeTask(projectId, name, description, session.getUserId());
+        serviceLocator.getSessionService().validate(sessionDTO);
+        serviceLocator.getTaskService().mergeTask(projectId, name, description, sessionDTO.getUserId());
         System.out.println("TASK CREATE");
-        assert session.getUserId() != null;
     }
 
     @Override
     @WebMethod
-    public void removeTask(@NotNull final Session session,
+    public void removeTask(@NotNull final SessionDTO sessionDTO,
                            @NotNull final String id) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
+        serviceLocator.getSessionService().validate(sessionDTO);
         serviceLocator.getTaskService().removeById(id);
     }
 
     @Override
     @WebMethod
-    public Task findOneTask(@NotNull final Session session,
-                            @NotNull final String id) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
+    public TaskDTO findOneTask(@NotNull final SessionDTO sessionDTO,
+                               @NotNull final String id) throws AccessForbiddenException {
+        serviceLocator.getSessionService().validate(sessionDTO);
         return serviceLocator.getTaskService().findById(id);
     }
 
     @Override
-    public Collection<Task> getAllTaskByUserId(@NotNull final Session session,
-                                               @NotNull final String userId) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
-        return serviceLocator.getTaskService().findAllTaskByUserId(userId);
+    public Collection<TaskDTO> getAllTaskByUserId(@NotNull final SessionDTO sessionDTO) throws AccessForbiddenException {
+        serviceLocator.getSessionService().validate(sessionDTO);
+        return serviceLocator.getTaskService().findAllTaskByUserId(sessionDTO.getUserId());
     }
 
     @Override
-    public void removeAllTaskByUserId(@NotNull final Session session) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
-        serviceLocator.getTaskService().removeAllTaskByUserId(session.getUserId());
+    public void removeAllTaskByUserId(@NotNull final SessionDTO sessionDTO) throws AccessForbiddenException {
+        serviceLocator.getSessionService().validate(sessionDTO);
+        serviceLocator.getTaskService().removeAllTaskByUserId(sessionDTO.getUserId());
     }
 
 }

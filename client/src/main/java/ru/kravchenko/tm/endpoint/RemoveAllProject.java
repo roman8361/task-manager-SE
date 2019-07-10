@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="session" type="{http://endpoint.tm.kravchenko.ru/}session" minOccurs="0"/&gt;
+ *         &lt;element name="sessionDTO" type="{http://endpoint.tm.kravchenko.ru/}sessionDTO" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -27,34 +27,34 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "removeAllProject", propOrder = {
-    "session"
+    "sessionDTO"
 })
 public class RemoveAllProject {
 
-    protected Session session;
+    protected SessionDTO sessionDTO;
 
     /**
-     * Gets the value of the session property.
+     * Gets the value of the sessionDTO property.
      * 
      * @return
      *     possible object is
-     *     {@link Session }
+     *     {@link SessionDTO }
      *     
      */
-    public Session getSession() {
-        return session;
+    public SessionDTO getSessionDTO() {
+        return sessionDTO;
     }
 
     /**
-     * Sets the value of the session property.
+     * Sets the value of the sessionDTO property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Session }
+     *     {@link SessionDTO }
      *     
      */
-    public void setSession(Session value) {
-        this.session = value;
+    public void setSessionDTO(SessionDTO value) {
+        this.sessionDTO = value;
     }
 
 }

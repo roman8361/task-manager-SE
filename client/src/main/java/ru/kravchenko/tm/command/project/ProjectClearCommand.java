@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.endpoint.AccessForbiddenException_Exception;
 import ru.kravchenko.tm.endpoint.ProjectEndpoint;
-import ru.kravchenko.tm.endpoint.Session;
+import ru.kravchenko.tm.endpoint.SessionDTO;
 
 /**
  * @author Roman Kravchenko
@@ -25,16 +25,20 @@ public class ProjectClearCommand extends AbstractCommand {
     @Override
     public void execute() {
         @NotNull final ProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
-        @NotNull final Session session = serviceLocator.getSession();
+        @NotNull final SessionDTO sessionDTO = serviceLocator.getCurrentSession();
+        if (sessionDTO == null) {
+            System.out.println("PLEASE AUTORISATION");
+            return;
+        }
         try {
-            serviceLocator.getSessionEndpoint().validateSession(session);
+            serviceLocator.getSessionEndpoint().validateSession(sessionDTO);
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;
         }
         System.out.println("***ProjectClearCommand***");
         try {
-            projectEndpoint.removeAllProject(session);
+            projectEndpoint.removeAllProject(sessionDTO);
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;

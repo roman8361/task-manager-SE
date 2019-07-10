@@ -3,7 +3,7 @@ package ru.kravchenko.tm.command.project;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.endpoint.AccessForbiddenException_Exception;
 import ru.kravchenko.tm.endpoint.ProjectEndpoint;
-import ru.kravchenko.tm.endpoint.Session;
+import ru.kravchenko.tm.endpoint.SessionDTO;
 
 /**
  * @author Roman Kravchenko
@@ -24,9 +24,13 @@ public class ProjectRemoveCommand extends AbstractCommand {
     @Override
     public void execute() {
         final ProjectEndpoint projectEndpoint = serviceLocator.getProjectEndpoint();
-        final Session session = serviceLocator.getSession();
+        final SessionDTO sessionDTO = serviceLocator.getCurrentSession();
+        if (sessionDTO == null) {
+            System.out.println("PLEASE AUTORISATION");
+            return;
+        }
         try {
-            serviceLocator.getSessionEndpoint().validateSession(session);
+            serviceLocator.getSessionEndpoint().validateSession(sessionDTO);
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;
@@ -35,7 +39,7 @@ public class ProjectRemoveCommand extends AbstractCommand {
         System.out.println("PLEASE ENTER ID PROJECT: ");
         String userInput = serviceLocator.getTerminalService().nextLine();
         try {
-            projectEndpoint.removeProject(session, userInput);
+            projectEndpoint.removeProject(sessionDTO, userInput);
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;

@@ -1,33 +1,32 @@
 package ru.kravchenko.tm.service;
 
+import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.jetbrains.annotations.NotNull;
+import ru.kravchenko.tm.api.repository.IUserRepository;
 import ru.kravchenko.tm.api.service.IServiceLocator;
 import ru.kravchenko.tm.api.service.IUserService;
-import ru.kravchenko.tm.entity.Session;
-import ru.kravchenko.tm.entity.Status;
-import ru.kravchenko.tm.entity.User;
 import ru.kravchenko.tm.exception.UserLoginBusyException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
-import ru.kravchenko.tm.repository.UserRepository;
+import ru.kravchenko.tm.model.entity.Session;
+import ru.kravchenko.tm.model.entity.Status;
+import ru.kravchenko.tm.model.entity.User;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
  * @author Roman Kravchenko
  */
 
-public class UserService extends AbstractService implements IUserService {
+public class UserService implements IUserService {
 
     private IServiceLocator serviceLocator;
 
-    private final UserRepository userRepository;
+    private final IUserRepository userRepository;
 
-    public UserService(IServiceLocator serviceLocator) throws IOException {
-        userRepository = sqlSession.getMapper(UserRepository.class);
+    public UserService(IServiceLocator serviceLocator) {
         this.serviceLocator = serviceLocator;
+        userRepository = serviceLocator.getUserRepository();
     }
 
     public List<User> findAll() {
@@ -39,7 +38,7 @@ public class UserService extends AbstractService implements IUserService {
     }
 
     public User findById(@Nullable final String id) {
-        return userRepository.findOne(id);
+        return userRepository.findById(id);
     }
 
     public User findByLogin(final String login) {
@@ -47,42 +46,17 @@ public class UserService extends AbstractService implements IUserService {
     }
 
     public void removeById(@Nullable final String id) {
-        try {
-            userRepository.removeById(id);
-            commit();
-        } catch (Exception e) {
-            roolback();
-            e.printStackTrace();
-        }
+        userRepository.removeById(id);
     }
 
     public void insert(@Nullable final User user) {
-        try {
-            userRepository.insert(user);
-            commit();
-        } catch (Exception e) {
-            roolback();
-            e.printStackTrace();
-        }
+        userRepository.insert(user);
     }
 
     public void clear() {
-        try {
-            userRepository.clear();
-            commit();
-        } catch (Exception e) {
-            roolback();
-            e.printStackTrace();
-        }
+        userRepository.clear();
     }
 
-    public void commit() {
-        sqlSession.commit();
-    }
-
-    public void roolback() {
-        sqlSession.rollback();
-    }
 
     public List<String> loginList() {
         return userRepository.loginList();
@@ -101,7 +75,6 @@ public class UserService extends AbstractService implements IUserService {
         user.setPasswordHash(DigestUtils.md5Hex(password));
         user.setRole(Status.USER);
         insert(user);
-        commit();
         System.out.println("New user " + login + " add.");
         System.out.println("Please authorization.");
     }

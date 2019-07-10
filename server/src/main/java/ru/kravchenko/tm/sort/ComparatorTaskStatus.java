@@ -1,6 +1,6 @@
 package ru.kravchenko.tm.sort;
 
-import ru.kravchenko.tm.entity.Task;
+import ru.kravchenko.tm.model.entity.Task;
 
 import java.util.Comparator;
 

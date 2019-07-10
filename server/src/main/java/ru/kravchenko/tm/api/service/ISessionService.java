@@ -2,8 +2,9 @@ package ru.kravchenko.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.kravchenko.tm.entity.Session;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
+import ru.kravchenko.tm.model.dto.SessionDTO;
+import ru.kravchenko.tm.model.entity.Session;
 
 /**
  * @author Roman Kravchenko
@@ -12,9 +13,9 @@ public interface ISessionService {
 
     void addSession(@NotNull final Session session);
 
-    Session createSession(@NotNull final String userId);
+    SessionDTO createSession(@NotNull final String userId);
 
-    void validate(@Nullable final Session session) throws AccessForbiddenException;
+    void validate(@Nullable final SessionDTO sessionDTO) throws AccessForbiddenException;
 
     Session findOnByUserId(@Nullable final String userId);
 

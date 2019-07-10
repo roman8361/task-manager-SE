@@ -1,9 +1,10 @@
 package ru.kravchenko.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
-import ru.kravchenko.tm.entity.Project;
-import ru.kravchenko.tm.entity.Session;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
+import ru.kravchenko.tm.model.dto.ProjectDTO;
+import ru.kravchenko.tm.model.dto.SessionDTO;
+import ru.kravchenko.tm.model.entity.Project;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ public interface IProjectService {
 
     List<String> ids();
 
-    Project findById(String id);
+    ProjectDTO findById(String id);
 
-    List<Project> findAllProjectByUserId(String userId);
+    List<ProjectDTO> findAllProjectByUserId(String userId);
 
     void removeById(String id);
 
@@ -30,17 +31,13 @@ public interface IProjectService {
 
     void clear();
 
-    public void commit();
-
-    public void roolback();
-
-    public void createProject(@NotNull final Session session,
+    public void createProject(@NotNull final SessionDTO sessionDTO,
                               @NotNull final String nameProject,
                               @NotNull final String descriptionProject) throws AccessForbiddenException;
 
     public void updateProject(@NotNull final String projectId,
                               @NotNull final String newProjectName,
                               @NotNull final String newDescription,
-                              @NotNull final Session session);
+                              @NotNull final SessionDTO sessionDTO);
 
 }

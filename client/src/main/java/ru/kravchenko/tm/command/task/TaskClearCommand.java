@@ -3,7 +3,7 @@ package ru.kravchenko.tm.command.task;
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.endpoint.AccessForbiddenException_Exception;
-import ru.kravchenko.tm.endpoint.Session;
+import ru.kravchenko.tm.endpoint.SessionDTO;
 import ru.kravchenko.tm.endpoint.TaskEndpoint;
 
 /**
@@ -24,16 +24,16 @@ public class TaskClearCommand extends AbstractCommand {
     @Override
     public void execute() {
         @NotNull final TaskEndpoint taskEndpoint = serviceLocator.getTaskEndpoint();
-        @NotNull final Session session = serviceLocator.getSession();
+        @NotNull final SessionDTO sessionDTO = serviceLocator.getCurrentSession();
         try {
-            serviceLocator.getSessionEndpoint().validateSession(session);
+            serviceLocator.getSessionEndpoint().validateSession(sessionDTO);
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;
         }
         System.out.println("**Task Clear Command***");
         try {
-            taskEndpoint.removeAllTaskByUserId(session);
+            taskEndpoint.removeAllTaskByUserId(sessionDTO);
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
         }

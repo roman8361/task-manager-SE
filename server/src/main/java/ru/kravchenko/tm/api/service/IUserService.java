@@ -1,9 +1,9 @@
 package ru.kravchenko.tm.api.service;
 
 import org.jetbrains.annotations.Nullable;
-import ru.kravchenko.tm.entity.User;
 import ru.kravchenko.tm.exception.UserLoginBusyException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
+import ru.kravchenko.tm.model.entity.User;
 
 /**
  * @author Roman Kravchenko

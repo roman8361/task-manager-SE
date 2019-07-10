@@ -1,8 +1,8 @@
 package ru.kravchenko.tm.api.endpoint;
 
-import ru.kravchenko.tm.entity.Session;
 import ru.kravchenko.tm.exception.UserLoginBusyException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
+import ru.kravchenko.tm.model.dto.SessionDTO;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -27,6 +27,6 @@ public interface IUserEndpoint {
 
     @WebMethod
     void logout(
-            @WebParam(name = "session") final Session session);
+            @WebParam(name = "sessionDTO") final SessionDTO sessionDTO);
 
 }

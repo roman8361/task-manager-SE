@@ -2,7 +2,7 @@ package ru.kravchenko.tm.command.user;
 
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.endpoint.AccessForbiddenException_Exception;
-import ru.kravchenko.tm.endpoint.Session;
+import ru.kravchenko.tm.endpoint.SessionDTO;
 
 /**
  * @author Roman Kravchenko
@@ -23,17 +23,15 @@ public class UserLogoutCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("***User Logout Command***");
-        final Session session = serviceLocator.getSession();
-
+        final SessionDTO sessionDTO = serviceLocator.getCurrentSession();
         try {
-            serviceLocator.getSessionEndpoint().validateSession(session);
+            serviceLocator.getSessionEndpoint().validateSession(sessionDTO);
         } catch (AccessForbiddenException_Exception e) {
             e.printStackTrace();
             return;
         }
-        serviceLocator.getUserEndpoint().logout(session);
+        serviceLocator.getUserEndpoint().logout(sessionDTO);
         System.out.println("Come back later...");
-        System.exit(0);
     }
 
 }

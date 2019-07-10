@@ -1,9 +1,5 @@
 package ru.kravchenko.tm.sort;
 
-import ru.kravchenko.tm.entity.Project;
-
-import java.util.Comparator;
-
 /**
  * @author Roman Kravchenko
  */

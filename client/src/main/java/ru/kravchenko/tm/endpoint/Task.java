@@ -18,13 +18,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent&gt;
  *     &lt;extension base="{http://endpoint.tm.kravchenko.ru/}abstractEntity"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="projectId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="dateBegin" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="dateEnd" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="project" type="{http://endpoint.tm.kravchenko.ru/}project" minOccurs="0"/&gt;
  *         &lt;element name="status" type="{http://endpoint.tm.kravchenko.ru/}statusProjectTask" minOccurs="0"/&gt;
+ *         &lt;element name="user" type="{http://endpoint.tm.kravchenko.ru/}user" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
@@ -35,124 +35,28 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "task", propOrder = {
-    "projectId",
-    "userId",
-    "name",
-    "description",
     "dateBegin",
     "dateEnd",
-    "status"
+    "description",
+    "name",
+    "project",
+    "status",
+    "user"
 })
 public class Task
     extends AbstractEntity
 {
 
-    protected String projectId;
-    protected String userId;
-    protected String name;
-    protected String description;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateBegin;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateEnd;
+    protected String description;
+    protected String name;
+    protected Project project;
     @XmlSchemaType(name = "string")
     protected StatusProjectTask status;
-
-    /**
-     * Gets the value of the projectId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getProjectId() {
-        return projectId;
-    }
-
-    /**
-     * Sets the value of the projectId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setProjectId(String value) {
-        this.projectId = value;
-    }
-
-    /**
-     * Gets the value of the userId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUserId() {
-        return userId;
-    }
-
-    /**
-     * Sets the value of the userId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUserId(String value) {
-        this.userId = value;
-    }
-
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
-
-    /**
-     * Gets the value of the description property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Sets the value of the description property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDescription(String value) {
-        this.description = value;
-    }
+    protected User user;
 
     /**
      * Gets the value of the dateBegin property.
@@ -203,6 +107,78 @@ public class Task
     }
 
     /**
+     * Gets the value of the description property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Sets the value of the description property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDescription(String value) {
+        this.description = value;
+    }
+
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
+
+    /**
+     * Gets the value of the project property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Project }
+     *     
+     */
+    public Project getProject() {
+        return project;
+    }
+
+    /**
+     * Sets the value of the project property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Project }
+     *     
+     */
+    public void setProject(Project value) {
+        this.project = value;
+    }
+
+    /**
      * Gets the value of the status property.
      * 
      * @return
@@ -224,6 +200,30 @@ public class Task
      */
     public void setStatus(StatusProjectTask value) {
         this.status = value;
+    }
+
+    /**
+     * Gets the value of the user property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link User }
+     *     
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Sets the value of the user property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link User }
+     *     
+     */
+    public void setUser(User value) {
+        this.user = value;
     }
 
 }

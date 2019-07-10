@@ -1,40 +1,102 @@
 package ru.kravchenko.tm.repository;
 
-import org.apache.ibatis.annotations.*;
-import ru.kravchenko.tm.entity.Project;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import ru.kravchenko.tm.api.repository.IProjectRepository;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.model.entity.Project;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
  * @author Roman Kravchenko
  */
 
-public interface ProjectRepository {
+public class ProjectRepository implements IProjectRepository {
 
-    @Select("SELECT * FROM `project`")
-    List<Project> findAll();
+    @NotNull
+    private IServiceLocator serviceLocator;
 
-    @Select("SELECT id FROM `project`")
-    List<String> ids();
+    public ProjectRepository(@NotNull final IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+    }
 
-    @Select("SELECT * FROM `project` WHERE id = #{id}")
-    @Results(@Result(column = "user_id", property = "userId"))
-    Project findOne(final String id);
+    @Override
+    public List<Project> findAll() {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        List<Project> projects = em.createQuery("SELECT e FROM Project e", Project.class).getResultList();
+        em.close();
+        return projects;
+    }
 
-    @Select("SELECT * FROM `project` WHERE user_id = #{userId}")
-    List<Project> findAllProjectByUserId(final String userId);
+    @Override
+    public List<String> ids() {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @Nullable final List<String> project = em.createQuery("SELECT id FROM Project e", String.class).getResultList();
+        em.close();
+        return project;
+    }
 
-    @Delete("DELETE FROM `project` WHERE id = #{id}")
-    void removeById(final String id);
+    @Override
+    public Project findById(@NotNull final String id) {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @NotNull final Project project = em.find(Project.class, id);
+        em.close();
+        return project;
+    }
 
-    @Delete("DELETE FROM `project` WHERE user_id = #{userId}")
-    void removeAllProjectByUserId(final String userId);
+    @Override
+    public List<Project> findAllProjectByUserId(@NotNull final String userId) {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @Nullable final List<Project> projects = em.createQuery("SELECT e FROM Project e WHERE e.user.id =:userId", Project.class)
+                .setParameter("userId", userId)
+                .getResultList();
+        return projects;
+    }
 
-    @Insert("INSERT INTO `project`(`id`, `name`, `description`, `dateBegin`, `dateEnd`, `user_id`, `status`) " +
-            "VALUES (#{id}, #{name}, #{description}, #{dateBegin}, #{dateEnd}, #{userId}, #{status})")
-    void insert(final Project project);
+    @Override
+    public void removeById(@NotNull final String id) {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @NotNull final Project project = em.find(Project.class, id);
+        em.remove(project);
+        em.getTransaction().commit();
+    }
 
-    @Delete("DELETE FROM `project`")
-    void clear();
+    @Override
+    public void removeAllProjectByUserId(@NotNull final String userId) {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @NotNull final List<Project> projects = em.createQuery("SELECT e FROM Project e WHERE e.user.id =:userId", Project.class)
+                .setParameter("userId", userId)
+                .getResultList();
+        for (Project p : projects) em.remove(p);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    @Override
+    public void insert(@NotNull final Project project) {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        em.persist(project);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    @Override
+    public void clear() {
+        @NotNull final EntityManager em = serviceLocator.getEntityManager().getEntityManager();
+        em.getTransaction().begin();
+        @NotNull final List<Project> projects = em.createQuery("SELECT e FROM Project e", Project.class).getResultList();
+        for (Project p : projects) em.remove(p);
+        em.getTransaction().commit();
+        em.close();
+    }
 
 }

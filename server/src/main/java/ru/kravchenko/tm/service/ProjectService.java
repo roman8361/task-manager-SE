@@ -1,15 +1,16 @@
 package ru.kravchenko.tm.service;
 
+import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
-import org.jetbrains.annotations.NotNull;
+import ru.kravchenko.tm.api.repository.IProjectRepository;
 import ru.kravchenko.tm.api.service.IProjectService;
 import ru.kravchenko.tm.api.service.IServiceLocator;
-import ru.kravchenko.tm.entity.Project;
-import ru.kravchenko.tm.entity.Session;
-import ru.kravchenko.tm.exception.AccessForbiddenException;
-import ru.kravchenko.tm.repository.ProjectRepository;
+import ru.kravchenko.tm.model.dto.ProjectDTO;
+import ru.kravchenko.tm.model.dto.SessionDTO;
+import ru.kravchenko.tm.model.entity.Project;
+import ru.kravchenko.tm.model.entity.User;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,26 +18,20 @@ import java.util.List;
  * @author Roman Kravchenko
  */
 
-public class ProjectService extends AbstractService implements IProjectService {
-
-    private final ProjectRepository projectRepository;
+public class ProjectService implements IProjectService {
 
     @NotNull
     private final IServiceLocator serviceLocator;
 
-    public ProjectService(@NotNull final IServiceLocator serviceLocator) throws IOException {
-        projectRepository = sqlSession.getMapper(ProjectRepository.class);
+    private final IProjectRepository projectRepository;
+
+    public ProjectService(@NotNull final IServiceLocator serviceLocator) {
         this.serviceLocator = serviceLocator;
+        this.projectRepository = serviceLocator.getProjectRepository();
     }
 
     public void insert(@Nullable final Project project) {
-        try {
-            projectRepository.insert(project);
-            commit();
-        } catch (Exception e) {
-            roolback();
-            e.printStackTrace();
-        }
+        projectRepository.insert(project);
     }
 
     public List<Project> findAll() {
@@ -47,59 +42,42 @@ public class ProjectService extends AbstractService implements IProjectService {
         return projectRepository.ids();
     }
 
-    public Project findById(@Nullable final String id) {
+    public ProjectDTO findById(@Nullable final String id) {
         if (id == null || id.isEmpty()) return null;
-        return projectRepository.findOne(id);
+        return projectRepository.findById(id).getDTO();
     }
 
     public void removeById(@Nullable final String id) {
-        if (id == null || id.isEmpty()) return;
-        try {
-            projectRepository.removeById(id);
-            commit();
-        } catch (Exception e) {
-            roolback();
-            e.printStackTrace();
-        }
+        projectRepository.removeById(id);
     }
 
     public void clear() {
         projectRepository.clear();
     }
 
-    public void commit() {
-        sqlSession.commit();
-    }
-
-    public void roolback() {
-        sqlSession.rollback();
-    }
-
-    public List<Project> findAllProjectByUserId(@Nullable final String userId) {
-        return projectRepository.findAllProjectByUserId(userId);
+    public List<ProjectDTO> findAllProjectByUserId(@Nullable final String userId) {
+        List<ProjectDTO> result = new ArrayList<>();
+        for (Project p : projectRepository.findAllProjectByUserId(userId)) {
+            result.add(p.getDTO());
+        }
+        return result;
     }
 
     public void removeAllProjectByUserId(@Nullable final String userId) {
-        try {
-            projectRepository.removeAllProjectByUserId(userId);
-            commit();
-        } catch (Exception e) {
-            roolback();
-            e.printStackTrace();
-        }
+        projectRepository.removeAllProjectByUserId(userId);
     }
 
     @Override
-    public void createProject(@NotNull final Session session,
+    public void createProject(@NotNull final SessionDTO sessionDTO,
                               @NotNull final String nameProject,
-                              @NotNull final String descriptionProject) throws AccessForbiddenException {
-        serviceLocator.getSessionService().validate(session);
+                              @NotNull final String descriptionProject) {
         @NotNull final Project project = new Project();
         project.setDescription(descriptionProject);
         project.setName(nameProject);
         project.setDateBegin(new Date());
         project.setDateEnd(new Date());
-        project.setUserId(session.getUserId());
+        @NotNull final User user = serviceLocator.getUserRepository().findById(sessionDTO.getUserId());
+        project.setUser(user);  //   setUserId(session.getUserId());
         insert(project);
         System.out.println("Project add to repository");
     }
@@ -108,12 +86,13 @@ public class ProjectService extends AbstractService implements IProjectService {
     public void updateProject(@NotNull final String projectId,
                               @NotNull final String newProjectName,
                               @NotNull final String newDescription,
-                              @NotNull final Session session) {
+                              @NotNull final SessionDTO sessionDTO) {
         if (projectId == null || projectId.isEmpty()) return;
         if (!existProject(projectId)) return;
         final @NotNull Project project = new Project();
         project.setName(newProjectName);
-        project.setUserId(session.getUserId());
+        @NotNull final User user = serviceLocator.getUserRepository().findById(sessionDTO.getUserId());
+        project.setUser(user);
         project.setId(projectId);
         project.setDescription(newDescription);
         project.setDateBegin(new Date());

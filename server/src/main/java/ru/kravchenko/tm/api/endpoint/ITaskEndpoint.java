@@ -1,9 +1,9 @@
 package ru.kravchenko.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
-import ru.kravchenko.tm.entity.Session;
-import ru.kravchenko.tm.entity.Task;
 import ru.kravchenko.tm.exception.AccessForbiddenException;
+import ru.kravchenko.tm.model.dto.SessionDTO;
+import ru.kravchenko.tm.model.dto.TaskDTO;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -18,26 +18,24 @@ import java.util.Collection;
 public interface ITaskEndpoint {
 
     @WebMethod
-    void createTask(@WebParam(name = "session") @NotNull final Session session,
+    void createTask(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
                     @WebParam(name = "projectId") @NotNull final String projectId,
                     @WebParam(name = "name") @NotNull final String name,
                     @WebParam(name = "description") @NotNull final String description
     ) throws AccessForbiddenException;
 
     @WebMethod
-    void removeTask(@WebParam(name = "session") @NotNull final Session session,
+    void removeTask(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
                     @WebParam(name = "id") @NotNull final String id) throws AccessForbiddenException;
 
+    @WebMethod
+    TaskDTO findOneTask(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO,
+                        @WebParam(name = "id") @NotNull final String id) throws AccessForbiddenException;
 
     @WebMethod
-    Task findOneTask(@WebParam(name = "session") @NotNull final Session session,
-                     @WebParam(name = "id") @NotNull final String id) throws AccessForbiddenException;
+    Collection<TaskDTO> getAllTaskByUserId(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) throws AccessForbiddenException;
 
     @WebMethod
-    Collection<Task> getAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session,
-                                        @WebParam(name = "userId") @NotNull final String userId) throws AccessForbiddenException;
-
-    @WebMethod
-    void removeAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session) throws AccessForbiddenException;
+    void removeAllTaskByUserId(@WebParam(name = "session") @NotNull final SessionDTO sessionDTO) throws AccessForbiddenException;
 
 }

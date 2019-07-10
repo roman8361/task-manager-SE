@@ -4,9 +4,9 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.endpoint.IUserEndpoint;
 import ru.kravchenko.tm.api.service.IServiceLocator;
-import ru.kravchenko.tm.entity.Session;
 import ru.kravchenko.tm.exception.UserLoginBusyException;
 import ru.kravchenko.tm.exception.UserNotFoundException;
+import ru.kravchenko.tm.model.dto.SessionDTO;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -45,9 +45,9 @@ public class UserEndpoint implements IUserEndpoint {
 
     @Override
     @WebMethod
-    public void logout(@WebParam(name = "session") @NotNull final Session session) {
-        System.out.println("ID SESSION: " + session.getId());
-        serviceLocator.getSessionService().removeById(session.getId());
+    public void logout(@WebParam(name = "sessionDTO") @NotNull final SessionDTO sessionDTO) {
+        System.out.println("ID SESSION DTO: " + sessionDTO.getId());
+        serviceLocator.getSessionService().removeById(sessionDTO.getId());
         System.out.println("USER LOGOUT");
     }
 

@@ -1,7 +1,7 @@
 package ru.kravchenko.tm.api.service;
 
 import com.sun.istack.internal.Nullable;
-import ru.kravchenko.tm.entity.Task;
+import ru.kravchenko.tm.model.dto.TaskDTO;
 
 import java.util.List;
 
@@ -21,9 +21,9 @@ public interface ITaskService {
 
     void removeById(@Nullable final String id);
 
-    Task findById(@Nullable final String id);
+    TaskDTO findById(@Nullable final String id);
 
-    List<Task> findAllTaskByUserId(@Nullable final String userId);
+    List<TaskDTO> findAllTaskByUserId(@Nullable final String userId);
 
     void removeAllTaskByUserId(@Nullable final String userId);
 
