@@ -16,9 +16,9 @@ public interface TaskService {
     Collection<Task> findAll();
 
     @NotNull
-    Task findById(@Nullable String id);
+    Task findOneId(@Nullable String id);
 
-    void createTask();
+    void mergeTask();
 
     void showAllTask();
 

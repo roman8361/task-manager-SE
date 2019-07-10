@@ -34,7 +34,6 @@ public class TestServiceSingletonProject {
         return projectMap.values();
     }
 
-
     public Project findById(@Nullable String id) {
         if (id == null || id.isEmpty()) return null;
         return projectMap.get(id);

@@ -3,6 +3,7 @@
 *.iml
 out/*
 target/*
+test/*
 *.iml
 target
 .idea

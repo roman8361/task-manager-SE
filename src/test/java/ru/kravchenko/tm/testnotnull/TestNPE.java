@@ -1,6 +1,5 @@
 package ru.kravchenko.tm.testnotnull;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Test;
 

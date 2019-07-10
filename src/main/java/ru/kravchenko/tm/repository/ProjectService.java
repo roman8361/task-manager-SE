@@ -16,9 +16,9 @@ public interface ProjectService {
     Collection<Project> findAll();
 
     @NotNull
-    Project findById(@Nullable String id);
+    Project findOne(@Nullable String id);
 
-    void createProject();
+    void mergeProject();
 
     void showAllProject();
 
