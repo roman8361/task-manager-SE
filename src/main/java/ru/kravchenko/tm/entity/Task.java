@@ -3,6 +3,7 @@ package ru.kravchenko.tm.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
+import ru.kravchenko.tm.api.AbstractEntity;
 
 /**
  * @author Roman Kravchenko
@@ -16,10 +17,10 @@ public class Task extends AbstractEntity {
     private Project project;
 
     @Nullable
-    private String name = "";
+    private String name;
 
     @Nullable
-    private String description = "";
+    private String description;
 
     @Override
     public String toString() {

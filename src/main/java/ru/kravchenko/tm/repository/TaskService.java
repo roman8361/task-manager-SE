@@ -2,7 +2,6 @@ package ru.kravchenko.tm.repository;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.kravchenko.tm.entity.Project;
 import ru.kravchenko.tm.entity.Task;
 
 import java.util.Collection;
@@ -18,7 +17,9 @@ public interface TaskService {
     @NotNull
     Task findOneId(@Nullable String id);
 
-    void mergeTask();
+    void mergeTask(@Nullable final String projectId,
+                   @Nullable final String taskName,
+                   @Nullable final String taskDescription);
 
     void showAllTask();
 
@@ -28,5 +29,8 @@ public interface TaskService {
 
     void removeAllTask();
 
-    void updateTask();
+    void updateTask(@Nullable final String taskId,
+                    @Nullable final String taskName,
+                    @Nullable final String taskDescription);
+
 }

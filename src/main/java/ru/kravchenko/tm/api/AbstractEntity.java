@@ -1,4 +1,4 @@
-package ru.kravchenko.tm.entity;
+package ru.kravchenko.tm.api;
 
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;

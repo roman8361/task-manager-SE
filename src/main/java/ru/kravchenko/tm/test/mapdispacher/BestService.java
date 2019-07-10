@@ -4,10 +4,16 @@ package ru.kravchenko.tm.test.mapdispacher;
  * @author Roman Kravchenko
  */
 
-public class BestService implements GetNameClass {
+class BestService extends AbstractClass {
 
     @Override
-    public void getNameClass() {
-        System.out.println("NAME CLASS IS:  " + getClass().getCanonicalName());
+    public String getName() {
+        return "best";
     }
+
+    @Override
+    public void execute() {
+        System.out.println("EXECUTE BEST SERVICE");
+    }
+
 }

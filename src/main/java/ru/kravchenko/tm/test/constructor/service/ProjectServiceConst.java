@@ -34,7 +34,7 @@ public class ProjectServiceConst {
         final Scanner scannerDescription = new Scanner(System.in);
         final String description = scannerDescription.nextLine();
         project.setDescription(description);
-        project.setDateBering(addDateBeginProject());
+        project.setDateBegin(addDateBeginProject());
         project.setDateEnd(addDateEndProject());
         projectMap.put(project.getId(), project);
     }

@@ -1,14 +1,20 @@
 package ru.kravchenko.tm;
 
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.command.*;
-import ru.kravchenko.tm.constant.CommandConstant;
+import ru.kravchenko.tm.command.additional.ExitCommand;
+import ru.kravchenko.tm.command.additional.ReferenceCommand;
+import ru.kravchenko.tm.command.project.*;
+import ru.kravchenko.tm.command.task.TaskClearCommand;
+import ru.kravchenko.tm.command.task.TaskCreateCommand;
+import ru.kravchenko.tm.command.task.TaskReadCommand;
+import ru.kravchenko.tm.command.task.TaskUpdateCommand;
+import ru.kravchenko.tm.command.user.*;
 import ru.kravchenko.tm.service.ProjectServiceBean;
 import ru.kravchenko.tm.service.TaskServiceBean;
-
+import ru.kravchenko.tm.service.UserServiceBean;
+import ru.kravchenko.tm.utils.TerminalService;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * @author Roman Kravchenko
@@ -16,9 +22,13 @@ import java.util.Scanner;
 
 public class Bootstrap {
 
+    private TerminalService terminalService = new TerminalService();
+
+    private UserServiceBean userServiceBean = new UserServiceBean();
+
     private Map<String, AbstractCommand> commandListMap = new HashMap<>();
 
-    private ProjectServiceBean projectServiceBean = new ProjectServiceBean();
+    private ProjectServiceBean projectServiceBean = new ProjectServiceBean(userServiceBean);
 
     private TaskServiceBean taskServiceBean = new TaskServiceBean(projectServiceBean);
 
@@ -26,28 +36,37 @@ public class Bootstrap {
         initCommandList();
         System.out.println("*** WELCOME TO TASK MANAGER ***");
         while (true) {
-            Scanner scanner = new Scanner(System.in);
             System.out.println("Please enter command (help: Show all command) :");
-            String userInput = scanner.next();
-
+            String userInput = terminalService.nextLine();
             if (commandListMap.containsKey(userInput)) commandListMap.get(userInput).execute();
-
             if (!commandListMap.containsKey(userInput)) System.out.println("Not correct command, please try again");
         }
     }
 
     private void initCommandList() {
-        commandListMap.put(CommandConstant.HELP, new ReferenceCommand());
-        commandListMap.put(CommandConstant.PROJECT_CREATE, new ProjectCreateCommand(projectServiceBean));
-        commandListMap.put(CommandConstant.PROJECT_LIST, new ProjectReadCommand(projectServiceBean));
-        commandListMap.put(CommandConstant.PROJECT_REMOVE, new ProjectRemoveCommand(projectServiceBean));
-        commandListMap.put(CommandConstant.PROJECT_CLEAR, new ProjectClearCommand(projectServiceBean));
-        commandListMap.put(CommandConstant.PROJECT_UPDATE, new ProjectUpdateCommand(projectServiceBean));
-        commandListMap.put(CommandConstant.TASK_CREATE, new TaskCreateCommand(taskServiceBean));
-        commandListMap.put(CommandConstant.TASK_LIST, new TaskReadCommand(taskServiceBean));
-        commandListMap.put(CommandConstant.TASK_REMOVE, new TaskClearCommand(taskServiceBean));
-        commandListMap.put(CommandConstant.TASK_UPDATE, new TaskUpdateCommand(taskServiceBean));
-        commandListMap.put(CommandConstant.EXIT, new ExitCommand());
+        registry(new ReferenceCommand(projectServiceBean));
+        registry(new ExitCommand(projectServiceBean));
+        registry(new ProjectAddToUser(userServiceBean, projectServiceBean));
+        registry(new ProjectClearCommand(userServiceBean, projectServiceBean));
+        registry(new ProjectCreateCommand(userServiceBean, projectServiceBean));
+        registry(new ProjectReadCommand(userServiceBean, projectServiceBean));
+        registry(new ProjectRemoveCommand(userServiceBean, projectServiceBean));
+        registry(new ProjectUpdateCommand(userServiceBean, projectServiceBean));
+        registry(new TaskClearCommand(userServiceBean, taskServiceBean));
+        registry(new TaskCreateCommand(userServiceBean, taskServiceBean));
+        registry(new TaskReadCommand(userServiceBean, taskServiceBean));
+        registry(new TaskUpdateCommand(userServiceBean, taskServiceBean));
+        registry(new UserAuthorizationCommand(userServiceBean));
+        registry(new UserChangePasswordCommand(userServiceBean));
+        registry(new UserChangeProfileCommand(userServiceBean));
+        registry(new UserLogoutCommand(userServiceBean));
+        registry(new UserRegistryCommand(userServiceBean));
+        registry(new UserShowDateBaseCommand(userServiceBean));
+        registry(new UserShowLoginBaseCommand(userServiceBean));
+    }
+
+    private void registry(final AbstractCommand abstractCommand) {
+        commandListMap.put(abstractCommand.getName(), abstractCommand);
     }
 
 }

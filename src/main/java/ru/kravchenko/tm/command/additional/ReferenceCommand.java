@@ -1,5 +1,6 @@
-package ru.kravchenko.tm.command;
+package ru.kravchenko.tm.command.additional;
 
+import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
 import ru.kravchenko.tm.service.ProjectServiceBean;
 
@@ -9,7 +10,12 @@ import ru.kravchenko.tm.service.ProjectServiceBean;
 
 public class ReferenceCommand extends AbstractCommand {
 
-    private final ProjectServiceBean projectServiceBean = new ProjectServiceBean();
+    @NotNull
+    private ProjectServiceBean projectServiceBean;
+
+    public ReferenceCommand(@NotNull ProjectServiceBean projectServiceBean) {
+        this.projectServiceBean = projectServiceBean;
+    }
 
     @Override
     public String getName() { return "help"; }

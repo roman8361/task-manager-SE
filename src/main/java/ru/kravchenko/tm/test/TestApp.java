@@ -1,6 +1,8 @@
 package ru.kravchenko.tm.test;
 
 import lombok.SneakyThrows;
+import ru.kravchenko.tm.entity.Status;
+import ru.kravchenko.tm.entity.User;
 import ru.kravchenko.tm.test.singleton.Singleton;
 import ru.kravchenko.tm.test.singleton.TestServiceSingletonProject;
 import ru.kravchenko.tm.test.singleton.TestServiceSingletonTask;
@@ -14,6 +16,7 @@ import java.util.UUID;
 public class TestApp {
 
     public static void main(String[] args) throws ParseException {
+
 
     }
 

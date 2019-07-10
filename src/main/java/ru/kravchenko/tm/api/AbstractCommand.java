@@ -6,10 +6,10 @@ package ru.kravchenko.tm.api;
 
 public abstract class AbstractCommand {
 
-    public String getName() { return ""; }
+    public abstract String getName();
 
-    public void getDescription() {}
+    public abstract void getDescription();
 
-    public void execute() {}
+    public abstract void execute();
 
 }

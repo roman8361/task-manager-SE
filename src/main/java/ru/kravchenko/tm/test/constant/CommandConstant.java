@@ -1,4 +1,4 @@
-package ru.kravchenko.tm.constant;
+package ru.kravchenko.tm.test.constant;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -10,6 +10,12 @@ public final class CommandConstant {
 
     @NotNull
     public static final String HELP = "help";
+
+    @NotNull
+    public static final String USER_REGISTRY = "user-registry";
+
+    @NotNull
+    public static final String USER_SHOW_ALL = "show-all-user";
 
     @NotNull
     public static final String PROJECT_CREATE = "project-create";

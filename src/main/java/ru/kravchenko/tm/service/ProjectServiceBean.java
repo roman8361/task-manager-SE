@@ -4,8 +4,9 @@ import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.entity.Project;
+import ru.kravchenko.tm.entity.User;
 import ru.kravchenko.tm.repository.ProjectService;
-
+import ru.kravchenko.tm.utils.TerminalService;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -15,8 +16,25 @@ import java.util.*;
 
 public class ProjectServiceBean implements ProjectService {
 
+    private TerminalService terminalService = new TerminalService();
+
+    private UserServiceBean userServiceBean;
+
+    public ProjectServiceBean(UserServiceBean userServiceBean) {
+        this.userServiceBean = userServiceBean;
+        initProject();
+    }
+
     @NotNull
     private Map<String, Project> projectMap = new LinkedHashMap<>();
+
+    private void initProject() {
+        final Project project = new Project("testProject");
+        project.setDescription("setDescription");
+        project.setDateBegin(new Date());
+        project.setDateEnd(new Date());
+        projectMap.put(project.getId(), project);
+    }
 
     @Override
     public @NotNull Collection<Project> findAll() {
@@ -30,16 +48,10 @@ public class ProjectServiceBean implements ProjectService {
     }
 
     @Override
-    public @NotNull void mergeProject() {
-        System.out.println("Please enter project name: ");
-        final Scanner scannerName = new Scanner(System.in);
-        final String nameProject = scannerName.nextLine();
+    public @NotNull void createProject(@Nullable String nameProject, @Nullable String descriptionProject) {
         final Project project = new Project(nameProject);
-        System.out.println("Please enter description for project: ");
-        final Scanner scannerDescription = new Scanner(System.in);
-        final String description = scannerDescription.nextLine();
-        project.setDescription(description);
-        project.setDateBering(addDateBeginProject());
+        project.setDescription(descriptionProject);
+        project.setDateBegin(addDateBeginProject());
         project.setDateEnd(addDateEndProject());
         projectMap.put(project.getId(), project);
         System.out.println("Project add to repository");
@@ -51,20 +63,11 @@ public class ProjectServiceBean implements ProjectService {
     }
 
     @Override
-    public @NotNull void removeById() {
-        final String id = getIdFromUser();
-        if (id == null || id.isEmpty()) return;
-        if (!projectMap.containsKey(id)) return;
-        projectMap.remove(id);
-        System.out.println("Project is remove");
-    }
-
-    @Override
-    public String getIdFromUser() {
-        System.out.println("Please enter id project: ");
-        final Scanner scanner = new Scanner(System.in);
-        final String userInput = scanner.nextLine();
-        return userInput;
+    public @NotNull void removeById(@Nullable String projectId) {
+        if (projectId == null || projectId.isEmpty()) return;
+        if (!projectMap.containsKey(projectId)) return;
+        projectMap.remove(projectId);
+        System.out.println("Project this id: " + projectId + " is remove");
     }
 
     @Override
@@ -83,8 +86,7 @@ public class ProjectServiceBean implements ProjectService {
     @SneakyThrows
     public Date addDateBeginProject() {
         System.out.println("Please enter date begin project: (dd.MM.yyyy)");
-        final Scanner scanner = new Scanner(System.in);
-        final String dateBegin = scanner.nextLine();
+        final String dateBegin = terminalService.nextLine();
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
         final Date newDate = simpleDateFormat.parse(dateBegin);
         return newDate;
@@ -94,16 +96,37 @@ public class ProjectServiceBean implements ProjectService {
     @SneakyThrows
     public Date addDateEndProject() {
         System.out.println("Please enter date end project: (dd.MM.yyyy)");
-        final Scanner scanner = new Scanner(System.in);
-        final String dateEnd = scanner.nextLine();
+        final String dateEnd = terminalService.nextLine();
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
         final Date endDate = simpleDateFormat.parse(dateEnd);
         return endDate;
     }
 
     @Override
+    public void updateProject(@Nullable final String projectId,
+                              @Nullable final String newProjectName,
+                              @Nullable final String newDescription) {
+        if (projectId == null || projectId.isEmpty()) return;
+        if (!projectMap.containsKey(projectId)) return;
+        final Project project = new Project(newProjectName);
+        project.setDescription(newDescription);
+        project.setDateBegin(addDateBeginProject());
+        project.setDateEnd(addDateEndProject());
+        projectMap.put(projectId, project);
+        System.out.println("Project id: " + projectId + "  update");
+    }
+
+    @Override
     public void showAllCommand() {
         System.out.println("help: Show all command.");
+        System.out.println("user-registry: Registry new user.");
+        System.out.println("user-authorization: Login user.");
+        System.out.println("user-logout: Logout user.");
+        System.out.println("user-change-profile: Change profile user.");
+        System.out.println("user-change-password: Change user password.");
+        System.out.println("user-all-show: Show all users in Base Date.");
+        System.out.println("user-all-show-online: Show all user on line.");
+        System.out.println("project-add-user: Add project to user id.");
         System.out.println("project-clear: Remove all projects.");
         System.out.println("project-create: Create new project.");
         System.out.println("project-list: Show all project.");
@@ -117,22 +140,13 @@ public class ProjectServiceBean implements ProjectService {
     }
 
     @Override
-    public void updateProject() {
-        final String id = getIdFromUser();
-        if (id == null || id.isEmpty()) return;
-        if (!projectMap.containsKey(id)) return;
-        System.out.println("Please enter project name: ");
-        final Scanner scannerName = new Scanner(System.in);
-        final String nameProject = scannerName.nextLine();
-        final Project project = new Project(nameProject);
-        System.out.println("Please enter description for project: ");
-        final Scanner scannerDescription = new Scanner(System.in);
-        final String description = scannerDescription.nextLine();
-        project.setDescription(description);
-        project.setDateBering(addDateBeginProject());
-        project.setDateEnd(addDateEndProject());
-        projectMap.put(id, project);
-        System.out.println("Project id: " + id + "  update");
+    public void addProjectToUser(@Nullable String userLogin, @Nullable String projectId) {
+        final User user = userServiceBean.findByLogin(userLogin);
+        final Map<String, User> usersBaseDateThisProject = new LinkedHashMap<>();
+        user.setProject(projectMap.get(projectId));
+        usersBaseDateThisProject.put(user.getLogin(), user);
+        userServiceBean.setUsersBaseDate(usersBaseDateThisProject);
+        System.out.println("Project add to user: " + userLogin);
     }
 
 }

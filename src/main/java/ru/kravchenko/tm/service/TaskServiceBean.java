@@ -5,17 +5,18 @@ import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.entity.Project;
 import ru.kravchenko.tm.entity.Task;
 import ru.kravchenko.tm.repository.TaskService;
-
+import ru.kravchenko.tm.utils.TerminalService;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * @author Roman Kravchenko
  */
 
 public class TaskServiceBean implements TaskService {
+
+    private TerminalService terminalService = new TerminalService();
 
     @NotNull
     private ProjectServiceBean projectServiceBean;
@@ -36,20 +37,13 @@ public class TaskServiceBean implements TaskService {
         return taskMap.get(id);
     }
 
-    public void mergeTask() {
-        System.out.println("Please enter id name Project for Task: ");
-        final Scanner scannerIdProject = new Scanner(System.in);
-        final String projectId = scannerIdProject.nextLine();
+    public void mergeTask(@Nullable final String projectId,
+                          @Nullable final String taskName,
+                          @Nullable final String taskDescription) {
         final Project project = projectServiceBean.findOne(projectId);
-        System.out.println("Please enter task name: ");
-        final Scanner scannerNameTask = new Scanner(System.in);
-        final String nameTask = scannerNameTask.nextLine();
         final Task task = new Task();
-        task.setName(nameTask);
-        System.out.println("Please enter description for task: ");
-        final Scanner scannerDescription = new Scanner(System.in);
-        final String description = scannerDescription.nextLine();
-        task.setDescription(description);
+        task.setName(taskName);
+        task.setDescription(taskDescription);
         task.setProject(project);
         taskMap.put(task.getId(),task);
         System.out.println("Task is add to project");
@@ -68,8 +62,7 @@ public class TaskServiceBean implements TaskService {
     @Override
     public String getIdFromUser() {
         System.out.println("Please enter id task: ");
-        final Scanner scanner = new Scanner(System.in);
-        final String idTask = scanner.nextLine();
+        final String idTask = terminalService.nextLine();
         return idTask;
     }
 
@@ -80,17 +73,12 @@ public class TaskServiceBean implements TaskService {
     }
 
     @Override
-    public void updateTask() {
-        final String idTask = getIdFromUser();
-        Task task = taskMap.get(idTask);
-        System.out.println("Please enter new task name: ");
-        final Scanner scannerNameTask = new Scanner(System.in);
-        final String nameTask = scannerNameTask.nextLine();
-        task.setName(nameTask);
-        System.out.println("Please enter new description for task: ");
-        final Scanner scannerDescription = new Scanner(System.in);
-        final String description = scannerDescription.nextLine();
-        task.setDescription(description);
+    public void updateTask(@Nullable final String taskId,
+                           @Nullable final String taskName,
+                           @Nullable final String taskDescription) {
+        Task task = taskMap.get(taskId);
+        task.setName(taskName);
+        task.setDescription(taskDescription);
         taskMap.put(task.getId(),task);
         System.out.println("Task is update to project");
     }

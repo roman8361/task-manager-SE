@@ -18,15 +18,18 @@ public interface ProjectService {
     @NotNull
     Project findOne(@Nullable String id);
 
-    void mergeProject();
+    void createProject(@Nullable String nameProject,
+                       @Nullable String descriptionProject);
 
     void showAllProject();
 
-    void removeById();
+    void removeById(@Nullable final String projectId);
 
     void showAllCommand();
 
-    String getIdFromUser();
+    void addProjectToUser(@Nullable String userId, @Nullable String projectId);
+
+   // String getIdFromUser();
 
     void exit();
 
@@ -36,6 +39,8 @@ public interface ProjectService {
 
     Date addDateEndProject();
 
-    void updateProject();
+    void updateProject(@Nullable final String projectId,
+                       @Nullable final String newProjectName,
+                       @Nullable final String newDescription);
 
 }

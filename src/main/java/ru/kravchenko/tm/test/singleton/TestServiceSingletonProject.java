@@ -48,7 +48,7 @@ public class TestServiceSingletonProject {
         final Scanner scannerDescription = new Scanner(System.in);
         final String description = scannerDescription.nextLine();
         project.setDescription(description);
-        project.setDateBering(addDateBegin());
+        project.setDateBegin(addDateBegin());
         project.setDateEnd(addDateEnd());
         projectMap.put(project.getId(), project);
     }
