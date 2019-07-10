@@ -6,13 +6,23 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.AbstractEntity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+
 /**
  * @author Roman Kravchenko
  */
 
 @Getter
 @Setter
-public class Task extends AbstractEntity {
+@XmlRootElement(name = "task")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Task extends AbstractEntity implements Serializable {
+
+    public Task() {
+    }
 
     @Nullable
     private Project project;

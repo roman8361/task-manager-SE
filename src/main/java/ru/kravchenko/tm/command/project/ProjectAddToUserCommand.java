@@ -14,7 +14,7 @@ import ru.kravchenko.tm.service.ProjectServiceBean;
  * @author Roman Kravchenko
  */
 
-public class ProjectAddToUser extends AbstractCommand {
+public class ProjectAddToUserCommand extends AbstractCommand {
 
     @Override
     public String getName() {

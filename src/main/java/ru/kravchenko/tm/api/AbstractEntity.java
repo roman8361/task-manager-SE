@@ -1,7 +1,15 @@
 package ru.kravchenko.tm.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
@@ -9,9 +17,13 @@ import java.util.UUID;
  */
 
 @Getter
-public abstract class AbstractEntity {
+@Setter
+@NoArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public abstract class AbstractEntity implements Serializable {
 
-    @Nullable
+    @NotNull
     private final String id = UUID.randomUUID().toString();
 
 }

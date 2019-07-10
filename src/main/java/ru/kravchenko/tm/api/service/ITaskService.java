@@ -24,4 +24,24 @@ public interface ITaskService {
     void updateTaskStatus(@NotNull final String taskId,
                           @NotNull final StatusProjectTask taskStatus);
 
+    void saveDateSerializ();
+
+    void loadDateSerializ();
+
+    void saveDateJAXBtoXML();
+
+    void loadDateJAXBtoMapFromXML();
+
+    void saveDateJAXBtoJson();
+
+    void loadDateJAXBtoMapFromJson();
+
+    void saveDateOMtoXML();
+
+    void loadDateOMtoXML(); //
+
+    void saveDateOMtoJson();
+
+    void loadDateOMtoJson();
+
 }

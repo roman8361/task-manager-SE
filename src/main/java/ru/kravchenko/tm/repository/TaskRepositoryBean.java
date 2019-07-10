@@ -1,21 +1,30 @@
 package ru.kravchenko.tm.repository;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.reposiroty.ITaskRepository;
 import ru.kravchenko.tm.entity.Task;
 import ru.kravchenko.tm.sort.ComparatorTaskStatus;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.*;
 
 /**
  * @author Roman Kravchenko
  */
 
+@Getter
+@Setter
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TaskRepositoryBean implements ITaskRepository {
 
     @NotNull
-    private final Map<String, Task> taskRepository = new LinkedHashMap<>();
+    private Map<String, Task> taskRepository = new LinkedHashMap<>();
 
     @Override
     public @NotNull Collection<Task> findAll() {

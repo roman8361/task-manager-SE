@@ -10,6 +10,10 @@ import ru.kravchenko.tm.sort.ComparatorProjectDateBegin;
 import ru.kravchenko.tm.sort.ComparatorProjectDateEnd;
 import ru.kravchenko.tm.sort.ComparatorProjectStatus;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -18,10 +22,15 @@ import java.util.*;
 
 @Getter
 @Setter
-public class ProjectRepositoryBean implements IProjectRepository {
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class ProjectRepositoryBean implements IProjectRepository, Serializable {
+
+    public ProjectRepositoryBean() {
+    }
 
     @Nullable
-    private final Map<String, Project> projectRepository = new LinkedHashMap<>();
+    private Map<String, Project> projectRepository = new LinkedHashMap<>();
 
     @Override
     @Nullable
@@ -103,5 +112,6 @@ public class ProjectRepositoryBean implements IProjectRepository {
     public boolean existKeys (@NotNull final String projectId) {
         return projectRepository.containsKey(projectId);
     }
+
 
 }

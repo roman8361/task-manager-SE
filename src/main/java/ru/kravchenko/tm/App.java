@@ -17,14 +17,17 @@ import ru.kravchenko.tm.command.user.*;
 public class App {
 
     private static final Class[] CLASSES = {
+
             AboutCommand.class, ExitCommand.class, ReferenceCommand.class,
 
-            ProjectAddToUser.class, ProjectClearCommand.class, ProjectCreateCommand.class,
+            ProjectAddToUserCommand.class, ProjectClearCommand.class, ProjectCreateCommand.class,
             ProjectReadCommand.class, ProjectRemoveCommand.class, ProjectUpdateCommand.class,
-            ProjectUpdateStatusCommand.class, ProjectSearchCommand.class,
+            ProjectUpdateStatusCommand.class, ProjectSearchCommand.class, ProjectDumpCommand.class,
+            ProjectLoadCommand.class,
 
             TaskClearCommand.class, TaskCreateCommand.class, TaskReadCommand.class,
-            TaskUpdateCommand.class, TaskUpdateStatusCommand.class,
+            TaskUpdateCommand.class, TaskUpdateStatusCommand.class, TaskDumpCommand.class,
+            TaskLoadCommand.class,
 
             UserAuthorizationCommand.class, UserChangePasswordCommand.class, UserChangeProfileCommand.class,
             UserLogoutCommand.class, UserRegistryCommand.class, UserShowDateBaseCommand.class,

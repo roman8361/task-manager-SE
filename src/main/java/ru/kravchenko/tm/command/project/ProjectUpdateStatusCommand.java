@@ -45,11 +45,9 @@ public class ProjectUpdateStatusCommand extends AbstractCommand {
             case "1":
                 projectServiceBean.updateStatusProject(projectId, StatusProjectTask.PROCESS);
                 break;
-
             case "2":
                 projectServiceBean.updateStatusProject(projectId, StatusProjectTask.COMPLETED);
                 break;
-
             default:
                 System.out.println("Unidentified command, please try again");
         }

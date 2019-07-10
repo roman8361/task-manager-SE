@@ -38,4 +38,24 @@ public interface IProjectService {
 
     void searchInDescription(@NotNull final String text);
 
+    void saveDateSerializ();
+
+    void loadDateSerializ();
+
+    void saveDateJAXBtoXML();
+
+    void loadDateJAXBtoMapFromXML();
+
+    void saveDateJAXBtoJson();
+
+    void loadDateJAXBtoMapFromJson();
+
+    void saveDateOMtoXML();
+
+    void loadDateOMtoXML(); //
+
+    void saveDateOMtoJson();
+
+    void loadDateOMtoJson();
+
 }

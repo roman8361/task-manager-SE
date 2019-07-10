@@ -30,6 +30,7 @@ public class TaskCreateCommand extends AbstractCommand {
         @NotNull final IUserService userServiceBean = serviceLocator.getUserService();
         if (userServiceBean.existsLoginBase(userLogin)){
             createTask();
+            System.out.println("Task is add to project");
             return;
         }
         System.out.println("This command is available only to authorized users. Please login.");

@@ -1,13 +1,20 @@
 package ru.kravchenko.tm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.AbstractEntity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author Roman Kravchenko
@@ -15,7 +22,11 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class Project extends AbstractEntity {
+@NoArgsConstructor
+@XmlRootElement(name = "project")
+@XmlAccessorType(XmlAccessType.FIELD)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Project extends AbstractEntity implements Serializable {
 
     @Nullable
     private String name;
