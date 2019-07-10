@@ -3,8 +3,9 @@ package ru.kravchenko.tm.command.user;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.service.UserServiceBean;
-import ru.kravchenko.tm.utils.TerminalService;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.service.ITerminalService;
+import ru.kravchenko.tm.api.service.IUserService;
 
 /**
  * @author Roman Kravchenko
@@ -12,15 +13,22 @@ import ru.kravchenko.tm.utils.TerminalService;
 
 public class UserChangePasswordCommand extends AbstractCommand {
 
+    @NotNull
     private String userLogin;
 
-    private TerminalService terminalService = new TerminalService();
+    @NotNull
+    private IServiceLocator serviceLocator;
 
     @NotNull
-    private UserServiceBean userServiceBean;
+    private final ITerminalService terminalService;
 
-    public UserChangePasswordCommand(@NotNull UserServiceBean userServiceBean) {
-        this.userServiceBean = userServiceBean;
+    @NotNull
+    private final IUserService userServiceBean;
+
+    public UserChangePasswordCommand(final @NotNull IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        this.terminalService = serviceLocator.getTerminalService();
+        this.userServiceBean = serviceLocator.getUserService();
     }
 
     @Override

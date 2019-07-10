@@ -2,27 +2,34 @@ package ru.kravchenko.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.service.ProjectServiceBean;
-import ru.kravchenko.tm.service.UserServiceBean;
-import ru.kravchenko.tm.utils.TerminalService;
+import ru.kravchenko.tm.api.service.IProjectService;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.service.ITerminalService;
+import ru.kravchenko.tm.api.service.IUserService;
 
 /**
  * @author Roman Kravchenko
  */
+
 public class ProjectUpdateCommand extends AbstractCommand {
 
-    private TerminalService terminalService = new TerminalService();
+    @NotNull
+    private final IServiceLocator serviceLocator;
 
     @NotNull
-    private UserServiceBean userServiceBean;
+    private final ITerminalService terminalService;
 
     @NotNull
-    private ProjectServiceBean projectServiceBean;
+    private final IUserService userServiceBean;
 
-    public ProjectUpdateCommand(@NotNull UserServiceBean userServiceBean,
-                                @NotNull ProjectServiceBean projectServiceBean) {
-        this.userServiceBean = userServiceBean;
-        this.projectServiceBean = projectServiceBean;
+    @NotNull
+    private final IProjectService projectServiceBean;
+
+    public ProjectUpdateCommand(@NotNull final IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        this.terminalService = serviceLocator.getTerminalService();
+        this.userServiceBean = serviceLocator.getUserService();
+        this.projectServiceBean = serviceLocator.getProjectService();
     }
 
     @Override

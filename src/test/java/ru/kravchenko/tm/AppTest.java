@@ -1,7 +1,5 @@
 package ru.kravchenko.tm;
 
-import static org.junit.Assert.assertTrue;
-
 import lombok.SneakyThrows;
 import org.junit.Test;
 
@@ -64,6 +62,12 @@ public class AppTest {
         return date;
     }
 
-
+    @Test
+    public void mainfest() {
+//        String version = Manifests.read("Implementation-Version");
+//        String developer = Manifests.read("Created-By");
+//        System.out.println("Version: " + version);
+//        System.out.println("Created by: " + developer);
+    }
 
 }

@@ -2,9 +2,10 @@ package ru.kravchenko.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.service.ITerminalService;
+import ru.kravchenko.tm.api.service.IUserService;
 import ru.kravchenko.tm.service.ProjectServiceBean;
-import ru.kravchenko.tm.service.UserServiceBean;
-import ru.kravchenko.tm.utils.TerminalService;
 
 /**
  * @author Roman Kravchenko
@@ -12,18 +13,19 @@ import ru.kravchenko.tm.utils.TerminalService;
 
 public class ProjectAddToUser extends AbstractCommand {
 
-    private TerminalService terminalService = new TerminalService();
+    @NotNull
+    private final IServiceLocator serviceLocator;
 
     @NotNull
-    private UserServiceBean userServiceBean;
+    private final ITerminalService terminalService;
 
     @NotNull
-    private ProjectServiceBean projectServiceBean;
+    private final IUserService userServiceBean;
 
-    public ProjectAddToUser(@NotNull UserServiceBean userServiceBean,
-                            @NotNull ProjectServiceBean projectServiceBean) {
-        this.userServiceBean = userServiceBean;
-        this.projectServiceBean = projectServiceBean;
+    public ProjectAddToUser(final @NotNull IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        this.terminalService = serviceLocator.getTerminalService();
+        this.userServiceBean = serviceLocator.getUserService();
     }
 
     @Override
@@ -49,9 +51,10 @@ public class ProjectAddToUser extends AbstractCommand {
 
     private void addProjectToIdUser() {
         System.out.println("Please enter user login: ");
-        String userId = terminalService.nextLine();
+        final String userId = terminalService.nextLine();
         System.out.println("Please enter id project: ");
-        String projectId = terminalService.nextLine();
+        final String projectId = terminalService.nextLine();
+        ProjectServiceBean projectServiceBean = (ProjectServiceBean) serviceLocator.getProjectService();
         projectServiceBean.addProjectToUser(userId, projectId);
     }
 

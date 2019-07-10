@@ -17,13 +17,6 @@
     </developer>
   </developers>
 
-  <scm>
-    <connection>scm:svn:http://127.0.0.1/svn/my-project</connection>
-    <developerConnection>scm:svn:https://127.0.0.1/svn/my-project</developerConnection>
-    <tag>HEAD</tag>
-    <url>http://127.0.0.1/websvn/my-project</url>
-  </scm>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -59,11 +52,6 @@
       <artifactId>guava</artifactId>
       <version>RELEASE</version>
     </dependency>
-    <dependency>
-      <groupId>com.jcabi</groupId>
-      <artifactId>jcabi-manifests</artifactId>
-      <version>1.1</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -90,32 +78,6 @@
           </archive>
         </configuration>
       </plugin>
-
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>buildnumber-maven-plugin</artifactId>
-        <version>1.1</version>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <goals>
-              <goal>create</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <revisionOnScmFailure>1</revisionOnScmFailure>
-          <doCheck>true</doCheck>
-          <buildNumberPropertyName>buildNumber</buildNumberPropertyName>
-          <doUpdate>true</doUpdate>
-          <format>{0,number}</format>
-          <items>
-            <item>buildNumber</item>
-          </items>
-        </configuration>
-      </plugin>
-
     </plugins>
   </build>
 </project>

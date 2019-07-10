@@ -1,6 +1,5 @@
 package ru.kravchenko.tm.test.date;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -14,5 +13,7 @@ public class MainDate {
         testDate.setDate(date);
         System.out.println(testDate);
     }
+
+
 
 }

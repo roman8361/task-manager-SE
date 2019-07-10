@@ -8,6 +8,6 @@ $ mvn clean package                                                         (Lin
 mvn clean package                                                          (Windows)
 For run application using follow commands:
 
-$ java -jar taskmanager/target/task-manager-1.0-SNAPSHOT.jar                (Linux)
-java -jar taskmanager\target\task-manager-1.0-SNAPSHOT.jar                 (Windows)
+$ java -jar taskmanager/target/bin/tm.jar                (Linux)
+java -jar taskmanager\target\bin\tm.jar                 (Windows)
 Developers Roman Kravchenko e-mail: torex@inbox.ru

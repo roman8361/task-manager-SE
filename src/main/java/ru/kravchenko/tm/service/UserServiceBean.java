@@ -5,12 +5,11 @@ import lombok.Setter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.service.IUserService;
 import ru.kravchenko.tm.entity.Status;
 import ru.kravchenko.tm.entity.User;
-import ru.kravchenko.tm.repository.UserService;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import ru.kravchenko.tm.repository.UserRepositoryBean;
 
 /**
  * @author Roman Kravchenko
@@ -18,25 +17,28 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class UserServiceBean implements UserService {
+public class UserServiceBean implements IUserService {
 
-    public UserServiceBean() {
+    @NotNull
+    private final IServiceLocator serviceLocator;
+
+    @NotNull
+    private final UserRepositoryBean userRepositoryBean;
+
+    public UserServiceBean(@NotNull final IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        userRepositoryBean = (UserRepositoryBean) serviceLocator.getUserRepository();
         initAdmin();
         initSimpleUser();
     }
-
-    @NotNull
-    private Map<String, User> usersBaseDate = new LinkedHashMap<>();
-
-    private Map<String, User> usersLoginBase = new LinkedHashMap<>();
 
     private void initAdmin() {
         final User admin = new User();
         admin.setLogin("admin");
         admin.setPassword(DigestUtils.md5Hex("admin"));
         admin.setUserStatus(Status.ADMIN);
-        usersBaseDate.put(admin.getLogin(), admin);
-        usersLoginBase.put(admin.getLogin(), admin);
+        userRepositoryBean.addUser(admin.getLogin(), admin, userRepositoryBean.getUsersLoginBase());
+        userRepositoryBean.addUser(admin.getLogin(), admin, userRepositoryBean.getUsersBaseDate());
     }
 
     private void initSimpleUser() {
@@ -44,12 +46,12 @@ public class UserServiceBean implements UserService {
         simpleUser.setLogin("11");
         simpleUser.setPassword(DigestUtils.md5Hex("11"));
         simpleUser.setUserStatus(Status.USER);
-        usersBaseDate.put(simpleUser.getLogin(), simpleUser);
-        usersLoginBase.put(simpleUser.getLogin(), simpleUser);
+        userRepositoryBean.addUser(simpleUser.getLogin(), simpleUser, userRepositoryBean.getUsersLoginBase());
+        userRepositoryBean.addUser(simpleUser.getLogin(), simpleUser, userRepositoryBean.getUsersBaseDate());
     }
 
     @Override
-    public boolean registry(@Nullable String login, @Nullable String password) {
+    public boolean registry(@Nullable final String login, @Nullable final String password) {
         if (login == null || login.isEmpty()) return false;
         if (password == null || password.isEmpty()) return false;
         if (existsDateBase(login)) return false;
@@ -57,7 +59,7 @@ public class UserServiceBean implements UserService {
         user.setLogin(login);
         user.setPassword(DigestUtils.md5Hex(password));
         user.setUserStatus(Status.USER);
-        usersBaseDate.put(login, user);
+        userRepositoryBean.addUser(login, user, userRepositoryBean.getUsersBaseDate());
         System.out.println("New user " + login + " add.");
         System.out.println("Please authorization.");
         return true;
@@ -69,7 +71,7 @@ public class UserServiceBean implements UserService {
             @NotNull final User user = new User();
             user.setLogin(login);
             user.setPassword(DigestUtils.md5Hex(password));
-            usersLoginBase.put(login, user);
+            userRepositoryBean.addUser(login, user, userRepositoryBean.getUsersLoginBase());
             return;
         }
         System.out.println("Not logged in");
@@ -79,30 +81,18 @@ public class UserServiceBean implements UserService {
     @Override
     public void logout(@Nullable final String login) {
         if (existsLoginBase(login)) {
-            usersLoginBase.remove(login);
+            assert userRepositoryBean.getUsersLoginBase() != null;
+            userRepositoryBean.removeById(login, userRepositoryBean.getUsersLoginBase());
             System.out.println("You logout. Come back later...");
             return;
         }
         System.out.println("Not correct logout. Try again.");
     }
 
-    @Override
-    public @Nullable User findByLogin(@Nullable final String login) {
-        if (login == null || login.isEmpty()) return null;
-        return usersLoginBase.get(login);
-    }
-
-
-    public @Nullable User findByLoginBaseDate(@Nullable final String login) {
-        if (login == null || login.isEmpty()) return null;
-        return usersBaseDate.get(login);
-    }
-
-
     public boolean checkAuthorization(@Nullable final String login, @Nullable final String password) {
         if (login == null || login.isEmpty()) return false;
         if (password == null || password.isEmpty()) return false;
-        @Nullable final User user = findByLoginBaseDate(login);
+        @Nullable final User user = userRepositoryBean.findByLogin(login, userRepositoryBean.getUsersBaseDate());
         if (user == null) return false;
         return password.equals(user.getPassword());
     }
@@ -111,70 +101,59 @@ public class UserServiceBean implements UserService {
     public boolean check(@Nullable final String login, @Nullable final String password) {
         if (login == null || login.isEmpty()) return false;
         if (password == null || password.isEmpty()) return false;
-        @Nullable final User user = findByLogin(login);
+        @Nullable final User user = userRepositoryBean.findByLogin(login, userRepositoryBean.getUsersLoginBase());
         if (user == null) return false;
         return password.equals(user.getPassword());
     }
 
-
-
     @Override
     public boolean existsDateBase(@Nullable final String login) {
         if (login == null || login.isEmpty()) return false;
-        return usersBaseDate.containsKey(login);
+        return userRepositoryBean.getUsersBaseDate().containsKey(login);
     }
 
     @Override
-    public boolean existsLoginBase(@Nullable String login) {
+    public boolean existsLoginBase(@Nullable final String login) {
         if (login == null || login.isEmpty()) return false;
-        return usersLoginBase.containsKey(login);
+        return userRepositoryBean.getUsersLoginBase().containsKey(login);
     }
 
     @Override
-    public boolean setPassword(@Nullable String login,
-                               @Nullable String passwordOld,
-                               @Nullable String passwordNew) {
+    public boolean setPassword(@Nullable final String login,
+                               @Nullable final String passwordOld,
+                               @Nullable final String passwordNew) {
         if (!check(login, passwordOld)) return false;
-        if (passwordNew == null || passwordNew.isEmpty()) return false;
-        @Nullable final User user = findByLogin(login);
+        @Nullable final User user = userRepositoryBean.findByLogin(login, userRepositoryBean.getUsersBaseDate());
         if (user == null) return false;
         user.setPassword(passwordNew);
         return true;
     }
 
     @Override
-    public void displayName(@Nullable String login) {
-        @Nullable final User user = findByLogin(login);
+    public void displayName(@Nullable final String login) {
+        @Nullable final User user = userRepositoryBean.findByLogin(login, userRepositoryBean.getUsersBaseDate());
         //     assert user != null;
         System.out.println(user.getUserStatus());
     }
 
     @Override
-    public void changePasswordUser(@Nullable String login,
-                                   @NotNull String newPassword) {
-
-        final User user = findByLogin(login);
+    public void changePasswordUser(@Nullable final String login,
+                                   @NotNull final String newPassword) {
+        final User user = userRepositoryBean.findByLogin(login, userRepositoryBean.getUsersBaseDate());
         user.setPassword(DigestUtils.md5Hex(newPassword));
     }
 
     @Override
-    public void changeProfileUser(@Nullable String oldLogin,
-                                  @Nullable String newLogin,
-                                  @Nullable String newPassword) {
-        usersBaseDate.remove(oldLogin);
+    public void changeProfileUser(@Nullable final String oldLogin,
+                                  @Nullable final String newLogin,
+                                  @Nullable final String newPassword) {
+        userRepositoryBean.getUsersBaseDate().remove(oldLogin);
+        userRepositoryBean.getUsersLoginBase().remove(oldLogin);
         if (registry(newLogin, newPassword)) {
             System.out.println("New user add");
             return;
         }
         System.out.println("Login is busy");
-    }
-
-    public void showAllUsersBaseDate() {
-        System.out.println(usersBaseDate);
-    }
-
-    public void showAllUsersLoginBase() {
-        System.out.println(usersLoginBase);
     }
 
 }

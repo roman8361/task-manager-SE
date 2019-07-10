@@ -2,9 +2,13 @@ package ru.kravchenko.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.service.ITaskService;
+import ru.kravchenko.tm.api.service.ITerminalService;
+import ru.kravchenko.tm.api.service.IUserService;
 import ru.kravchenko.tm.service.TaskServiceBean;
 import ru.kravchenko.tm.service.UserServiceBean;
-import ru.kravchenko.tm.utils.TerminalService;
+import ru.kravchenko.tm.service.TerminalService;
 
 /**
  * @author Roman Kravchenko
@@ -12,18 +16,23 @@ import ru.kravchenko.tm.utils.TerminalService;
 
 public class TaskCreateCommand extends AbstractCommand {
 
-    private TerminalService terminalService = new TerminalService();
+    @NotNull
+    private final IServiceLocator serviceLocator;
 
     @NotNull
-    private UserServiceBean userServiceBean;
+    private final ITerminalService terminalService;
 
     @NotNull
-    private TaskServiceBean taskServiceBean;
+    private final IUserService userServiceBean;
 
-    public TaskCreateCommand(@NotNull UserServiceBean userServiceBean,
-                             @NotNull TaskServiceBean taskServiceBean) {
-        this.userServiceBean = userServiceBean;
-        this.taskServiceBean = taskServiceBean;
+    @NotNull
+    private final ITaskService taskServiceBean;
+
+    public TaskCreateCommand(@NotNull final IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        this.terminalService = serviceLocator.getTerminalService();
+        this.userServiceBean = serviceLocator.getUserService();
+        this.taskServiceBean = serviceLocator.getTaskService();
     }
 
     @Override

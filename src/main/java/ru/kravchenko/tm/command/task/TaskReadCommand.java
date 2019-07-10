@@ -2,9 +2,13 @@ package ru.kravchenko.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.service.TaskServiceBean;
+import ru.kravchenko.tm.api.reposiroty.ITaskRepository;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.service.ITerminalService;
+import ru.kravchenko.tm.api.service.IUserService;
+import ru.kravchenko.tm.repository.TaskRepositoryBean;
 import ru.kravchenko.tm.service.UserServiceBean;
-import ru.kravchenko.tm.utils.TerminalService;
+import ru.kravchenko.tm.service.TerminalService;
 
 /**
  * @author Roman Kravchenko
@@ -12,18 +16,24 @@ import ru.kravchenko.tm.utils.TerminalService;
 
 public class TaskReadCommand extends AbstractCommand {
 
-    private TerminalService terminalService = new TerminalService();
+    @NotNull
+    private final IServiceLocator serviceLocator;
 
     @NotNull
-    private UserServiceBean userServiceBean;
+    private  final ITerminalService terminalService;
 
     @NotNull
-    private TaskServiceBean taskServiceBean;
+    private final ITaskRepository taskRepositoryBean;
 
-    public TaskReadCommand(@NotNull UserServiceBean userServiceBean,
-                           @NotNull TaskServiceBean taskServiceBean) {
-        this.userServiceBean = userServiceBean;
-        this.taskServiceBean = taskServiceBean;
+    @NotNull
+    private final IUserService userServiceBean;
+
+
+    public TaskReadCommand(@NotNull final IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        this.terminalService = serviceLocator.getTerminalService();
+        this.userServiceBean = serviceLocator.getUserService();
+        this.taskRepositoryBean = serviceLocator.getTaskRepository();
     }
 
     @Override
@@ -41,11 +51,10 @@ public class TaskReadCommand extends AbstractCommand {
             return;
         }
         System.out.println("This command is available only to authorized users. Please login.");
-
     }
 
     private void showAllTask() {
-        taskServiceBean.showAllTask();
+        taskRepositoryBean.showAllTask();
     }
 
 }

@@ -7,6 +7,6 @@ package ru.kravchenko.tm.entity;
 public enum Status {
 
     ADMIN,
-    USER;
+    USER
 
 }

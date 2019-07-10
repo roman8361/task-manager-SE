@@ -1,7 +1,9 @@
 package ru.kravchenko.tm.command.additional;
 
+import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.service.ProjectServiceBean;
+import ru.kravchenko.tm.api.service.IProjectService;
+import ru.kravchenko.tm.api.service.IServiceLocator;
 
 /**
  * @author Roman Kravchenko
@@ -9,10 +11,11 @@ import ru.kravchenko.tm.service.ProjectServiceBean;
 
 public class ExitCommand extends AbstractCommand {
 
-    private ProjectServiceBean projectServiceBean;
+    @NotNull
+    private final IServiceLocator serviceLocator;
 
-    public ExitCommand(ProjectServiceBean projectServiceBean) {
-        this.projectServiceBean = projectServiceBean;
+    public ExitCommand(final @NotNull IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
     }
 
     @Override
@@ -22,6 +25,8 @@ public class ExitCommand extends AbstractCommand {
     public void getDescription() { System.out.println("exit: Exit"); }
 
     @Override
-    public void execute() { projectServiceBean.exit(); }
+    public void execute() {
+        final IProjectService projectServiceBean = serviceLocator.getProjectService();
+        projectServiceBean.exit(); }
 
 }

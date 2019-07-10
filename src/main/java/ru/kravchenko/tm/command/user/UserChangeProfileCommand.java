@@ -2,24 +2,33 @@ package ru.kravchenko.tm.command.user;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.service.UserServiceBean;
-import ru.kravchenko.tm.utils.TerminalService;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.service.ITerminalService;
+import ru.kravchenko.tm.api.service.IUserService;
 
 /**
  * @author Roman Kravchenko
  */
 public class UserChangeProfileCommand extends AbstractCommand {
 
+    @Nullable
     private String userLogin;
 
-    private TerminalService terminalService = new TerminalService();
+    @Nullable
+    private final IServiceLocator serviceLocator;
 
     @NotNull
-    private UserServiceBean userServiceBean;
+    private final ITerminalService terminalService;
 
-    public UserChangeProfileCommand(@NotNull UserServiceBean userServiceBean) {
-        this.userServiceBean = userServiceBean;
+    @NotNull
+    private final IUserService userServiceBean;
+
+    public UserChangeProfileCommand(final @NotNull IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        this.terminalService = serviceLocator.getTerminalService();
+        this.userServiceBean = serviceLocator.getUserService();
     }
 
     @Override

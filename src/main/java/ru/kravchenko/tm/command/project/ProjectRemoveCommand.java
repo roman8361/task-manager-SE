@@ -2,9 +2,10 @@ package ru.kravchenko.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.service.ProjectServiceBean;
-import ru.kravchenko.tm.service.UserServiceBean;
-import ru.kravchenko.tm.utils.TerminalService;
+import ru.kravchenko.tm.api.reposiroty.IProjectRepository;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.service.ITerminalService;
+import ru.kravchenko.tm.api.service.IUserService;
 
 /**
  * @author Roman Kravchenko
@@ -12,18 +13,23 @@ import ru.kravchenko.tm.utils.TerminalService;
 
 public class ProjectRemoveCommand extends AbstractCommand {
 
-    private TerminalService terminalService = new TerminalService();
+    @NotNull
+    private final IServiceLocator serviceLocator;
 
     @NotNull
-    private UserServiceBean userServiceBean;
+    private final ITerminalService terminalService;
 
     @NotNull
-    private ProjectServiceBean projectServiceBean;
+    private final IUserService userServiceBean;
 
-    public ProjectRemoveCommand(@NotNull UserServiceBean userServiceBean,
-                                @NotNull ProjectServiceBean projectServiceBean) {
-        this.userServiceBean = userServiceBean;
-        this.projectServiceBean = projectServiceBean;
+    @NotNull
+    private final IProjectRepository projectRepository;
+
+    public ProjectRemoveCommand(final @NotNull IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        this.terminalService = serviceLocator.getTerminalService();
+        this.userServiceBean = serviceLocator.getUserService();
+        this.projectRepository = serviceLocator.getProjectRepository();
     }
 
     @Override
@@ -47,8 +53,8 @@ public class ProjectRemoveCommand extends AbstractCommand {
 
     private void removeById() {
         System.out.println("Please enter id project: ");
-        String projectId = terminalService.nextLine();
-        projectServiceBean.removeById(projectId);
+        final String projectId = terminalService.nextLine();
+        projectRepository.removeById(projectId);
     }
 
 }

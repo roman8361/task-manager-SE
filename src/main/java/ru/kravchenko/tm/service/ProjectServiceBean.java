@@ -3,83 +3,65 @@ package ru.kravchenko.tm.service;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.kravchenko.tm.api.service.IProjectService;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.service.ITerminalService;
 import ru.kravchenko.tm.entity.Project;
 import ru.kravchenko.tm.entity.User;
-import ru.kravchenko.tm.repository.ProjectService;
-import ru.kravchenko.tm.utils.TerminalService;
+import ru.kravchenko.tm.repository.ProjectRepositoryBean;
+import ru.kravchenko.tm.repository.UserRepositoryBean;
+
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author Roman Kravchenko
  */
 
-public class ProjectServiceBean implements ProjectService {
-
-    private TerminalService terminalService = new TerminalService();
-
-    private UserServiceBean userServiceBean;
-
-    public ProjectServiceBean(UserServiceBean userServiceBean) {
-        this.userServiceBean = userServiceBean;
-        initProject();
-    }
+public class ProjectServiceBean implements IProjectService {
 
     @NotNull
-    private Map<String, Project> projectMap = new LinkedHashMap<>();
+    private final IServiceLocator serviceLocator;
+
+    private final ITerminalService terminalService;
+
+    @Nullable
+    private final ProjectRepositoryBean projectRepository;
+
+    private final UserRepositoryBean userRepositoryBean;
+
+    public ProjectServiceBean(@NotNull final IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        terminalService = serviceLocator.getTerminalService();
+        userRepositoryBean = (UserRepositoryBean) serviceLocator.getUserRepository();
+        projectRepository = (ProjectRepositoryBean) serviceLocator.getProjectRepository();
+        initProject();
+    }
 
     private void initProject() {
         final Project project = new Project("testProject");
         project.setDescription("setDescription");
         project.setDateBegin(new Date());
         project.setDateEnd(new Date());
-        projectMap.put(project.getId(), project);
+        projectRepository.addProject(project.getId(), project);
     }
 
     @Override
-    public @NotNull Collection<Project> findAll() {
-        return projectMap.values();
-    }
-
-    @Override
-    public  Project findOne(@Nullable String id) {
-        if (id == null || id.isEmpty()) return null;
-        return projectMap.get(id);
-    }
-
-    @Override
-    public @NotNull void createProject(@Nullable String nameProject, @Nullable String descriptionProject) {
+    public @NotNull void createProject(@Nullable final String nameProject, @Nullable final String descriptionProject) {
         final Project project = new Project(nameProject);
         project.setDescription(descriptionProject);
         project.setDateBegin(addDateBeginProject());
         project.setDateEnd(addDateEndProject());
-        projectMap.put(project.getId(), project);
+        projectRepository.addProject(project.getId(), project);
         System.out.println("Project add to repository");
-    }
-
-    @Override
-    public void showAllProject() {
-        System.out.println(findAll());
-    }
-
-    @Override
-    public @NotNull void removeById(@Nullable String projectId) {
-        if (projectId == null || projectId.isEmpty()) return;
-        if (!projectMap.containsKey(projectId)) return;
-        projectMap.remove(projectId);
-        System.out.println("Project this id: " + projectId + " is remove");
     }
 
     @Override
     public void exit() {
         System.out.println("Come back later...");
         System.exit(0);
-    }
-
-    @Override
-    public void removeAllProject() {
-        projectMap.clear();
-        System.out.println("All project clear");
     }
 
     @Override
@@ -107,12 +89,12 @@ public class ProjectServiceBean implements ProjectService {
                               @Nullable final String newProjectName,
                               @Nullable final String newDescription) {
         if (projectId == null || projectId.isEmpty()) return;
-        if (!projectMap.containsKey(projectId)) return;
+        if (!projectRepository.existKeys(projectId)) return;
         final Project project = new Project(newProjectName);
         project.setDescription(newDescription);
         project.setDateBegin(addDateBeginProject());
         project.setDateEnd(addDateEndProject());
-        projectMap.put(projectId, project);
+        projectRepository.addProject(projectId, project);
         System.out.println("Project id: " + projectId + "  update");
     }
 
@@ -140,12 +122,12 @@ public class ProjectServiceBean implements ProjectService {
     }
 
     @Override
-    public void addProjectToUser(@Nullable String userLogin, @Nullable String projectId) {
-        final User user = userServiceBean.findByLogin(userLogin);
+    public void addProjectToUser(@Nullable final String userLogin, @Nullable final String projectId) {
+        final User user = userRepositoryBean.findByLogin(userLogin, userRepositoryBean.getUsersLoginBase());
         final Map<String, User> usersBaseDateThisProject = new LinkedHashMap<>();
-        user.setProject(projectMap.get(projectId));
+        user.setProject(projectRepository.findOne(projectId));
         usersBaseDateThisProject.put(user.getLogin(), user);
-        userServiceBean.setUsersBaseDate(usersBaseDateThisProject);
+        userRepositoryBean.setUsersBaseDate(usersBaseDateThisProject);
         System.out.println("Project add to user: " + userLogin);
     }
 

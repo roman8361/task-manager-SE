@@ -1,6 +1,6 @@
 package ru.kravchenko.tm.test.mapdispacher;
 
-import ru.kravchenko.tm.utils.TerminalService;
+import ru.kravchenko.tm.service.TerminalService;
 
 import java.util.HashMap;
 import java.util.Map;

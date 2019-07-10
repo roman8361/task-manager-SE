@@ -2,27 +2,33 @@ package ru.kravchenko.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.service.TaskServiceBean;
-import ru.kravchenko.tm.service.UserServiceBean;
-import ru.kravchenko.tm.utils.TerminalService;
+import ru.kravchenko.tm.api.reposiroty.ITaskRepository;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.service.ITerminalService;
+import ru.kravchenko.tm.api.service.IUserService;
 
 /**
  * @author Roman Kravchenko
  */
 public class TaskClearCommand extends AbstractCommand {
 
-    private TerminalService terminalService = new TerminalService();
+    @NotNull
+    private final IServiceLocator serviceLocator;
 
     @NotNull
-    private UserServiceBean userServiceBean;
+    private final ITerminalService terminalService;
 
     @NotNull
-    private TaskServiceBean taskServiceBean;
+    private final IUserService userServiceBean;
 
-    public TaskClearCommand(@NotNull UserServiceBean userServiceBean,
-                            @NotNull TaskServiceBean taskServiceBean) {
-        this.userServiceBean = userServiceBean;
-        this.taskServiceBean = taskServiceBean;
+    @NotNull
+    private final ITaskRepository taskRepositoryBean;
+
+    public TaskClearCommand(@NotNull final IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        this.terminalService = serviceLocator.getTerminalService();
+        this.userServiceBean = serviceLocator.getUserService();
+        this.taskRepositoryBean = serviceLocator.getTaskRepository();
     }
 
     @Override
@@ -46,7 +52,7 @@ public class TaskClearCommand extends AbstractCommand {
     }
 
     private void removeAllTask() {
-        taskServiceBean.removeAllTask();
+        taskRepositoryBean.removeAllTask();
     }
 
 }

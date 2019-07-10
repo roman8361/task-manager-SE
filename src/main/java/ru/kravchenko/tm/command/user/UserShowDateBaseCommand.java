@@ -2,7 +2,8 @@ package ru.kravchenko.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
-import ru.kravchenko.tm.service.UserServiceBean;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.repository.UserRepositoryBean;
 
 /**
  * @author Roman Kravchenko
@@ -10,11 +11,14 @@ import ru.kravchenko.tm.service.UserServiceBean;
 public class UserShowDateBaseCommand extends AbstractCommand {
 
     @NotNull
-    private UserServiceBean userServiceBean;
+    private final IServiceLocator serviceLocator;
 
-    public UserShowDateBaseCommand(@NotNull UserServiceBean userServiceBean) {
+    @NotNull
+    private final UserRepositoryBean userRepositoryBean;
 
-        this.userServiceBean = userServiceBean;
+    public UserShowDateBaseCommand(@NotNull final IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        this.userRepositoryBean = (UserRepositoryBean) serviceLocator.getUserRepository();
     }
 
     @Override
@@ -29,8 +33,7 @@ public class UserShowDateBaseCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        userServiceBean.showAllUsersBaseDate();
+        userRepositoryBean.showAllUsers(userRepositoryBean.getUsersBaseDate());
     }
-
 
 }

@@ -12,6 +12,6 @@ import java.util.UUID;
 public abstract class AbstractEntity {
 
     @Nullable
-    private String id = UUID.randomUUID().toString();
+    private final String id = UUID.randomUUID().toString();
 
 }

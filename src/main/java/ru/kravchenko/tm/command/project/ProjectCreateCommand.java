@@ -2,9 +2,13 @@ package ru.kravchenko.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import ru.kravchenko.tm.api.AbstractCommand;
+import ru.kravchenko.tm.api.service.IProjectService;
+import ru.kravchenko.tm.api.service.IServiceLocator;
+import ru.kravchenko.tm.api.service.ITerminalService;
+import ru.kravchenko.tm.api.service.IUserService;
 import ru.kravchenko.tm.service.ProjectServiceBean;
+import ru.kravchenko.tm.service.TerminalService;
 import ru.kravchenko.tm.service.UserServiceBean;
-import ru.kravchenko.tm.utils.TerminalService;
 
 /**
  * @author Roman Kravchenko
@@ -12,18 +16,23 @@ import ru.kravchenko.tm.utils.TerminalService;
 
 public class ProjectCreateCommand extends AbstractCommand {
 
-    private TerminalService terminalService = new TerminalService();
+    @NotNull
+    private final IServiceLocator serviceLocator;
 
     @NotNull
-    private UserServiceBean userServiceBean;
+    private final ITerminalService terminalService;
 
     @NotNull
-    private ProjectServiceBean projectServiceBean;
+    private final IUserService userServiceBean;
 
-    public ProjectCreateCommand(@NotNull UserServiceBean userServiceBean,
-                                @NotNull ProjectServiceBean projectServiceBean) {
-        this.userServiceBean = userServiceBean;
-        this.projectServiceBean = projectServiceBean;
+    @NotNull
+    private final IProjectService projectServiceBean;
+
+    public ProjectCreateCommand(final @NotNull IServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+        this.terminalService = serviceLocator.getTerminalService();
+        this.userServiceBean = serviceLocator.getUserService();
+        this.projectServiceBean = serviceLocator.getProjectService();
     }
 
     @Override
@@ -45,7 +54,7 @@ public class ProjectCreateCommand extends AbstractCommand {
 
     private void createProject() {
         System.out.println("Please enter project name: ");
-        String nameProject = terminalService.nextLine();
+        final String nameProject = terminalService.nextLine();
         System.out.println("Please enter description for project: ");
         final String descriptionProject = terminalService.nextLine();
         projectServiceBean.createProject(nameProject, descriptionProject);

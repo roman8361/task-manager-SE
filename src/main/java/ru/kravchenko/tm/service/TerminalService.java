@@ -1,8 +1,9 @@
-package ru.kravchenko.tm.utils;
+package ru.kravchenko.tm.service;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.kravchenko.tm.api.service.ITerminalService;
 
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ import java.util.Scanner;
  */
 
 @Getter
-public class TerminalService {
+public class TerminalService implements ITerminalService {
 
     @NotNull
     private final Scanner scanner = new Scanner(System.in);
